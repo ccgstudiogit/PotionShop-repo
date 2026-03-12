@@ -1,0 +1,26 @@
+services:
+  db:
+    # This is the Postgres container
+    container_name: postgres-potion-shop
+    image: postgres:latest
+    # Environment variables for the database
+    environment:
+      # Database name must match the end of localhost (in this case, localhost:4321/potionshop)
+      POSTGRES_DB: potionshop
+      POSTGRES_USER: connor
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "4321:5432"
+    networks:
+      - db
+    restart: unless-stopped # Restarts this container automatically if Docker Desktop is running and it wasn't manually stopped
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db:
