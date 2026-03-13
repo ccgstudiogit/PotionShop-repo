@@ -18,4 +18,9 @@ public class IngredientController {
     public List<IngredientDTO> getAllIngredients() {
         return ingredientService.getAllIngredients();
     }
+
+    @GetMapping("{id}")
+    public IngredientDTO getIngredientById(@PathVariable Integer id) {
+        return ingredientService.getIngredientById(id);
+    }
 }

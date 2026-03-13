@@ -25,11 +25,16 @@ public class GlobalExceptionHandler {
             HttpMessageConversionException.class
     })
     public ResponseEntity<?> handleInvalidJson(Exception e) {
-        return new ResponseEntity<>("Invalid or malformed JSON", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Invalid or malformed JSON: " + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<?> handleConstraintViolation(ConstraintViolationException e) {
-        return new ResponseEntity<>("Entity validation failed. Are the variable names and types valid?", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Entity validation failed: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> handleIllegalArgument(IllegalArgumentException e) {
+        return new ResponseEntity<>("Illegal argument exception: " + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
