@@ -15,6 +15,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(EntityExistsException.class)
+    public ResponseEntity<?> handleAlreadyExists(EntityExistsException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler({
             HttpMessageNotReadableException.class,
             HttpMessageConversionException.class
@@ -26,10 +31,5 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<?> handleConstraintViolation(ConstraintViolationException e) {
         return new ResponseEntity<>("Entity validation failed. Are the variable names and types valid?", HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(EntryAlreadyExistsException.class)
-    public ResponseEntity<?> handleEntryAlreadyExists(EntryAlreadyExistsException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

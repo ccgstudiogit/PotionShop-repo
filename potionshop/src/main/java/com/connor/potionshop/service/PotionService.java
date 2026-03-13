@@ -2,11 +2,10 @@ package com.connor.potionshop.service;
 
 import java.util.*;
 
-import com.connor.potionshop.exception.EntryAlreadyExistsException;
 import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.mapper.*;
 import com.connor.potionshop.repository.PotionRepository;
-import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.*;
 import org.springframework.stereotype.Service;
 
 // Service makes this class available as a service to be used within other classes. Services handle the business logic
@@ -36,7 +35,7 @@ public class PotionService {
     public PotionDTO addPotion(CreatePotionDTO createPotionDTO) {
         Potion newPotion = potionMapper.fromCreateDTO(createPotionDTO);
         if (potionRepository.existsByNameAndType(newPotion.getName(), newPotion.getType())) {
-            throw new EntryAlreadyExistsException(String.format("Potion with name %s and type %s already exists", newPotion.getName(), newPotion.getType()));
+            throw new EntityExistsException(String.format("Potion with name %s and type %s already exists", newPotion.getName(), newPotion.getType()));
         }
 
         potionRepository.save(newPotion);
@@ -45,6 +44,11 @@ public class PotionService {
 
     /// Remove a potion from the database.
     public void deletePotionById(Integer id) {
+        Optional<Potion> potion = potionRepository.findById(id);
+        if (potion.isEmpty()) {
+            throw new EntityNotFoundException(String.format("Potion with id %d not found", id));
+        }
+
         potionRepository.deleteById(id);
     }
 }
