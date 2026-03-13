@@ -1,10 +1,12 @@
 package com.connor.potionshop.model.ingredient;
 
+import java.util.*;
+import com.connor.potionshop.model.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-public class Ingredient {
+public class Ingredient extends BaseEntity {
 
     @NotBlank
     @Column(nullable = false, unique = true)
@@ -37,5 +39,22 @@ public class Ingredient {
 
     public void setRarity(Rarity rarity) {
         this.rarity = rarity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Ingredient other = (Ingredient)o;
+        return Objects.equals(getId(), other.getId()) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(rarity, other.rarity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), name, rarity);
     }
 }
