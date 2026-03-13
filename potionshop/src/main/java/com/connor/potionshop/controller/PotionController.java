@@ -24,12 +24,7 @@ public class PotionController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PotionDTO> getPotionById(@PathVariable Integer id) {
-        try {
-            PotionDTO potion = potionService.getPotionById(id);
-            return new ResponseEntity<>(potion, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public PotionDTO getPotionById(@PathVariable Integer id) {
+        return potionService.getPotionById(id);
     }
 }
