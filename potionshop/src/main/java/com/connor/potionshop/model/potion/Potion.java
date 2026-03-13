@@ -7,7 +7,6 @@ import jakarta.validation.constraints.*;
 
 @Entity
 public class Potion extends BaseEntity {
-
     @NotBlank
     @Column(nullable = false) // Enforces constraints in the database as well
     private String name;

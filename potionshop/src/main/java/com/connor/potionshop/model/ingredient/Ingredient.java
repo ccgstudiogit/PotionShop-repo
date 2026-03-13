@@ -7,7 +7,6 @@ import jakarta.validation.constraints.*;
 
 @Entity
 public class Ingredient extends BaseEntity {
-
     @NotBlank
     @Column(nullable = false, unique = true)
     private String name;

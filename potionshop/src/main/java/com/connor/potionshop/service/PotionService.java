@@ -2,6 +2,7 @@ package com.connor.potionshop.service;
 
 import java.util.*;
 
+import com.connor.potionshop.exception.EntryAlreadyExistsException;
 import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.mapper.*;
 import com.connor.potionshop.repository.PotionRepository;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 // Service makes this class available as a service to be used within other classes. Services handle the business logic
 @Service
 public class PotionService {
-
     private final PotionRepository potionRepository;
     private final PotionMapper potionMapper;
 
@@ -35,6 +35,10 @@ public class PotionService {
     /// Add a potion to the database and save it. A PotionDTO is returned if the potion was successfully added.
     public PotionDTO addPotion(CreatePotionDTO createPotionDTO) {
         Potion newPotion = potionMapper.fromCreateDTO(createPotionDTO);
+        if (potionRepository.existsByNameAndType(newPotion.getName(), newPotion.getType())) {
+            throw new EntryAlreadyExistsException(String.format("Potion with name %s and type %s already exists", newPotion.getName(), newPotion.getType()));
+        }
+
         potionRepository.save(newPotion);
         return potionMapper.mapToDTO(newPotion);
     }

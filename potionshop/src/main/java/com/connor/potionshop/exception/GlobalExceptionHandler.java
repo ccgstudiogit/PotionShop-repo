@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 // RestControllerAdvice is a global error-handler where any exception thrown in any controller can be caught here
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<?> handleNotFound(EntityNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -27,5 +26,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<?> handleConstraintViolation(ConstraintViolationException e) {
         return new ResponseEntity<>("Entity validation failed. Are the variable names and types valid?", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntryAlreadyExistsException.class)
+    public ResponseEntity<?> handleEntryAlreadyExists(EntryAlreadyExistsException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("potions")
 public class PotionController {
-
     private final PotionService potionService;
 
     public PotionController(PotionService potionService) {
