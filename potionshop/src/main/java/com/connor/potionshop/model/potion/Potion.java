@@ -1,14 +1,11 @@
-package com.connor.potionshop.model;
+package com.connor.potionshop.model.potion;
 
+import com.connor.potionshop.model.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-public class Potion {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Makes sure the id is generated automatically when using an SQL insert
-    private Integer id;
+public class Potion extends BaseEntity {
 
     @NotBlank
     @Column(nullable = false) // Enforces constraints in the database as well
@@ -40,10 +37,6 @@ public class Potion {
         this.type = type;
         this.effect = effect;
         this.price = price;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getName() {
@@ -80,6 +73,6 @@ public class Potion {
 
     /// Map this potion to a Data Transfer Object.
     public PotionDTO mapToDTO() {
-        return new PotionDTO(id, name, type, effect, price);
+        return new PotionDTO(getId(), name, type, effect, price);
     }
 }

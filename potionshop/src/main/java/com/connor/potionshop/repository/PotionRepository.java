@@ -1,6 +1,6 @@
 package com.connor.potionshop.repository;
 
-import com.connor.potionshop.model.Potion;
+import com.connor.potionshop.model.potion.Potion;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 // The interface is empty because JpaRepository already provides everything and Spring automatically creates the

@@ -1,8 +1,9 @@
 package com.connor.potionshop.service;
 
 import java.util.*;
+
+import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.repository.PotionRepository;
-import com.connor.potionshop.model.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 

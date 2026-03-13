@@ -1,4 +1,4 @@
-package com.connor.potionshop.model;
+package com.connor.potionshop.model.ingredient;
 
 public enum Rarity {
     Common,

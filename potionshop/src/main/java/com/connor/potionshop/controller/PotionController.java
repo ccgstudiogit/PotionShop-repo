@@ -1,10 +1,9 @@
 package com.connor.potionshop.controller;
 
 import java.util.*;
-import com.connor.potionshop.model.*;
+
+import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.service.PotionService;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +22,13 @@ public class PotionController {
         return potionService.getAllPotions();
     }
 
+    // @PathVariable extracts values directly from the URL path
     @GetMapping("{id}")
     public PotionDTO getPotionById(@PathVariable Integer id) {
         return potionService.getPotionById(id);
+    }
+
+    public ResponseEntity<PotionDTO> setPotion(Potion potion) {
+        return null;
     }
 }

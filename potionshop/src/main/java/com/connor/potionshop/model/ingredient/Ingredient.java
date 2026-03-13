@@ -1,14 +1,10 @@
-package com.connor.potionshop.model;
+package com.connor.potionshop.model.ingredient;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
 public class Ingredient {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Makes sure the id is generated automatically when using an SQL insert
-    private Integer id;
 
     @NotBlank
     @Column(nullable = false, unique = true)
@@ -25,10 +21,6 @@ public class Ingredient {
     public Ingredient(String name, Rarity rarity) {
         this.name = name;
         this.rarity = rarity;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getName() {
