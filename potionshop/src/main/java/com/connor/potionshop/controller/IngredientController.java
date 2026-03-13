@@ -15,7 +15,7 @@ public class IngredientController {
     }
 
     @GetMapping
-    public IngredientDTO getAllIngredients() {
-        return new IngredientDTO(1, "test", Rarity.Common);
+    public List<IngredientDTO> getAllIngredients() {
+        return ingredientService.getAllIngredients();
     }
 }
