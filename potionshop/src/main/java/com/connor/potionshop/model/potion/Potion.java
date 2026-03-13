@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
+// A potion is considered unique when its name and type together are unique
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name", "type"}))
 public class Potion extends BaseEntity {
     @NotBlank
     @Column(nullable = false) // Enforces constraints in the database as well
