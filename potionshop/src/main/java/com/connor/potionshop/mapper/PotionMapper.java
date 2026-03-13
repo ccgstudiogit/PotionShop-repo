@@ -1,7 +1,9 @@
 package com.connor.potionshop.mapper;
 
 import com.connor.potionshop.model.potion.*;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PotionMapper {
 
     /// Map this potion to a complete Data Transfer Object.
