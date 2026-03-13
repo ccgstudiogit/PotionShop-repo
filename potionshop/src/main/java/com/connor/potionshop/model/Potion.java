@@ -77,4 +77,9 @@ public class Potion {
     public void setPrice(Integer price) {
         this.price = price;
     }
+
+    /// Map this potion to a Data Transfer Object.
+    public PotionDTO mapToDTO() {
+        return new PotionDTO(id, name, type, effect, price);
+    }
 }
