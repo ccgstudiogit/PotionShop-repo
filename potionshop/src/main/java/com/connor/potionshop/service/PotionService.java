@@ -38,4 +38,9 @@ public class PotionService {
         potionRepository.save(newPotion);
         return potionMapper.mapToDTO(newPotion);
     }
+
+    /// Remove a potion from the database.
+    public void deletePotionById(Integer id) {
+        potionRepository.deleteById(id);
+    }
 }

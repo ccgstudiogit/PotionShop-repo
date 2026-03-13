@@ -33,4 +33,9 @@ public class PotionController {
         PotionDTO created = potionService.addPotion(createPotionDTO);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("{id}")
+    public void deletePotion(@PathVariable Integer id) {
+        potionService.deletePotionById(id);
+    }
 }

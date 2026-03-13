@@ -90,6 +90,4 @@ public class Potion extends BaseEntity {
     public int hashCode() {
         return Objects.hash(getId(), name, type, effect, price);
     }
-
-
 }
