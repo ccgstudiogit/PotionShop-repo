@@ -31,4 +31,11 @@ public class PotionService {
         Potion potion = potionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id + " not found"));
         return potionMapper.mapToDTO(potion);
     }
+
+    /// Add a potion to the database and save it. A PotionDTO is returned if the potion was successfully added.
+    public PotionDTO addPotion(CreatePotionDTO createPotionDTO) {
+        Potion newPotion = potionMapper.fromCreateDTO(createPotionDTO);
+        potionRepository.save(newPotion);
+        return potionMapper.mapToDTO(newPotion);
+    }
 }

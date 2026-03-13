@@ -4,7 +4,7 @@ import java.util.*;
 
 import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.service.PotionService;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,7 +28,9 @@ public class PotionController {
         return potionService.getPotionById(id);
     }
 
-    public ResponseEntity<PotionDTO> setPotion(Potion potion) {
-        return null;
+    @PostMapping
+    public ResponseEntity<PotionDTO> setPotion(@RequestBody CreatePotionDTO createPotionDTO) {
+        PotionDTO created = potionService.addPotion(createPotionDTO);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 }

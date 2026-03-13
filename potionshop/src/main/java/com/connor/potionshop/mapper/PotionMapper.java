@@ -10,4 +10,9 @@ public class PotionMapper {
     public PotionDTO mapToDTO(Potion potion) {
         return new PotionDTO(potion.getId(), potion.getName(), potion.getType(), potion.getEffect(), potion.getPrice());
     }
+
+    /// Map a CreatePotionDTO to a new potion object.
+    public Potion fromCreateDTO(CreatePotionDTO newPotion) {
+        return new Potion(newPotion.name(), newPotion.type(), newPotion.effect(), newPotion.price());
+    }
 }
