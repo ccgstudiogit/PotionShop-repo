@@ -1,8 +1,8 @@
 package com.connor.potionshop.model;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Id;
 
+@MappedSuperclass
 public abstract class BaseEntity {
 
     @Id

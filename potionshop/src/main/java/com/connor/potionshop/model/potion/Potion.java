@@ -91,8 +91,5 @@ public class Potion extends BaseEntity {
         return Objects.hash(getId(), name, type, effect, price);
     }
 
-    /// Map this potion to a Data Transfer Object.
-    public PotionDTO mapToDTO() {
-        return new PotionDTO(getId(), name, type, effect, price);
-    }
+
 }

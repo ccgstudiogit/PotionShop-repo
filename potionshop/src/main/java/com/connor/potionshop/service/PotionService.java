@@ -3,6 +3,7 @@ package com.connor.potionshop.service;
 import java.util.*;
 
 import com.connor.potionshop.model.potion.*;
+import com.connor.potionshop.mapper.*;
 import com.connor.potionshop.repository.PotionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -12,20 +13,22 @@ import org.springframework.stereotype.Service;
 public class PotionService {
 
     private final PotionRepository potionRepository;
+    private final PotionMapper potionMapper;
 
-    public PotionService(PotionRepository potionRepository) {
+    public PotionService(PotionRepository potionRepository, PotionMapper potionMapper) {
         this.potionRepository = potionRepository;
+        this.potionMapper = potionMapper;
     }
 
     /// Get a list of potions currently stored in the database.
     public List<PotionDTO> getAllPotions() {
         // Mapper can be used to hide sensitive data from frontend
-        return potionRepository.findAll().stream().map(Potion::mapToDTO).toList();
+        return potionRepository.findAll().stream().map(potionMapper::mapToDTO).toList();
     }
 
     /// Get a potion by its id.
     public PotionDTO getPotionById(Integer id) {
         Potion potion = potionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id + " not found"));
-        return potion.mapToDTO();
+        return potionMapper.mapToDTO(potion);
     }
 }
