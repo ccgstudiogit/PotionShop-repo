@@ -37,4 +37,9 @@ public class PotionController {
     public void deletePotion(@PathVariable Integer id) {
         potionService.deletePotionById(id);
     }
+
+    @PutMapping("{id}")
+    public PotionDTO updatePotionById(@PathVariable Integer id, @RequestBody UpdatePotionDTO updatePotionDTO) {
+        return potionService.updatePotionById(id, updatePotionDTO);
+    }
 }

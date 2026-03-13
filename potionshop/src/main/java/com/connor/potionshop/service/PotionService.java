@@ -27,16 +27,15 @@ public class PotionService {
 
     /// Get a potion by its id.
     public PotionDTO getPotionById(Integer id) {
-        Potion potion = potionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id + " not found"));
+        Potion potion = potionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id + " not found"));
         return potionMapper.mapToDTO(potion);
     }
 
     /// Add a potion to the database and save it. A PotionDTO is returned if the potion was successfully added.
     public PotionDTO addPotion(CreatePotionDTO createPotionDTO) {
         Potion newPotion = potionMapper.fromCreateDTO(createPotionDTO);
-        if (potionRepository.existsByNameAndType(newPotion.getName(), newPotion.getType())) {
-            throw new EntityExistsException(String.format("Potion with name %s and type %s already exists", newPotion.getName(), newPotion.getType()));
-        }
+        checkAndThrowIfPotionExists(newPotion);
 
         potionRepository.save(newPotion);
         return potionMapper.mapToDTO(newPotion);
@@ -44,11 +43,31 @@ public class PotionService {
 
     /// Remove a potion from the database.
     public void deletePotionById(Integer id) {
-        Optional<Potion> potion = potionRepository.findById(id);
-        if (potion.isEmpty()) {
-            throw new EntityNotFoundException(String.format("Potion with id %d not found", id));
-        }
-
+        Potion potion = potionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Potion with id %d not found", id)));
         potionRepository.deleteById(id);
+    }
+
+    /// Update a potion based on the potion's id. The current potion tied to this id will have its data replaced by the updated
+    /// potion DTO.
+    public PotionDTO updatePotionById(Integer id, UpdatePotionDTO updatedPotion) {
+        Potion potion = potionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Potion with id %d not found. Unable to update", id)));
+
+        potion.setName(updatedPotion.name());
+        potion.setType(updatedPotion.type());
+        potion.setEffect(updatedPotion.effect());
+        potion.setPrice(updatedPotion.price());
+        checkAndThrowIfPotionExists(potion); // Verify the potion's updated values are not already in the database
+
+        potionRepository.save(potion);
+        return potionMapper.mapToDTO(potion);
+    }
+
+    /// Check if a potion of the same name and type already exists in the database. If so, throw an EntityExistsException.
+    public void checkAndThrowIfPotionExists(Potion potion) {
+        if (potionRepository.existsByNameAndType(potion.getName(), potion.getType())) {
+            throw new EntityExistsException(String.format("Potion with name %s and type %s already exists", potion.getName(), potion.getType()));
+        }
     }
 }
