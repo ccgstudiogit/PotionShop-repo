@@ -1,5 +1,6 @@
 package com.connor.potionshop.model.potion;
 
+import java.util.*;
 import com.connor.potionshop.model.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -69,6 +70,25 @@ public class Potion extends BaseEntity {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Potion other = (Potion)o;
+        return Objects.equals(getId(), other.getId()) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(type, other.type) &&
+                Objects.equals(effect, other.effect) &&
+                Objects.equals(price, other.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), name, type, effect, price);
     }
 
     /// Map this potion to a Data Transfer Object.
