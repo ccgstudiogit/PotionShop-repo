@@ -30,4 +30,9 @@ public class IngredientController {
         IngredientDTO created = ingredientService.addIngredient(createIngredientDTO);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("{id}")
+    public void deleteIngredientById(@PathVariable Integer id) {
+        ingredientService.deleteIngredientById(id);
+    }
 }

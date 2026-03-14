@@ -39,6 +39,13 @@ public class IngredientService {
         return ingredientMapper.mapToDTO(newIngredient);
     }
 
+    /// Delete an ingredient from the database by its id.
+    public void deleteIngredientById(Integer id) {
+        Ingredient ingredient = ingredientRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Ingredient with id %d not found.", id)));
+        ingredientRepository.deleteById(id);
+    }
+
     /// Check if an ingredient already contains the name + rarity combination of another ingredient currently in the database.
     /// If it already exists, throw an EntityExistsException.
     public void checkAndThrowIfIngredientExists(Ingredient ingredient) {

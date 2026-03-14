@@ -34,7 +34,7 @@ public class PotionController {
     }
 
     @DeleteMapping("{id}")
-    public void deletePotion(@PathVariable Integer id) {
+    public void deletePotionById(@PathVariable Integer id) {
         potionService.deletePotionById(id);
     }
 
