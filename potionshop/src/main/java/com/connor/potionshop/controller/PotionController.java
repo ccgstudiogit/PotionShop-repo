@@ -28,7 +28,7 @@ public class PotionController {
     }
 
     @PostMapping
-    public ResponseEntity<PotionDTO> setPotion(@RequestBody CreatePotionDTO createPotionDTO) {
+    public ResponseEntity<PotionDTO> addPotion(@RequestBody CreatePotionDTO createPotionDTO) {
         PotionDTO created = potionService.addPotion(createPotionDTO);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }

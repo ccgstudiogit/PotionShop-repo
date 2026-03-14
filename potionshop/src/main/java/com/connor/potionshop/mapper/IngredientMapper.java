@@ -9,4 +9,9 @@ public class IngredientMapper {
     public IngredientDTO mapToDTO(Ingredient ingredient) {
         return new IngredientDTO(ingredient.getId(), ingredient.getName(), ingredient.getRarity());
     }
+
+    /// Create and return a new Ingredient object from a CreateIngredientDTO.
+    public Ingredient fromCreateDTO(CreateIngredientDTO createIngredientDTO) {
+        return new Ingredient(createIngredientDTO.name(), createIngredientDTO.rarity());
+    }
 }

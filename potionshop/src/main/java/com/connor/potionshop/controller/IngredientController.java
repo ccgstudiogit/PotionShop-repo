@@ -3,6 +3,7 @@ package com.connor.potionshop.controller;
 import java.util.*;
 import com.connor.potionshop.model.ingredient.*;
 import com.connor.potionshop.service.IngredientService;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,5 +23,11 @@ public class IngredientController {
     @GetMapping("{id}")
     public IngredientDTO getIngredientById(@PathVariable Integer id) {
         return ingredientService.getIngredientById(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<IngredientDTO> addIngredient(@RequestBody CreateIngredientDTO createIngredientDTO) {
+        IngredientDTO created = ingredientService.addIngredient(createIngredientDTO);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 }

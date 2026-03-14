@@ -4,6 +4,7 @@ import java.util.*;
 import com.connor.potionshop.model.ingredient.*;
 import com.connor.potionshop.repository.IngredientRepository;
 import com.connor.potionshop.mapper.IngredientMapper;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.*;
 
@@ -27,5 +28,22 @@ public class IngredientService {
         Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id + " not found"));
         return ingredientMapper.mapToDTO(ingredient);
+    }
+
+    /// Add an ingredient to the database and save it.
+    public IngredientDTO addIngredient(CreateIngredientDTO createIngredientDTO) {
+        Ingredient newIngredient = ingredientMapper.fromCreateDTO(createIngredientDTO);
+        checkAndThrowIfIngredientExists(newIngredient);
+
+        ingredientRepository.save(newIngredient);
+        return ingredientMapper.mapToDTO(newIngredient);
+    }
+
+    /// Check if an ingredient already contains the name + rarity combination of another ingredient currently in the database.
+    /// If it already exists, throw an EntityExistsException.
+    public void checkAndThrowIfIngredientExists(Ingredient ingredient) {
+        if (ingredientRepository.existsByNameAndRarity(ingredient.getName(), ingredient.getRarity())) {
+            throw new EntityExistsException(String.format("Ingredient %s with %s rarity already exists.", ingredient.getName(), ingredient.getRarity()));
+        }
     }
 }
