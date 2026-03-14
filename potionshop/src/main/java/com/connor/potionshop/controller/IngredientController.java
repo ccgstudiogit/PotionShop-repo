@@ -35,4 +35,9 @@ public class IngredientController {
     public void deleteIngredientById(@PathVariable Integer id) {
         ingredientService.deleteIngredientById(id);
     }
+
+    @PutMapping("{id}")
+    public IngredientDTO updateIngredientById(@PathVariable Integer id, @RequestBody UpdateIngredientDTO updateIngredientDTO) {
+        return ingredientService.updateIngredientById(id, updateIngredientDTO);
+    }
 }

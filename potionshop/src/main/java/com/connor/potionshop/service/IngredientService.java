@@ -26,7 +26,7 @@ public class IngredientService {
     /// Get an ingredient by its id.
     public IngredientDTO getIngredientById(Integer id) {
         Ingredient ingredient = ingredientRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException(id + " not found."));
         return ingredientMapper.mapToDTO(ingredient);
     }
 
@@ -44,6 +44,19 @@ public class IngredientService {
         Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Ingredient with id %d not found.", id)));
         ingredientRepository.deleteById(id);
+    }
+
+    /// Update an ingredient's name and/or rarity by its id.
+    public IngredientDTO updateIngredientById(Integer id, UpdateIngredientDTO updatedIngredient) {
+        Ingredient ingredient = ingredientRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Ingredient with id %d not found. Unable to update.", id)));
+
+        ingredient.setName(updatedIngredient.name());
+        ingredient.setRarity(updatedIngredient.rarity());
+        checkAndThrowIfIngredientExists(ingredient); // Make sure the ingredient after the updates doesn't already exist
+
+        ingredientRepository.save(ingredient);
+        return ingredientMapper.mapToDTO(ingredient);
     }
 
     /// Check if an ingredient already contains the name + rarity combination of another ingredient currently in the database.
