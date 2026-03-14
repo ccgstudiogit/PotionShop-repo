@@ -4,7 +4,7 @@ import java.util.*;
 
 import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.mapper.*;
-import com.connor.potionshop.repository.PotionRepository;
+import com.connor.potionshop.repository.*;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class PotionService {
     private final PotionRepository potionRepository;
+    private final PotionIngredientRepository potionIngredientRepository;
     private final PotionMapper potionMapper;
 
-    public PotionService(PotionRepository potionRepository, PotionMapper potionMapper) {
+    public PotionService(PotionRepository potionRepository, PotionIngredientRepository potionIngredientRepository, PotionMapper potionMapper) {
         this.potionRepository = potionRepository;
+        this.potionIngredientRepository = potionIngredientRepository;
         this.potionMapper = potionMapper;
     }
 
