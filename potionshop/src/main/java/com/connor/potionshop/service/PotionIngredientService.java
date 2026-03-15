@@ -37,13 +37,17 @@ public class PotionIngredientService {
     /// Get a potion object by its id.
     public Potion getPotionById(Integer id) {
         return potionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Potion with id %d not found", id)));
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format("Potion with id %d not found", id)
+            ));
     }
 
     /// Get an ingredient object by its id.
     public Ingredient getIngredientById(Integer id) {
         return ingredientRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Ingredient with id %d not found", id)));
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format("Ingredient with id %d not found", id)
+            ));
     }
 
     /// Add and save a potion ingredient object to the database.
@@ -56,10 +60,10 @@ public class PotionIngredientService {
     public void checkAndThrowIfPotionIngredientExists(PotionIngredientPk id) {
         if (potionIngredientRepository.existsById(id)) {
             throw new EntityExistsException(
-                    String.format("Potion %d already has ingredient %d.",
-                            id.getPotionId(),
-                            id.getIngredientId()
-                    )
+                String.format("Potion %d already has ingredient %d.",
+                    id.getPotionId(),
+                    id.getIngredientId()
+                )
             );
         }
     }
@@ -79,13 +83,13 @@ public class PotionIngredientService {
         checkAndThrowIfPotionIngredientNotExists(id);
 
         PotionIngredient updated = potionIngredientRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        String.format(
-                                "Potion %d does not have ingredient %d.",
-                                id.getPotionId(),
-                                id.getIngredientId()
-                        )
-                ));
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format(
+                    "Potion %d does not have ingredient %d.",
+                    id.getPotionId(),
+                    id.getIngredientId()
+                )
+            ));
 
         updated.setQuantity(updatedPotionIngredient.quantity());
         potionIngredientRepository.save(updated);
@@ -96,11 +100,11 @@ public class PotionIngredientService {
     public void checkAndThrowIfPotionIngredientNotExists(PotionIngredientPk id) {
         if (!potionIngredientRepository.existsById(id)) {
             throw new EntityNotFoundException(
-                    String.format(
-                            "Potion %d does not have ingredient %d.",
-                            id.getPotionId(),
-                            id.getIngredientId()
-                    )
+                String.format(
+                    "Potion %d does not have ingredient %d.",
+                    id.getPotionId(),
+                    id.getIngredientId()
+                )
             );
         }
     }

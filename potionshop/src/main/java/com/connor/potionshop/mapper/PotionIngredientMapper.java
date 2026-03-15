@@ -10,10 +10,10 @@ public class PotionIngredientMapper {
     public PotionIngredientDTO toDTO(PotionIngredient potionIngredient) {
         Ingredient ingredient = potionIngredient.getIngredient();
         return new PotionIngredientDTO(
-                ingredient.getId(),
-                ingredient.getName(),
-                ingredient.getRarity(),
-                potionIngredient.getQuantity()
+            ingredient.getId(),
+            ingredient.getName(),
+            ingredient.getRarity(),
+            potionIngredient.getQuantity()
         );
     }
 }

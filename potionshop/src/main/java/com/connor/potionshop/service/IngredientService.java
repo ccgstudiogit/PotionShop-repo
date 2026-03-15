@@ -25,7 +25,10 @@ public class IngredientService {
     /// Get an ingredient as a Data Transfer Object by its id.
     public IngredientDTO getIngredientById(Integer id) {
         Ingredient ingredient = ingredientRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Ingredient with id %d not found.", id)));
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format("Ingredient with id %d not found.", id)
+            ));
+
         return ingredientMapper.toDTO(ingredient);
     }
 
@@ -41,14 +44,19 @@ public class IngredientService {
     /// Delete an ingredient from the database by its id.
     public void deleteIngredientById(Integer id) {
         Ingredient ingredient = ingredientRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Ingredient with id %d not found.", id)));
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format("Ingredient with id %d not found.", id)
+            ));
+
         ingredientRepository.deleteById(id);
     }
 
     /// Update an ingredient's name and/or rarity by its id.
     public IngredientDTO updateIngredientById(Integer id, UpdateIngredientDTO updatedIngredient) {
         Ingredient ingredient = ingredientRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Ingredient with id %d not found. Unable to update.", id)));
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format("Ingredient with id %d not found. Unable to update.", id)
+            ));
 
         ingredient.setName(updatedIngredient.name());
         ingredient.setRarity(updatedIngredient.rarity());
@@ -62,7 +70,13 @@ public class IngredientService {
     /// If it already exists, throw an EntityExistsException.
     public void checkAndThrowIfIngredientExists(Ingredient ingredient) {
         if (ingredientRepository.existsByNameAndRarity(ingredient.getName(), ingredient.getRarity())) {
-            throw new EntityExistsException(String.format("Ingredient %s with %s rarity already exists.", ingredient.getName(), ingredient.getRarity()));
+            throw new EntityExistsException(
+                String.format(
+                    "Ingredient %s with %s rarity already exists.",
+                    ingredient.getName(),
+                    ingredient.getRarity()
+                )
+            );
         }
     }
 }

@@ -21,8 +21,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({
-            HttpMessageNotReadableException.class,
-            HttpMessageConversionException.class
+        HttpMessageNotReadableException.class,
+        HttpMessageConversionException.class
     })
     public ResponseEntity<?> handleInvalidJson(Exception e) {
         return new ResponseEntity<>("Invalid or malformed JSON: " + e.getMessage(), HttpStatus.BAD_REQUEST);

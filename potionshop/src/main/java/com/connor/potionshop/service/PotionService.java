@@ -38,7 +38,9 @@ public class PotionService {
     /// Get a potion by its id. Also includes a list of the potion's ingredients.
     public PotionWithIngredientsDTO getPotionById(Integer id) {
         Potion potion = potionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Potion with id %d not found.", id)));
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format("Potion with id %d not found.", id)
+            ));
 
         List<PotionIngredientDTO> ingredients = getAllPotionIngredientsById(potion.getId());
         return potionMapper.toWithIngredientsDTO(potion, ingredients);
@@ -56,7 +58,10 @@ public class PotionService {
     /// Remove a potion from the database.
     public void deletePotionById(Integer id) {
         Potion potion = potionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Potion with id %d not found.", id)));
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format("Potion with id %d not found.", id)
+            ));
+
         potionRepository.deleteById(id);
     }
 
@@ -64,7 +69,9 @@ public class PotionService {
     /// potion DTO.
     public PotionDTO updatePotionById(Integer id, UpdatePotionDTO updatedPotion) {
         Potion potion = potionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Potion with id %d not found. Unable to update.", id)));
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format("Potion with id %d not found. Unable to update.", id)
+            ));
 
         potion.setName(updatedPotion.name());
         potion.setType(updatedPotion.type());
@@ -79,14 +86,22 @@ public class PotionService {
     /// Check if a potion of the same name and type already exists in the database. If so, throw an EntityExistsException.
     public void checkAndThrowIfPotionExists(Potion potion) {
         if (potionRepository.existsByNameAndType(potion.getName(), potion.getType())) {
-            throw new EntityExistsException(String.format("Potion with name %s and type %s already exists.", potion.getName(), potion.getType()));
+            throw new EntityExistsException(
+                String.format(
+                    "Potion with name %s and type %s already exists.",
+                    potion.getName(),
+                    potion.getType()
+                )
+            );
         }
     }
 
     /// Get all the ingredients for a potion via the potion's id.
     public List<PotionIngredientDTO> getAllPotionIngredientsById(Integer id) {
         Potion potion = potionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Potion with id %d not found.", id)));
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format("Potion with id %d not found.", id)
+            ));
 
         List<PotionIngredient> potionIngredients = potionIngredientService.getIngredientsByPotionId(potion.getId());
         List<PotionIngredientDTO> potionIngredientDTOS = new ArrayList<>();
@@ -100,9 +115,9 @@ public class PotionService {
     /// Add an ingredient to a potion by the potion's id.
     public PotionWithIngredientsDTO addIngredientToPotionById(Integer potionId, CreatePotionIngredientDTO newIngredient) {
         PotionIngredient newPotionIngredient = new PotionIngredient(
-                potionIngredientService.getPotionById(potionId),
-                potionIngredientService.getIngredientById(newIngredient.ingredientId()),
-                newIngredient.quantity()
+            potionIngredientService.getPotionById(potionId),
+            potionIngredientService.getIngredientById(newIngredient.ingredientId()),
+            newIngredient.quantity()
         );
 
         potionIngredientService.addPotionIngredient(newPotionIngredient);

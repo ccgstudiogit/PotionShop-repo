@@ -81,10 +81,10 @@ public class Potion extends BaseEntity {
 
         Potion other = (Potion)o;
         return Objects.equals(getId(), other.getId())
-                && Objects.equals(name, other.name)
-                && Objects.equals(type, other.type)
-                && Objects.equals(effect, other.effect)
-                && Objects.equals(price, other.price);
+            && Objects.equals(name, other.name)
+            && Objects.equals(type, other.type)
+            && Objects.equals(effect, other.effect)
+            && Objects.equals(price, other.price);
     }
 
     @Override

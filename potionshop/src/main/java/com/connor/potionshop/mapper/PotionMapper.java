@@ -20,12 +20,12 @@ public class PotionMapper {
     /// Map a potion to a complete Data Transfer Object with a list of its ingredients.
     public PotionWithIngredientsDTO toWithIngredientsDTO(Potion potion, List<PotionIngredientDTO> ingredients) {
         return new PotionWithIngredientsDTO(
-                potion.getId(),
-                potion.getName(),
-                potion.getType(),
-                potion.getEffect(),
-                potion.getPrice(),
-                ingredients
+            potion.getId(),
+            potion.getName(),
+            potion.getType(),
+            potion.getEffect(),
+            potion.getPrice(),
+            ingredients
         );
     }
 }
