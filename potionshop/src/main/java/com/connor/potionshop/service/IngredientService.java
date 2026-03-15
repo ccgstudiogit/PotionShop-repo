@@ -20,14 +20,14 @@ public class IngredientService {
 
     /// Get a list of all ingredients as Data Transfer Objects.
     public List<IngredientDTO> getAllIngredients() {
-        return ingredientRepository.findAll().stream().map(ingredientMapper::mapToDTO).toList();
+        return ingredientRepository.findAll().stream().map(ingredientMapper::toDTO).toList();
     }
 
     /// Get an ingredient by its id.
     public IngredientDTO getIngredientById(Integer id) {
         Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id + " not found."));
-        return ingredientMapper.mapToDTO(ingredient);
+        return ingredientMapper.toDTO(ingredient);
     }
 
     /// Add an ingredient to the database and save it.
@@ -36,7 +36,7 @@ public class IngredientService {
         checkAndThrowIfIngredientExists(newIngredient);
 
         ingredientRepository.save(newIngredient);
-        return ingredientMapper.mapToDTO(newIngredient);
+        return ingredientMapper.toDTO(newIngredient);
     }
 
     /// Delete an ingredient from the database by its id.
@@ -56,7 +56,7 @@ public class IngredientService {
         checkAndThrowIfIngredientExists(ingredient); // Make sure the ingredient after the updates doesn't already exist
 
         ingredientRepository.save(ingredient);
-        return ingredientMapper.mapToDTO(ingredient);
+        return ingredientMapper.toDTO(ingredient);
     }
 
     /// Check if an ingredient already contains the name + rarity combination of another ingredient currently in the database.

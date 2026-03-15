@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PotionIngredientMapper {
     /// Map a PotionIngredient object to its Data Transfer Object equivalent.
-    public PotionIngredientDTO mapToDTO(PotionIngredient potionIngredient) {
+    public PotionIngredientDTO toDTO(PotionIngredient potionIngredient) {
         Ingredient ingredient = potionIngredient.getIngredient();
         return new PotionIngredientDTO(
                 ingredient.getId(),

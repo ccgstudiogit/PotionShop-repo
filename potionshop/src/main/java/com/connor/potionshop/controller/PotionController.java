@@ -24,7 +24,7 @@ public class PotionController {
 
     // @PathVariable extracts values directly from the URL path
     @GetMapping("{id}")
-    public PotionDTO getPotionById(@PathVariable Integer id) {
+    public PotionWithIngredientsDTO getPotionById(@PathVariable Integer id) {
         return potionService.getPotionById(id);
     }
 

@@ -2,7 +2,6 @@ package com.connor.potionshop.service;
 
 import java.util.*;
 
-import com.connor.potionshop.model.ingredient.*;
 import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.model.potioningredient.*;
 import com.connor.potionshop.mapper.*;
@@ -32,14 +31,16 @@ public class PotionService {
     /// Get a list of potions currently stored in the database.
     public List<PotionDTO> getAllPotions() {
         // Mapper can be used to hide sensitive data from frontend
-        return potionRepository.findAll().stream().map(potionMapper::mapToDTO).toList();
+        return potionRepository.findAll().stream().map(potionMapper::toDTO).toList();
     }
 
-    /// Get a potion by its id.
-    public PotionDTO getPotionById(Integer id) {
+    /// Get a potion by its id. Also includes a list of the potion's ingredients.
+    public PotionWithIngredientsDTO getPotionById(Integer id) {
         Potion potion = potionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(id + " not found."));
-        return potionMapper.mapToDTO(potion);
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Potion with id %d not found.", id)));
+
+        List<PotionIngredientDTO> ingredients = getAllPotionIngredientsById(potion.getId());
+        return potionMapper.toWithIngredientsDTO(potion, ingredients);
     }
 
     /// Add a potion to the database and save it. A PotionDTO is returned if the potion was successfully added.
@@ -48,7 +49,7 @@ public class PotionService {
         checkAndThrowIfPotionExists(newPotion);
 
         potionRepository.save(newPotion);
-        return potionMapper.mapToDTO(newPotion);
+        return potionMapper.toDTO(newPotion);
     }
 
     /// Remove a potion from the database.
@@ -71,7 +72,7 @@ public class PotionService {
         checkAndThrowIfPotionExists(potion); // Verify the potion's updated values are not already in the database
 
         potionRepository.save(potion);
-        return potionMapper.mapToDTO(potion);
+        return potionMapper.toDTO(potion);
     }
 
     /// Check if a potion of the same name and type already exists in the database. If so, throw an EntityExistsException.
@@ -89,7 +90,7 @@ public class PotionService {
         List<PotionIngredient> potionIngredients = potionIngredientRepository.findByPotionId(potion.getId());
         List<PotionIngredientDTO> potionIngredientDTOS = new ArrayList<>();
         for (int i = 0; i < potionIngredients.size(); i++) {
-            potionIngredientDTOS.add(potionIngredientMapper.mapToDTO(potionIngredients.get(i)));
+            potionIngredientDTOS.add(potionIngredientMapper.toDTO(potionIngredients.get(i)));
         }
 
         return potionIngredientDTOS;
