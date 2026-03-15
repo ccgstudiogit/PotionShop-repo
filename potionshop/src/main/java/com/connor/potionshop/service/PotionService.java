@@ -17,10 +17,11 @@ public class PotionService {
     private final PotionIngredientService potionIngredientService;
     private final PotionIngredientMapper potionIngredientMapper;
 
-    public PotionService(PotionRepository potionRepository,
-                         PotionIngredientService potionIngredientService,
-                         PotionMapper potionMapper,
-                         PotionIngredientMapper potionIngredientMapper
+    public PotionService(
+            PotionRepository potionRepository,
+            PotionIngredientService potionIngredientService,
+            PotionMapper potionMapper,
+            PotionIngredientMapper potionIngredientMapper
     ) {
         this.potionRepository = potionRepository;
         this.potionMapper = potionMapper;

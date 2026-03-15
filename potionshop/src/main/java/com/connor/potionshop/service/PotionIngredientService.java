@@ -19,9 +19,10 @@ public class PotionIngredientService {
     private final PotionRepository potionRepository;
     private final IngredientRepository ingredientRepository;
 
-    public PotionIngredientService(PotionIngredientRepository potionIngredientRepository,
-                                   PotionRepository potionRepository,
-                                   IngredientRepository ingredientRepository
+    public PotionIngredientService(
+            PotionIngredientRepository potionIngredientRepository,
+            PotionRepository potionRepository,
+            IngredientRepository ingredientRepository
     ) {
         this.potionIngredientRepository = potionIngredientRepository;
         this.potionRepository = potionRepository;
@@ -47,6 +48,19 @@ public class PotionIngredientService {
 
     /// Add and save a potion ingredient object to the database.
     public PotionIngredient addPotionIngredient(PotionIngredient potionIngredient) {
+        checkAndThrowIfPotionIngredientExists(potionIngredient);
         return potionIngredientRepository.save(potionIngredient);
+    }
+
+    /// Check if a PotionIngredient already exists in the database (the composite PK is used). If so, throw an EntityExistsException.
+    public void checkAndThrowIfPotionIngredientExists(PotionIngredient potionIngredient) {
+        if (potionIngredientRepository.existsById(potionIngredient.getId())) {
+            throw new EntityExistsException(
+                    String.format("Potion %d already has ingredient %d.",
+                            potionIngredient.getPotion().getId(),
+                            potionIngredient.getIngredient().getId()
+                    )
+            );
+        }
     }
 }
