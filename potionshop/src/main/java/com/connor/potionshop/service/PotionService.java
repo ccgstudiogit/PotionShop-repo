@@ -108,4 +108,10 @@ public class PotionService {
         potionIngredientService.addPotionIngredient(newPotionIngredient);
         return getPotionById(potionId);
     }
+
+    /// Remove an ingredient from a potion via the potion and ingredient ids.
+    public PotionWithIngredientsDTO removeIngredientFromPotionById(Integer potionId, Integer ingredientId) {
+        potionIngredientService.deletePotionIngredient(potionId, ingredientId);
+        return getPotionById(potionId);
+    }
 }

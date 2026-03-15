@@ -52,6 +52,17 @@ public class PotionIngredientService {
         return potionIngredientRepository.save(potionIngredient);
     }
 
+    /// Delete a PotionIngredient row from the database. The primary key is formed from the potionId and ingredientId. If the
+    /// PotionIngredient with that pk does not exist in the database, an EntityNotFoundException is thrown.
+    public void deletePotionIngredient(Integer potionId, Integer ingredientId) {
+        PotionIngredientPk id = new PotionIngredientPk(potionId, ingredientId);
+        if (!potionIngredientRepository.existsById(id)) {
+            throw new EntityNotFoundException(String.format("Potion %d does not have ingredient %d.", potionId, ingredientId));
+        }
+
+        potionIngredientRepository.deleteById(id);
+    }
+
     /// Check if a PotionIngredient already exists in the database (the composite PK is used). If so, throw an EntityExistsException.
     public void checkAndThrowIfPotionIngredientExists(PotionIngredient potionIngredient) {
         if (potionIngredientRepository.existsById(potionIngredient.getId())) {

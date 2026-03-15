@@ -51,7 +51,12 @@ public class PotionController {
 
     @PostMapping("{id}/ingredients")
     public ResponseEntity<PotionWithIngredientsDTO> addIngredientToPotionById(@PathVariable Integer id, @RequestBody CreatePotionIngredientDTO createPotionIngredientDTO) {
-        PotionWithIngredientsDTO created = potionService.addIngredientToPotionById(id, createPotionIngredientDTO);
-        return new ResponseEntity<>(created, HttpStatus.CREATED);
+        PotionWithIngredientsDTO updated = potionService.addIngredientToPotionById(id, createPotionIngredientDTO);
+        return new ResponseEntity<>(updated, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("{potionId}/ingredients/{ingredientId}")
+    public PotionWithIngredientsDTO removeIngredientFromPotionById(@PathVariable Integer potionId, @PathVariable Integer ingredientId) {
+        return potionService.removeIngredientFromPotionById(potionId, ingredientId);
     }
 }
