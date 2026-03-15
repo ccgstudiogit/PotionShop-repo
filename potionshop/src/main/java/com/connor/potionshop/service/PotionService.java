@@ -14,17 +14,17 @@ import org.springframework.stereotype.Service;
 public class PotionService {
     private final PotionRepository potionRepository;
     private final PotionMapper potionMapper;
-    private final PotionIngredientRepository potionIngredientRepository;
+    private final PotionIngredientService potionIngredientService;
     private final PotionIngredientMapper potionIngredientMapper;
 
     public PotionService(PotionRepository potionRepository,
-                         PotionIngredientRepository potionIngredientRepository,
+                         PotionIngredientService potionIngredientService,
                          PotionMapper potionMapper,
                          PotionIngredientMapper potionIngredientMapper
     ) {
         this.potionRepository = potionRepository;
         this.potionMapper = potionMapper;
-        this.potionIngredientRepository = potionIngredientRepository;
+        this.potionIngredientService = potionIngredientService;
         this.potionIngredientMapper = potionIngredientMapper;
     }
 
@@ -87,7 +87,7 @@ public class PotionService {
         Potion potion = potionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Potion with id %d not found.", id)));
 
-        List<PotionIngredient> potionIngredients = potionIngredientRepository.findByPotionId(potion.getId());
+        List<PotionIngredient> potionIngredients = potionIngredientService.getIngredientsByPotionId(potion.getId());
         List<PotionIngredientDTO> potionIngredientDTOS = new ArrayList<>();
         for (int i = 0; i < potionIngredients.size(); i++) {
             potionIngredientDTOS.add(potionIngredientMapper.toDTO(potionIngredients.get(i)));
@@ -95,4 +95,12 @@ public class PotionService {
 
         return potionIngredientDTOS;
     }
+    /*
+    /// Add an ingredient to a potion by the potion's id.
+    public PotionWithIngredientsDTO addIngredientToPotionById(Integer potionId, CreatePotionIngredientDTO newIngredient) {
+        PotionIngredientPk compositeId = new PotionIngredientPk(potionId, newIngredient.ingredientId());
+        PotionIngredient newPotionIngredient = new PotionIngredient(getPotionById(potionId), );
+        potionIngredientRepository.save();
+    }s
+     */
 }

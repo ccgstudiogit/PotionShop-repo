@@ -48,4 +48,10 @@ public class PotionController {
     public List<PotionIngredientDTO> getAllPotionIngredientsById(@PathVariable Integer id) {
         return potionService.getAllPotionIngredientsById(id);
     }
+    /*
+    @PostMapping("{id}/ingredients")
+    public PotionWithIngredientsDTO addIngredientToPotionById(@PathVariable Integer id, @RequestBody CreatePotionIngredientDTO createPotionIngredientDTO) {
+        return potionService
+    }
+     */
 }
