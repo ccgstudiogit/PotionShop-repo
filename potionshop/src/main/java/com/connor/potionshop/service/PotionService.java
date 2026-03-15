@@ -114,4 +114,10 @@ public class PotionService {
         potionIngredientService.deletePotionIngredient(potionId, ingredientId);
         return getPotionById(potionId);
     }
+
+    /// Update a potion ingredient relationship (such as changing the quantity of ingredients for that potion).
+    public PotionWithIngredientsDTO updatePotionIngredientById(Integer potionId, Integer ingredientId, UpdatePotionIngredientDTO updatePotionIngredientDTO) {
+        potionIngredientService.updatePotionIngredient(potionId, ingredientId, updatePotionIngredientDTO);
+        return getPotionById(potionId);
+    }
 }

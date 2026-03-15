@@ -59,4 +59,9 @@ public class PotionController {
     public PotionWithIngredientsDTO removeIngredientFromPotionById(@PathVariable Integer potionId, @PathVariable Integer ingredientId) {
         return potionService.removeIngredientFromPotionById(potionId, ingredientId);
     }
+
+    @PatchMapping("{potionId}/ingredients/{ingredientId}")
+    public PotionWithIngredientsDTO updatePotionIngredientById(@PathVariable Integer potionId, @PathVariable Integer ingredientId, @RequestBody UpdatePotionIngredientDTO updatePotionIngredientDTO) {
+        return potionService.updatePotionIngredientById(potionId, ingredientId, updatePotionIngredientDTO);
+    }
 }

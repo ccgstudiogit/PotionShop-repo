@@ -48,28 +48,58 @@ public class PotionIngredientService {
 
     /// Add and save a potion ingredient object to the database.
     public PotionIngredient addPotionIngredient(PotionIngredient potionIngredient) {
-        checkAndThrowIfPotionIngredientExists(potionIngredient);
+        checkAndThrowIfPotionIngredientExists(potionIngredient.getId());
         return potionIngredientRepository.save(potionIngredient);
+    }
+
+    /// Check if a PotionIngredient already exists in the database (the composite PK is used). If so, throw an EntityExistsException.
+    public void checkAndThrowIfPotionIngredientExists(PotionIngredientPk id) {
+        if (potionIngredientRepository.existsById(id)) {
+            throw new EntityExistsException(
+                    String.format("Potion %d already has ingredient %d.",
+                            id.getPotionId(),
+                            id.getIngredientId()
+                    )
+            );
+        }
     }
 
     /// Delete a PotionIngredient row from the database. The primary key is formed from the potionId and ingredientId. If the
     /// PotionIngredient with that pk does not exist in the database, an EntityNotFoundException is thrown.
     public void deletePotionIngredient(Integer potionId, Integer ingredientId) {
         PotionIngredientPk id = new PotionIngredientPk(potionId, ingredientId);
-        if (!potionIngredientRepository.existsById(id)) {
-            throw new EntityNotFoundException(String.format("Potion %d does not have ingredient %d.", potionId, ingredientId));
-        }
+        checkAndThrowIfPotionIngredientNotExists(id);
 
         potionIngredientRepository.deleteById(id);
     }
 
-    /// Check if a PotionIngredient already exists in the database (the composite PK is used). If so, throw an EntityExistsException.
-    public void checkAndThrowIfPotionIngredientExists(PotionIngredient potionIngredient) {
-        if (potionIngredientRepository.existsById(potionIngredient.getId())) {
-            throw new EntityExistsException(
-                    String.format("Potion %d already has ingredient %d.",
-                            potionIngredient.getPotion().getId(),
-                            potionIngredient.getIngredient().getId()
+    /// Update a potion ingredient's attributes.
+    public PotionIngredient updatePotionIngredient(Integer potionId, Integer ingredientId, UpdatePotionIngredientDTO updatedPotionIngredient) {
+        PotionIngredientPk id = new PotionIngredientPk(potionId, ingredientId);
+        checkAndThrowIfPotionIngredientNotExists(id);
+
+        PotionIngredient updated = potionIngredientRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format(
+                                "Potion %d does not have ingredient %d.",
+                                id.getPotionId(),
+                                id.getIngredientId()
+                        )
+                ));
+
+        updated.setQuantity(updatedPotionIngredient.quantity());
+        potionIngredientRepository.save(updated);
+        return updated;
+    }
+
+    /// Check if a PotionIngredient doesn't exist in the database (the composite PK is used). If not, throw an EntityNotExistsException.
+    public void checkAndThrowIfPotionIngredientNotExists(PotionIngredientPk id) {
+        if (!potionIngredientRepository.existsById(id)) {
+            throw new EntityNotFoundException(
+                    String.format(
+                            "Potion %d does not have ingredient %d.",
+                            id.getPotionId(),
+                            id.getIngredientId()
                     )
             );
         }
