@@ -22,7 +22,7 @@ public class IngredientService {
         return ingredientRepository.findAll().stream().map(ingredientMapper::toDTO).toList();
     }
 
-    /// Get an ingredient by its id.
+    /// Get an ingredient as a Data Transfer Object by its id.
     public IngredientDTO getIngredientById(Integer id) {
         Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Ingredient with id %d not found.", id)));

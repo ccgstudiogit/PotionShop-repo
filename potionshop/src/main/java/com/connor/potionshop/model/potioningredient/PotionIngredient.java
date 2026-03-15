@@ -7,6 +7,9 @@ import com.connor.potionshop.model.ingredient.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+/// Represents the join entity for the many‑to‑many relationship between Potion and Ingredient. Unlike Potion and Ingredient,
+/// this entity is not exposed directly through the API. It exists purely for backend/domain logic and stores
+/// relationship‑specific data (e.g., quantity). Its identity is defined by the composite key (potionId, ingredientId).
 @Entity
 public class PotionIngredient {
     @EmbeddedId
