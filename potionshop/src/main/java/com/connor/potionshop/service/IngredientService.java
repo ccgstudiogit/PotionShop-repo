@@ -4,8 +4,7 @@ import java.util.*;
 import com.connor.potionshop.model.ingredient.*;
 import com.connor.potionshop.repository.IngredientRepository;
 import com.connor.potionshop.mapper.IngredientMapper;
-import jakarta.persistence.EntityExistsException;
-import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.*;
 import org.springframework.stereotype.*;
 
 @Service
@@ -26,7 +25,7 @@ public class IngredientService {
     /// Get an ingredient by its id.
     public IngredientDTO getIngredientById(Integer id) {
         Ingredient ingredient = ingredientRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(id + " not found."));
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Ingredient with id %d not found.", id)));
         return ingredientMapper.toDTO(ingredient);
     }
 
