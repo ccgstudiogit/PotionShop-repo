@@ -3,6 +3,7 @@ package com.connor.potionshop.controller;
 import java.util.*;
 
 import com.connor.potionshop.model.potion.*;
+import com.connor.potionshop.model.potioningredient.PotionIngredientDTO;
 import com.connor.potionshop.service.PotionService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,10 @@ public class PotionController {
     @PutMapping("{id}")
     public PotionDTO updatePotionById(@PathVariable Integer id, @RequestBody UpdatePotionDTO updatePotionDTO) {
         return potionService.updatePotionById(id, updatePotionDTO);
+    }
+
+    @GetMapping("{id}/ingredients")
+    public List<PotionIngredientDTO> getAllPotionIngredientsById(@PathVariable Integer id) {
+        return potionService.getAllPotionIngredientsById(id);
     }
 }

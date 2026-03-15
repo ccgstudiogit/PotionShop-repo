@@ -2,7 +2,9 @@ package com.connor.potionshop.service;
 
 import java.util.*;
 
+import com.connor.potionshop.model.ingredient.*;
 import com.connor.potionshop.model.potion.*;
+import com.connor.potionshop.model.potioningredient.*;
 import com.connor.potionshop.mapper.*;
 import com.connor.potionshop.repository.*;
 import jakarta.persistence.*;
@@ -12,13 +14,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class PotionService {
     private final PotionRepository potionRepository;
-    private final PotionIngredientRepository potionIngredientRepository;
     private final PotionMapper potionMapper;
+    private final PotionIngredientRepository potionIngredientRepository;
+    private final PotionIngredientMapper potionIngredientMapper;
 
-    public PotionService(PotionRepository potionRepository, PotionIngredientRepository potionIngredientRepository, PotionMapper potionMapper) {
+    public PotionService(PotionRepository potionRepository,
+                         PotionIngredientRepository potionIngredientRepository,
+                         PotionMapper potionMapper,
+                         PotionIngredientMapper potionIngredientMapper
+    ) {
         this.potionRepository = potionRepository;
-        this.potionIngredientRepository = potionIngredientRepository;
         this.potionMapper = potionMapper;
+        this.potionIngredientRepository = potionIngredientRepository;
+        this.potionIngredientMapper = potionIngredientMapper;
     }
 
     /// Get a list of potions currently stored in the database.
@@ -71,5 +79,19 @@ public class PotionService {
         if (potionRepository.existsByNameAndType(potion.getName(), potion.getType())) {
             throw new EntityExistsException(String.format("Potion with name %s and type %s already exists.", potion.getName(), potion.getType()));
         }
+    }
+
+    /// Get all the ingredients for a potion via the potion's id.
+    public List<PotionIngredientDTO> getAllPotionIngredientsById(Integer id) {
+        Potion potion = potionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Potion with id %d not found.", id)));
+
+        List<PotionIngredient> potionIngredients = potionIngredientRepository.findByPotionId(potion.getId());
+        List<PotionIngredientDTO> potionIngredientDTOS = new ArrayList<>();
+        for (int i = 0; i < potionIngredients.size(); i++) {
+            potionIngredientDTOS.add(potionIngredientMapper.mapToDTO(potionIngredients.get(i)));
+        }
+
+        return potionIngredientDTOS;
     }
 }
