@@ -47,9 +47,9 @@ public class Ingredient extends BaseEntity {
         }
 
         Ingredient other = (Ingredient)o;
-        return Objects.equals(getId(), other.getId()) &&
-                Objects.equals(name, other.name) &&
-                Objects.equals(rarity, other.rarity);
+        return Objects.equals(getId(), other.getId())
+                && Objects.equals(name, other.name)
+                && Objects.equals(rarity, other.rarity);
     }
 
     @Override
