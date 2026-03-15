@@ -48,10 +48,10 @@ public class PotionController {
     public List<PotionIngredientDTO> getAllPotionIngredientsById(@PathVariable Integer id) {
         return potionService.getAllPotionIngredientsById(id);
     }
-    /*
+
     @PostMapping("{id}/ingredients")
-    public PotionWithIngredientsDTO addIngredientToPotionById(@PathVariable Integer id, @RequestBody CreatePotionIngredientDTO createPotionIngredientDTO) {
-        return potionService
+    public ResponseEntity<PotionWithIngredientsDTO> addIngredientToPotionById(@PathVariable Integer id, @RequestBody CreatePotionIngredientDTO createPotionIngredientDTO) {
+        PotionWithIngredientsDTO created = potionService.addIngredientToPotionById(id, createPotionIngredientDTO);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
-     */
 }

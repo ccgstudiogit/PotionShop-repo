@@ -1,6 +1,7 @@
 package com.connor.potionshop.service;
 
 import java.util.*;
+
 import com.connor.potionshop.model.potioningredient.*;
 import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.model.ingredient.*;
@@ -32,9 +33,20 @@ public class PotionIngredientService {
         return potionIngredientRepository.findByPotionId(id);
     }
 
+    /// Get a potion object by its id.
+    public Potion getPotionById(Integer id) {
+        return potionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Potion with id %d not found", id)));
+    }
+
     /// Get an ingredient object by its id.
     public Ingredient getIngredientById(Integer id) {
         return ingredientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Ingredient with id %d not found", id)));
+    }
+
+    /// Add and save a potion ingredient object to the database.
+    public PotionIngredient addPotionIngredient(PotionIngredient potionIngredient) {
+        return potionIngredientRepository.save(potionIngredient);
     }
 }

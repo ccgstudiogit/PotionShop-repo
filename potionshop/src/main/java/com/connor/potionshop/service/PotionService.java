@@ -95,12 +95,16 @@ public class PotionService {
 
         return potionIngredientDTOS;
     }
-    /*
+
     /// Add an ingredient to a potion by the potion's id.
     public PotionWithIngredientsDTO addIngredientToPotionById(Integer potionId, CreatePotionIngredientDTO newIngredient) {
-        PotionIngredientPk compositeId = new PotionIngredientPk(potionId, newIngredient.ingredientId());
-        PotionIngredient newPotionIngredient = new PotionIngredient(getPotionById(potionId), );
-        potionIngredientRepository.save();
-    }s
-     */
+        PotionIngredient newPotionIngredient = new PotionIngredient(
+                potionIngredientService.getPotionById(potionId),
+                potionIngredientService.getIngredientById(newIngredient.ingredientId()),
+                newIngredient.quantity()
+        );
+
+        potionIngredientService.addPotionIngredient(newPotionIngredient);
+        return getPotionById(potionId);
+    }
 }
