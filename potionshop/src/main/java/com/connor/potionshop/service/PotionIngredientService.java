@@ -20,9 +20,9 @@ public class PotionIngredientService {
     private final IngredientRepository ingredientRepository;
 
     public PotionIngredientService(
-            PotionIngredientRepository potionIngredientRepository,
-            PotionRepository potionRepository,
-            IngredientRepository ingredientRepository
+        PotionIngredientRepository potionIngredientRepository,
+        PotionRepository potionRepository,
+        IngredientRepository ingredientRepository
     ) {
         this.potionIngredientRepository = potionIngredientRepository;
         this.potionRepository = potionRepository;
