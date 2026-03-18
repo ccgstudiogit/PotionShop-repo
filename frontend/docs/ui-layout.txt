@@ -1,0 +1,19 @@
++-------------------------------------------------------------+
+|  Welcome to:                                                |
+|  The Potion Shop                                            |
++-------------------------------------------------------------+
+
+[ Potions ]              [ Ingredients ]
+
++-------------------------------------------------------------+
+|  Options                 |  Potions                         |
+|  ---------------------   |  ------------------------------  |
+|  [Get All]               |  [Search: ____ ] [By: name ▼]    |
+|  [Add]                   |                                  |
+|  [Search]                |  Potion A info       [Delete]    |
+|  ...                     |  Potion B info       [Delete]    |
+|                          |  ...                             |
++-------------------------------------------------------------+
+
+In this example, the Potions panel is open with the Search button having been clicked. The same layout would also apply
+to the Ingredients panel. The Add button would show input fields on the right instead of showing potions.
