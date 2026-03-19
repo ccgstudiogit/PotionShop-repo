@@ -1,0 +1,13 @@
+button {
+  font-family: "Jersey 15";
+}
+
+.main-button {
+  font-size: 45px;
+
+  border-style: solid;
+  border-color: black;
+  border-radius: 5px;
+
+  padding: 5px 17px;
+}

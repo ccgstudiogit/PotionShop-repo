@@ -16,6 +16,7 @@
   font-size: clamp(4rem, 9vw, 8rem);
 
   margin-top: -10px;
+  margin-bottom: 25px;
 }
 
 .title-sub-header {
