@@ -1,6 +1,6 @@
 .title {
   /* Imported via google fonts */
-  font-family: "Jersey 15";
+  font-family: "Jersey 15", Arial;
 
   display: flex;
   flex-direction: column;
@@ -15,8 +15,8 @@
   */
   font-size: clamp(4rem, 9vw, 8rem);
 
-  margin-top: -10px;
-  margin-bottom: 25px;
+  margin-top: -40px;
+  margin-bottom: 8px;
 }
 
 .title-sub-header {

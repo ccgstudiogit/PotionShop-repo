@@ -1,0 +1,35 @@
+.panel {
+  display: flex;
+
+  margin: 25px 50px 50px 50px;
+
+  min-height: 60vh;
+}
+
+.panel-background {
+  /* For the options section and results section */
+  display: flex;
+
+  flex: 1;
+
+  border-style: solid;
+  border-color: black;
+  border-radius: 8px;
+  border-width: 2px;
+
+  background-color: rgb(182, 161, 255);
+
+  padding: 25px;
+}
+
+.panel-options {
+  flex: 1;
+
+  background-color: rgb(126, 62, 62);
+}
+
+.panel-results {
+  flex: 2.25;
+
+  background-color: rgb(65, 107, 65);
+}

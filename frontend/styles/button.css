@@ -1,9 +1,10 @@
 button {
   font-family: "Jersey 15";
+  cursor: pointer;
 }
 
 .main-button {
-  font-size: 45px;
+  font-size: clamp(1.5rem, 4.75vw, 3rem);
 
   border-style: solid;
   border-color: black;

@@ -1,8 +1,8 @@
 body {
-  background-color: rgb(204, 150, 231);
+  background-color: rgb(178, 120, 255);
 
   /* Makes sure items can be aligned vertically on an empty page since the height on an empty page is 0 and not the page itself */
-  min-height: 100vh;
+  min-height: 95vh;
 }
 
 h1 {
