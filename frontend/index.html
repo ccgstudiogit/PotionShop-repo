@@ -12,6 +12,17 @@
     <link rel="stylesheet" href="styles/button.css">
     <link rel="stylesheet" href="styles/options.css">
     <link rel="stylesheet" href="styles/panel.css">
+
+    <!-- A template is used for the panel to reuse code for the potion/ingredient tabs -->
+    <template id="panel-template">
+      <section class="panel">
+        <div class="panel-background">
+          <div class="panel-options"></div>
+          <div class="panel-line"></div>
+          <div class="panel-results"></div>
+        </div>
+      </section>
+    </template>
   </head>
   <body>
     <main>
@@ -24,19 +35,12 @@
         <button class="main-button">Potions</button>
         <button class="main-button">Ingredients</button>
       </section>
-
-      <section class="panel">
-        <div class="panel-background">
-          <div class="panel-options"></div>
-          <div class="panel-line"></div>
-          <div class="panel-results"></div>
-        </div>
-      </section>
     </main>
 
-    <!-- A template is used for the panel to reuse code for the potion/ingredient tabs -->
-    <template id="panel-template">
-
-    </template>
+    <script>
+      const temp = document.getElementById("panel-template");
+      const clone = temp.content.cloneNode(true);
+      document.body.appendChild(clone);
+    </script>
   </body>
 </html>
