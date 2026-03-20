@@ -18,18 +18,20 @@
   border-width: 2px;
 
   background-color: rgb(182, 161, 255);
-
-  padding: 25px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 .panel-options {
   flex: 1;
 
-  background-color: rgb(126, 62, 62);
 }
 
 .panel-results {
   flex: 2.25;
 
-  background-color: rgb(65, 107, 65);
+}
+
+.panel-line {
+  border: 1px solid black;
+  height: 100%;
 }
