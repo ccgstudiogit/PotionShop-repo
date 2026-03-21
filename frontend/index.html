@@ -12,17 +12,7 @@
     <link rel="stylesheet" href="styles/button.css">
     <link rel="stylesheet" href="styles/options.css">
     <link rel="stylesheet" href="styles/panel.css">
-
-    <!-- A template is used for the panel to reuse code for the potion/ingredient tabs -->
-    <template id="panel-template">
-      <section class="panel">
-        <div class="panel-background">
-          <div class="panel-options"></div>
-          <div class="panel-line"></div>
-          <div class="panel-results"></div>
-        </div>
-      </section>
-    </template>
+    <link rel="stylesheet" href="styles/text.css">
   </head>
   <body>
     <main>
@@ -32,8 +22,8 @@
       </section>
 
       <section class="main-options">
-        <button class="main-button">Potions</button>
-        <button class="main-button">Ingredients</button>
+        <button class="main-button" id="potions-button">Potions</button>
+        <button class="main-button" id="ingredients-button">Ingredients</button>
       </section>
     </main>
 

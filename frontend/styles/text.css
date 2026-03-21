@@ -1,0 +1,13 @@
+.font-jersey {
+  font-family: "Jersey 15", Arial;
+}
+
+.text-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-big {
+  font-size: 4rem;
+}

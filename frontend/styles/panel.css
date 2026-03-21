@@ -9,6 +9,7 @@
 .panel-background {
   /* For the options section and results section */
   display: flex;
+  justify-content: center;
 
   flex: 1;
 
