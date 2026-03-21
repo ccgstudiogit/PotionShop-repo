@@ -1,60 +1,53 @@
-/* 
-  Type acts as an enum for the panel types.
-  EMPTY: empty panel letting the user know they should pick one of the available options.
-  POTIONS: the potions panel.
-  INGREDIENTS: the ingredients panel.
-*/
-export const Type = {
-  EMPTY: "empty",
-  POTIONS: "potions",
-  INGREDIENTS: "ingredients"
-};
-Object.freeze(Type);
-
-export function generatePanel(type) {
-  // Generate the background of the panel, then add that to the document
-  const background = generatePanelBackgroundHTML();
-  document.body.innerHTML += background;
-
-  if (type === Type.EMPTY) {
-    emptyPanel();
-  }
-  /*
-  const temp = document.getElementById("panel-template");
-  const clone = temp.content.cloneNode(true);
-  document.body.appendChild(clone);
-  */
+/**
+ * Create the panel background. A <section> element with the class 'panel' is created with an inner <div>
+ * containing the 'panel-background' class.
+ */
+export function createPanelBackground() {
+  const panelBackground = generatePanelBackgroundHTML();
+  document.body.appendChild(panelBackground);
 }
 
-/*
-  <div class="panel-options"></div>
-  <div class="panel-line"></div>
-  <div class="panel-results"></div>
-
-  <div class="text-centered">
-    <div class="font-jersey">Press an option above to view and edit data.</div>
-  </div>
-*/
-
+/**
+ * Generates the panel section with 'panel' class along with a div containing the 'panel-background' class.
+ * The HTML is generated via document.createElement().
+ */
 function generatePanelBackgroundHTML() {
-  const html = `
-    <section class="panel">
-      <div class="panel-background">
-        
-      </div>
-    </section>
-  `;
+  const section = document.createElement('section');
+  section.classList.add('panel');
 
-  return html;
+  const background = document.createElement('div');
+  background.classList.add('panel-background');
+
+  section.appendChild(background);
+  return section;
 }
 
-// An empty panel lets the user know to click one of the options above to view/edit data
-function emptyPanel() {
-  const displayEmpty = `
-    <div class="text-centered">
-      <div class="font-jersey text-big">Press an option above to view and edit data.</div>
-    </div>
-  `;
+/**
+ * An empty panel lets the user know to click one of the options above to view/edit data.
+ * 
+ * @param {string} message Can be used to override the given message that is already displayed.
+ */
+export function emptyPanel(message = null) {
+  clearPanel();
 
-  document.querySelector('.panel-background').innerHTML = displayEmpty;
+  const textContainer = document.createElement('div');
+  textContainer.classList.add('text-centered');
+
+  const text = document.createElement('p');
+  text.classList.add('font-jersey');
+  text.classList.add('text-big');
+  text.textContent = message === null ? "Press an option above to view and edit data." : message;
+
+  textContainer.append(text);
+
+  const background = document.querySelector('.panel-background');
+  background.appendChild(textContainer);
+}
+
+/**
+ * Clear the panel and reset to an empty background.
+ */
+export function clearPanel() {
+  const background = document.querySelector('.panel-background');
+  background.innerHTML = '';
 }
