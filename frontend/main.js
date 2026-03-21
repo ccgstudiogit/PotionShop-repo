@@ -12,7 +12,7 @@ function startApp() {
 
   const ingredientsButton = document.getElementById('ingredients-button');
   ingredientsButton.addEventListener('click', () => {
-    //panel.generatePanel(panel.Type.INGREDIENTS);
+    panel.showIngredientsPanel();
   });
 
   // Generate an empty panel to start off with. Once the user clicks one of the options, the panel for that option
