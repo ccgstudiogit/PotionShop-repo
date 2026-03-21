@@ -7,7 +7,7 @@ function startApp() {
 
   const potionsButton = document.getElementById('potions-button');
   potionsButton.addEventListener('click', () => {
-    //panel.generatePanel(panel.Type.POTIONS);
+    panel.showPotionsPanel();
   });
 
   const ingredientsButton = document.getElementById('ingredients-button');
@@ -17,5 +17,5 @@ function startApp() {
 
   // Generate an empty panel to start off with. Once the user clicks one of the options, the panel for that option
   // will be generated via panel.js
-  panel.emptyPanel();
+  panel.showEmptyPanel();
 }

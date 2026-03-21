@@ -1,3 +1,5 @@
+import * as elementFactory from '../utils/element-factory.js';
+
 /**
  * Create the panel background. A <section> element with the class 'panel' is created with an inner <div>
  * containing the 'panel-background' class.
@@ -10,13 +12,12 @@ export function createPanelBackground() {
 /**
  * Generates the panel section with 'panel' class along with a div containing the 'panel-background' class.
  * The HTML is generated via document.createElement().
+ * 
+ * @returns {HTMLElement} The newly created DOM element.
  */
 function generatePanelBackgroundHTML() {
-  const section = document.createElement('section');
-  section.classList.add('panel');
-
-  const background = document.createElement('div');
-  background.classList.add('panel-background');
+  const section = elementFactory.createElement('section', 'panel');
+  const background = elementFactory.createElement('div', 'panel-background');
 
   section.appendChild(background);
   return section;
@@ -27,18 +28,13 @@ function generatePanelBackgroundHTML() {
  * 
  * @param {string} message Can be used to override the given message that is already displayed.
  */
-export function emptyPanel(message = null) {
+export function showEmptyPanel(message = null) {
   clearPanel();
 
-  const textContainer = document.createElement('div');
-  textContainer.classList.add('text-centered');
-
-  const text = document.createElement('p');
-  text.classList.add('font-jersey');
-  text.classList.add('text-big');
+  const textContainer = elementFactory.createElement('div', 'text-centered');
+  const text = elementFactory.createElement('p', ['font-jersey', 'text-big']);
   text.textContent = message === null ? "Press an option above to view and edit data." : message;
-
-  textContainer.append(text);
+  textContainer.appendChild(text);
 
   const background = document.querySelector('.panel-background');
   background.appendChild(textContainer);
@@ -50,4 +46,27 @@ export function emptyPanel(message = null) {
 export function clearPanel() {
   const background = document.querySelector('.panel-background');
   background.innerHTML = '';
+}
+
+/**
+ * Clear the current panel and display the potions panel.
+ */
+export function showPotionsPanel() {
+  generatePanelSectionsHTML();
+}
+
+/**
+ * Clears the panel and then generates the options section, separator line, and the results section of the panel.
+ * 
+ * @returns {HTMLElement} The newly created DOM element.
+ */
+function generatePanelSectionsHTML() {
+  clearPanel();
+
+  const panel = document.querySelector('.panel-background');
+  elementFactory.createAndAppendElement('div', 'panel-options', panel);
+  elementFactory.createAndAppendElement('div', 'panel-line', panel);
+  elementFactory.createAndAppendElement('div', 'panel-results', panel);
+
+  return panel;
 }
