@@ -49,15 +49,15 @@ export function clearPanel() {
 }
 
 /**
- * Clears the panel and generates the three main structural sections: the options area, the separator line,
- * and the results area.
+ * Clears the panel and generates the three main structural sections: the options area, the separator line, and the
+ * results area.
  *
  * @returns {HTMLElement[]} An array containing:
  *   [0] the panel background element,
  *   [1] the options section element,
  *   [2] the results section element.
  */
-export function generatePanelSectionsHTML() {
+export function clearAndGenerateSections() {
   clearPanel();
 
   const panel = document.querySelector('.panel-background');
