@@ -49,22 +49,6 @@ export function clearPanel() {
 }
 
 /**
- * Clear the current panel and display the potions panel.
- */
-export function showPotionsPanel() {
-  generatePanelSectionsHTML();
-}
-
-/**
- * Clear the current panel and display the potions panel.
- */
-export function showIngredientsPanel() {
-  const [panel, options, results] = generatePanelSectionsHTML();
-  const text = elementFactory.createAndAppendElement('p', null, results);
-  text.textContent = "Hello World!";
-}
-
-/**
  * Clears the panel and generates the three main structural sections: the options area, the separator line,
  * and the results area.
  *
@@ -73,7 +57,7 @@ export function showIngredientsPanel() {
  *   [1] the options section element,
  *   [2] the results section element.
  */
-function generatePanelSectionsHTML() {
+export function generatePanelSectionsHTML() {
   clearPanel();
 
   const panel = document.querySelector('.panel-background');
