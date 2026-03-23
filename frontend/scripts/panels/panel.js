@@ -1,8 +1,8 @@
 import * as elementFactory from '../utils/element-factory.js';
 
 /**
- * Create the panel background. A <section> element with the class 'panel' is created with an inner <div>
- * containing the 'panel-background' class.
+ * Create the panel background. A <section> element with the class 'panel' is created with an inner <div> containing the
+ * 'panel-background' class.
  */
 export function createPanelBackground() {
   const panelBackground = generatePanelBackgroundHTML();
@@ -10,8 +10,8 @@ export function createPanelBackground() {
 }
 
 /**
- * Generates the panel section with 'panel' class along with a div containing the 'panel-background' class.
- * The HTML is generated via document.createElement().
+ * Generates the panel section with 'panel' class along with a div containing the 'panel-background' class. The HTML is
+ * generated via document.createElement().
  * 
  * @returns {HTMLElement} The newly created DOM element.
  */
@@ -32,7 +32,7 @@ export function showEmptyPanel(message = null) {
   clearPanel();
 
   const textContainer = elementFactory.createElement('div', 'text-centered');
-  const text = elementFactory.createElement('p', ['font-jersey', 'text-big']);
+  const text = elementFactory.createElement('p', ['font-jersey', 'text-big-static']);
   text.textContent = message === null ? "Press an option above to view and edit data." : message;
   textContainer.appendChild(text);
 
@@ -49,21 +49,33 @@ export function clearPanel() {
 }
 
 /**
- * Clears the panel and generates the three main structural sections: the options area, the separator line, and the
- * results area.
+ * Clears the panel and generates the three main structural sections: the options area, the separator line, and the results area.
  *
  * @returns {HTMLElement[]} An array containing:
- *   [0] the panel background element,
+ *   [0] the main panel element which contains both the options and results sections as children,
  *   [1] the options section element,
  *   [2] the results section element.
  */
 export function clearAndGenerateSections() {
   clearPanel();
 
-  const panel = document.querySelector('.panel-background');
-  const options = elementFactory.createAndAppendElement('div', 'panel-options', panel);
+  const background = document.querySelector('.panel-background');
+
+  // Handle creating the header which shows the "Options" and "Results" text at the top. This is the same regardless of the option picked
+  const header = elementFactory.createAndAppendElement('div', 'panel-header', background); 
+  const headerOptions = elementFactory.createAndAppendElement('div', ['panel-header-options', 'text-centered'], header);
+  const headerOptionsText = elementFactory.createAndAppendElement('p', ['font-jersey', 'text-big-dynamic'], headerOptions);
+  headerOptionsText.textContent = "Options";
+  elementFactory.createAndAppendElement('div', 'panel-line', header);
+  const headerResults = elementFactory.createAndAppendElement('div', ['panel-header-results', 'text-centered'], header);
+  const headerResultsText = elementFactory.createAndAppendElement('p', ['font-jersey', 'text-big-dynamic'], headerResults);
+  headerResultsText.textContent = "Results";
+
+  // Handle creating the main body of the panel which contains the options and results sections
+  const panel = elementFactory.createAndAppendElement('div', 'panel-content', background);
+  const options = elementFactory.createAndAppendElement('div', 'panel-content-options', panel);
   elementFactory.createAndAppendElement('div', 'panel-line', panel); // Separator line between options and results sections
-  const results = elementFactory.createAndAppendElement('div', 'panel-results', panel);
+  const results = elementFactory.createAndAppendElement('div', 'panel-content-results', panel);
 
   return [panel, options, results];
 }

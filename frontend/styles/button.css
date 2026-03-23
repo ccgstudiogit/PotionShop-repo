@@ -2,14 +2,20 @@ button {
   font-family: "Jersey 15";
 
   cursor: pointer;
-}
-
-.main-button {
-  font-size: clamp(1.5rem, 4.75vw, 3rem);
 
   border-style: solid;
   border-color: black;
   border-radius: 5px;
 
   padding: 5px 17px;
+}
+
+.main-button {
+  font-size: clamp(1.5rem, 4.75vw, 3rem);
+}
+
+.option-button {
+  font-size: clamp(1.2rem, 3.6vw, 2.5rem);
+
+  margin: 15px;
 }

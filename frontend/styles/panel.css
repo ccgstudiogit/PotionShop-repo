@@ -7,28 +7,62 @@
 }
 
 .panel-background {
-  /* For the options section and results section */
   display: flex;
+  flex-direction: column;
   justify-content: center;
 
   flex: 1;
 
   border-style: solid;
   border-color: black;
-  border-radius: 8px;
   border-width: 2px;
 
   background-color: rgb(182, 161, 255);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
-.panel-options {
-  flex: 1;
+/* panel-header share panel portion with panel-content. panel-header is on top, panel-content below which contains options/results */
+.panel-header {
+  flex: 0.5;
 
+  display: flex;
+
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+
+  margin: -2px; /* To make sure the border aligns with panel-background */
+
+  background-color: rgb(136, 118, 202);
 }
 
-.panel-results {
-  flex: 2.25;
+.panel-header-options {
+  flex: 1; /* Should be same as .panel-content-options flex */
+}
+
+.panel-header-results {
+  flex: 3.5; /* Should be same as .panel-content-results flex */
+}
+
+/* For the options section and results section */
+.panel-content {
+  flex: 3;
+
+  display: flex;
+  justify-content: center;
+}
+
+.panel-content-options {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.panel-content-results {
+  flex: 3.5;
 
 }
 

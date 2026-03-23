@@ -8,6 +8,10 @@
   align-items: center;
 }
 
-.text-big {
+.text-big-static {
   font-size: 3.5rem;
+}
+
+.text-big-dynamic {
+  font-size: clamp(1.2rem, 3.6vw, 2.5rem);
 }

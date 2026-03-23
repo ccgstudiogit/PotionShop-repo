@@ -6,12 +6,18 @@ import * as buttonFactory from '../utils/button-factory.js';
  */
 export function showPotionsPanel() {
   const [panel, options, results] = clearAndGenerateSections();
-  createOptions(options);
+  generateOptionsButtons(options);
 }
 
-function createOptions(optionsSection) {
-  buttonFactory.generateButton("Test", null, optionsSection, () => {console.log('clicked!')});
-  buttonFactory.generateButton("Meow", null, optionsSection, () => {console.log('clicked!')});
-  buttonFactory.generateButton("Woof", null, optionsSection, () => {console.log('clicked!')});
-  buttonFactory.generateButton("HELLO THERE. GENERAL KENOBI", null, optionsSection, () => {console.log('clicked!')});
+/**
+ * Generates the options buttons for the potions panel.
+ * 
+ * @param {HTMLElement} optionsSection The parent HTML element for the options section.
+ */
+function generateOptionsButtons(optionsSection) {
+  // optionsSection is the parent html element
+  buttonFactory.generateButton("Get Potions", 'option-button', optionsSection, () => {console.log('clicked!')});
+  buttonFactory.generateButton("Add Potion", 'option-button', optionsSection, () => {console.log('clicked!')});
+  buttonFactory.generateButton("Search", 'option-button', optionsSection, () => {console.log('clicked!')});
+  buttonFactory.generateButton("Extra Button", 'option-button', optionsSection, () => {console.log('clicked!')});
 }
