@@ -75,7 +75,7 @@ export function clearAndGenerateSections() {
   const panel = elementFactory.createAndAppendElement('div', 'panel-content', background);
   const options = elementFactory.createAndAppendElement('div', 'panel-content-options', panel);
   elementFactory.createAndAppendElement('div', 'panel-line', panel); // Separator line between options and results sections
-  const results = elementFactory.createAndAppendElement('div', 'panel-content-results', panel);
+  const results = elementFactory.createAndAppendElement('div', ['panel-content-results', 'scrollable'], panel);
 
   return [panel, options, results];
 }

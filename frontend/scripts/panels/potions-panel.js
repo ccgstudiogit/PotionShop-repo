@@ -1,5 +1,6 @@
 import { clearAndGenerateSections } from "./panel.js";
 import * as buttonFactory from '../utils/button-factory.js';
+import * as elementFactory from '../utils/element-factory.js';
 
 /**
  * Clear the current panel and display the potions panel.
@@ -7,6 +8,7 @@ import * as buttonFactory from '../utils/button-factory.js';
 export function showPotionsPanel() {
   const [panel, options, results] = clearAndGenerateSections();
   generateOptionsButtons(options);
+  testResults(results);
 }
 
 /**
@@ -15,9 +17,27 @@ export function showPotionsPanel() {
  * @param {HTMLElement} optionsSection The parent HTML element for the options section.
  */
 function generateOptionsButtons(optionsSection) {
-  // optionsSection is the parent html element
   buttonFactory.generateButton("Get Potions", 'option-button', optionsSection, () => {console.log('clicked!')});
   buttonFactory.generateButton("Add Potion", 'option-button', optionsSection, () => {console.log('clicked!')});
   buttonFactory.generateButton("Search", 'option-button', optionsSection, () => {console.log('clicked!')});
   buttonFactory.generateButton("Extra Button", 'option-button', optionsSection, () => {console.log('clicked!')});
+}
+
+function testResults(resultsSection) {
+  const div1 = elementFactory.createAndAppendElement('div', 'result-item', resultsSection);
+  div1.textContent = "Test Potion";
+  const div2 = elementFactory.createAndAppendElement('div', 'result-item', resultsSection);
+  div2.textContent = "Another Potion";
+  const div3 = elementFactory.createAndAppendElement('div', 'result-item', resultsSection);
+  div3.textContent = "Yet Another Potion";
+  const div4 = elementFactory.createAndAppendElement('div', 'result-item', resultsSection);
+  div4.textContent = "Final Potion"
+  
+  const div5 = elementFactory.createAndAppendElement('div', 'result-item', resultsSection);
+  div5.textContent = "Last Potion";
+  const div6 = elementFactory.createAndAppendElement('div', 'result-item', resultsSection);
+  div6.textContent = "One More Potion";
+  const div7 = elementFactory.createAndAppendElement('div', 'result-item', resultsSection);
+  div7.textContent = "Potion Potion";
+  
 }

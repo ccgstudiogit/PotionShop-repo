@@ -1,0 +1,13 @@
+/* Result items such as potions and ingredients */
+.result-item {
+  flex: 1;
+
+  margin-bottom: 5px;
+
+  background-color: black;
+  color: white;
+
+  height: 150px;
+  min-height: 149px;
+  max-height: 151px;
+}
