@@ -9,7 +9,7 @@ import * as elementFactory from './element-factory.js';
  * @param {Function} onClick - The function to call when the button is clicked.
  * @returns {HTMLButtonElement} The created button element.
  */
-export function generateButton(label, classes, parent, onClick) {
+export function createAndAppendButton(label, classes, parent, onClick) {
   const button = elementFactory.createAndAppendElement('button', classes, parent);
   button.textContent = label;
   button.addEventListener('click', onClick);
