@@ -1,6 +1,7 @@
 import { clearAndGenerateSections } from "./panel.js";
 import * as buttonFactory from '../utils/button-factory.js';
 import * as elementFactory from '../utils/element-factory.js';
+import * as potionActions from '../actions/potion-actions.js';
 
 /**
  * Clear the current panel and display the potions panel.
@@ -8,7 +9,7 @@ import * as elementFactory from '../utils/element-factory.js';
 export function showPotionsPanel() {
   const [panel, options, results] = clearAndGenerateSections();
   generateOptionsButtons(options);
-  testResults(results);
+  //testResults(results);
 }
 
 /**
@@ -17,7 +18,10 @@ export function showPotionsPanel() {
  * @param {HTMLElement} optionsSection The parent HTML element for the options section.
  */
 function generateOptionsButtons(optionsSection) {
-  buttonFactory.createAndAppendButton('Get Potions', 'option-button', optionsSection, () => {console.log('clicked!')});
+  buttonFactory.createAndAppendButton('Get Potions', 'option-button', optionsSection, () => {
+    potionActions.getAllPotions();
+  });
+  
   buttonFactory.createAndAppendButton('Add Potion', 'option-button', optionsSection, () => {console.log('clicked!')});
   buttonFactory.createAndAppendButton('Search', 'option-button', optionsSection, () => {console.log('clicked!')});
   buttonFactory.createAndAppendButton('Extra Button', 'option-button', optionsSection, () => {console.log('clicked!')});
