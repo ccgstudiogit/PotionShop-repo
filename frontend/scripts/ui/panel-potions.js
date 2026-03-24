@@ -17,10 +17,10 @@ export function showPotionsPanel() {
  * @param {HTMLElement} optionsSection The parent HTML element for the options section.
  */
 function generateOptionsButtons(optionsSection) {
-  buttonFactory.createAndAppendButton("Get Potions", 'option-button', optionsSection, () => {console.log('clicked!')});
-  buttonFactory.createAndAppendButton("Add Potion", 'option-button', optionsSection, () => {console.log('clicked!')});
-  buttonFactory.createAndAppendButton("Search", 'option-button', optionsSection, () => {console.log('clicked!')});
-  buttonFactory.createAndAppendButton("Extra Button", 'option-button', optionsSection, () => {console.log('clicked!')});
+  buttonFactory.createAndAppendButton('Get Potions', 'option-button', optionsSection, () => {console.log('clicked!')});
+  buttonFactory.createAndAppendButton('Add Potion', 'option-button', optionsSection, () => {console.log('clicked!')});
+  buttonFactory.createAndAppendButton('Search', 'option-button', optionsSection, () => {console.log('clicked!')});
+  buttonFactory.createAndAppendButton('Extra Button', 'option-button', optionsSection, () => {console.log('clicked!')});
 }
 
 function testResults(resultsSection) {
