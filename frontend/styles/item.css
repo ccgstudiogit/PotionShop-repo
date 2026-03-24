@@ -3,12 +3,18 @@
   flex: 1;
 
   display: flex;
-
-  height: 150px;
-  min-height: 149px;
-  max-height: 151px;
+  flex-direction: column;
 
   margin-bottom: 5px;
+}
+
+/* Container for the display area within each item (for the image and info) */
+.item-display {
+  flex: 1;
+
+  min-height: 150px;
+
+  display: flex;
 }
 
 .item-image {
@@ -23,6 +29,14 @@
   /* Flex is shared with .item-image */
   flex: 7;
 
+  display: flex;
+
   background-color: black;
   color: white;
+}
+
+/* Can be used for additional item content (like the ingredient list under each potion) */
+.item-extra {
+  height: 50px;
+  background-color: green;
 }
