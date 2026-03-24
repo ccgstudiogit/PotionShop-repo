@@ -8,6 +8,9 @@ import * as potionActions from '../actions/potion-actions.js';
  */
 export function showPotionsPanel() {
   const [panel, options, results] = clearAndGenerateSections();
+
+  // results section is passed in as an argument to the functions that generate the options buttons so that when the buttons are clicked,
+  // the buttons can manipulate the results section to display the output of the respective button's function
   generateAndLinkOptionsButtons(options, results);
 }
 
@@ -33,10 +36,13 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
  * @param {HTMLElement} resultsSection The parent HTML element for the results section.
  */
 async function displayAllPotions(resultsSection) {
+  // Clear the results section before displaying the new results
+  resultsSection.innerHTML = '';
+
   // Fetch the potions from the backend via the actions layer, which calls the API layer
   const potions = await potionActions.getAllPotions();
 
-  if (potions !== undefined && Array.isArray(potions)) {
+  if (potions) {
     potions.forEach(potion => {
       const div = elementFactory.createAndAppendElement('div', 'result-item', resultsSection);
       div.textContent = potion.name;
