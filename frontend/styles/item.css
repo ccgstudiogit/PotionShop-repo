@@ -1,13 +1,28 @@
-/* Result items such as potions and ingredients */
-.result-item {
+/* Container for items like potions and ingredients */
+.item {
   flex: 1;
 
-  margin-bottom: 5px;
-
-  background-color: black;
-  color: white;
+  display: flex;
 
   height: 150px;
   min-height: 149px;
   max-height: 151px;
+
+  margin-bottom: 5px;
+}
+
+.item-image {
+  /* Flex is shared with .item-info */
+  flex: 1;
+
+  background-color: red;
+  min-width: 50px;
+}
+
+.item-info {
+  /* Flex is shared with .item-image */
+  flex: 7;
+
+  background-color: black;
+  color: white;
 }

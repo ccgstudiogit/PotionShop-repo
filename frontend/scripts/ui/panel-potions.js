@@ -44,8 +44,10 @@ async function displayAllPotions(resultsSection) {
 
   if (potions) {
     potions.forEach(potion => {
-      const div = elementFactory.createAndAppendElement('div', 'result-item', resultsSection);
-      div.textContent = potion.name;
+      const container = elementFactory.createAndAppendElement('div', 'item', resultsSection);
+      const image = elementFactory.createAndAppendElement('div', 'item-image', container);
+      const info = elementFactory.createAndAppendElement('div', 'item-info', container);
+      info.textContent = potion.name;
     });
   }
 }
