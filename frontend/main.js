@@ -1,6 +1,6 @@
-import * as panel from './scripts/panels/panel.js';
-import { showPotionsPanel } from './scripts/panels/potions-panel.js';
-import { showIngredientsPanel } from './scripts/panels/ingredients-panel.js';
+import * as panel from './scripts/ui/panel.js';
+import { showPotionsPanel } from './scripts/ui/panel-potions.js';
+import { showIngredientsPanel } from './scripts/ui/panel-ingredients.js';
 
 startApp();
 
