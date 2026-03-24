@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**") // Apply CORS to all endpoints
             .allowedOrigins("*") // Allow all origins (can be specific urls instead)
             .allowedMethods("*") // Allow all methods (can be replaced with "GET", "PUT", etc.)
-            .allowedHeaders("*") // Allow all headers
+            .allowedHeaders("*") // Allow all headers (needed for things like JSON requests, custom metadata, etc.)
             .maxAge(3600); // Cache preflight response for 1 hour
     }
 }

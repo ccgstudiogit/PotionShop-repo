@@ -1,6 +1,11 @@
+/**
+ * Fetches all potions from the backend API.
+ * 
+ * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions.
+ */
 export async function fetchAllPotions() {
   try {
-    const response = await fetch('http://localhost:8080/potions');
+    const response = await fetch('http://localhost:8080/potions', { method: 'GET' });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
