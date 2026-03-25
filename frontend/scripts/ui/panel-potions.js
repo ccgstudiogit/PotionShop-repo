@@ -44,12 +44,25 @@ async function displayAllPotions(resultsSection) {
 
   if (potions) {
     potions.forEach(potion => {
+      // The parent containers
       const parentContainer = elementFactory.createAndAppendElement('div', 'item', resultsSection);
       const displayContainer = elementFactory.createAndAppendElement('div', 'item-display', parentContainer);
+
+      // For displaying a potion's ingredients
       const extra = elementFactory.createAndAppendElement('div', 'item-extra', parentContainer);
+
+      // Potion image
       const image = elementFactory.createAndAppendElement('div', 'item-image', displayContainer);
-      const info = elementFactory.createAndAppendElement('div', 'item-info', displayContainer);
-      info.textContent = potion.name;
+      
+      // Potion info, including name, type, effect, etc.
+      const infoContainer = elementFactory.createAndAppendElement('div', 'item-info', displayContainer);
+      const infoHeader = elementFactory.createAndAppendElement('p', 'item-info-header', infoContainer);
+      const infoName = elementFactory.createAndAppendElement('p', ['potion-name', 'font-jersey'], infoHeader);
+      infoName.textContent = potion.name;
+      const infoType = elementFactory.createAndAppendElement('p', ['potion-type', 'font-jersey'], infoHeader);
+      infoType.textContent = potion.type;
+      const infoBody = elementFactory.createAndAppendElement('p', 'item-info-body', infoContainer);
+      infoBody.textContent = potion.effect;
     });
   }
 }

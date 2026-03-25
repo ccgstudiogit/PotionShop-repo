@@ -30,13 +30,43 @@
   flex: 7;
 
   display: flex;
+  flex-direction: column;
 
   background-color: black;
   color: white;
+}
+
+/* Header can contain additional information (for potions, it's name and type) */
+.item-info-header {
+  flex: 1;
+
+  display: flex;
+  align-items: start;
+
+  margin-top: 0px;
+}
+
+.item-info-body {
+  flex: 1;
 }
 
 /* Can be used for additional item content (like the ingredient list under each potion) */
 .item-extra {
   height: 50px;
   background-color: green;
+}
+
+.potion-name {
+  margin-top: 0px;
+  margin-right: 30px;
+
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.potion-type {
+  margin-top: 0px;
+
+  font-style: italic;
+  font-size: 3rem;
 }
