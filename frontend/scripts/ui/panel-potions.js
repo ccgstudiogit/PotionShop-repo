@@ -52,8 +52,9 @@ async function displayAllPotions(resultsSection) {
       const extra = elementFactory.createAndAppendElement('div', 'item-extra', parentContainer);
 
       // Potion image
-      const image = elementFactory.createAndAppendElement('div', 'item-image', displayContainer);
-      
+      const image = elementFactory.createAndAppendElement('img', 'item-image', displayContainer);
+      image.src = '../icons/test-icon.png';
+
       // Potion info, including name, type, effect, etc.
       const infoContainer = elementFactory.createAndAppendElement('div', 'item-info', displayContainer);
       const infoHeader = elementFactory.createAndAppendElement('p', 'item-info-header', infoContainer);
