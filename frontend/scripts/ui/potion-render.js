@@ -4,9 +4,6 @@ export function renderPotion(potion) {
   const potionElement = elementFactory.createElement('div', 'item');
   const displayContainer = elementFactory.createAndAppendElement('div', 'item-display', potionElement);
 
-  // For displaying a potion's ingredients
-  const underneathContainer = elementFactory.createAndAppendElement('div', 'item-underneath-container', potionElement);
-
   // Potion image
   const image = elementFactory.createAndAppendElement('img', 'item-icon', displayContainer);
   image.src = '../icons/test-icon.png';
@@ -30,6 +27,12 @@ export function renderPotion(potion) {
   const infoBody = elementFactory.createAndAppendElement('div', 'item-info-body', infoContainer);
   const potionEffect = elementFactory.createAndAppendElement('p', ['potion-effect', 'font-jersey'], infoBody);
   potionEffect.textContent = potion.effect;
+
+  // For displaying a potion's ingredients
+  const ingredientsContainer = elementFactory.createAndAppendElement('div', 'item-underneath-container', potionElement);
+  const ingredientsButtonContainer = elementFactory.createAndAppendElement('div', 'potion-ingredients-button-container', ingredientsContainer);
+  const ingredientsButton = elementFactory.createAndAppendElement('button', 'potion-ingredients-button', ingredientsButtonContainer);
+  ingredientsButton.textContent = 'Show Ingredients (+)';
 
   return potionElement;
 }

@@ -9,7 +9,7 @@
 
   border-style: solid;
   border-color: black;
-  border-width: 1px;
+  border-width: 2px;
 }
 
 /* Container for the display area within each item (for the image and info) */
@@ -35,7 +35,7 @@
 
   border-style: solid;
   border-color: black;
-  border-width: 3px 2px 3px 2px;
+  border-width: 2px 2px 3px 0px;
 }
 
 .item-info {
@@ -57,7 +57,7 @@
 
   border-style: solid;
   border-color: black;
-  border-width: 2px 1px 2px 1px;
+  border-width: 1px 0px 2px 1px;
 }
 
 .item-info-body {
@@ -65,13 +65,12 @@
 
   border-style: solid;
   border-color: black;
-  border-width: 1px 1px 3px 1px;
+  border-width: 1px 0px 3px 1px;
 }
 
 /* Can be used for additional item content (like the ingredient list under each potion) */
 .item-underneath-container {
-  height: 50px;
-  background-color: green;
+  background-color: rgb(119, 134, 182);
 }
 
 .potion-name {
@@ -118,4 +117,19 @@
   font-size: 2rem;
 
   padding-left: 8px;
+}
+
+.potion-ingredients-button-container {
+  display: flex;
+}
+
+.potion-ingredients-button {
+  margin: -3px 0px 0px 10px;
+  padding: 0px;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  border-style: none;
+
+  font-size: 1.25rem;
 }
