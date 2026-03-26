@@ -60,19 +60,20 @@ async function displayAllPotions(resultsSection) {
 
       // Potion name, type, and cost
       const infoHeader = elementFactory.createAndAppendElement('p', 'item-info-header', infoContainer);
-      const infoName = elementFactory.createAndAppendElement('p', ['potion-name', 'font-jersey'], infoHeader);
-      infoName.textContent = potion.name;
-      const infoType = elementFactory.createAndAppendElement('p', ['potion-type', 'font-jersey'], infoHeader);
-      infoType.textContent = potion.type;
+      const potionName = elementFactory.createAndAppendElement('p', ['potion-name', 'font-jersey'], infoHeader);
+      potionName.textContent = potion.name;
+      const potionType = elementFactory.createAndAppendElement('p', ['potion-type', 'font-jersey'], infoHeader);
+      potionType.textContent = potion.type;
       const infoPriceContainer = elementFactory.createAndAppendElement('div', 'potion-price-container', infoHeader);
       const infoPriceIcon = elementFactory.createAndAppendElement('img', 'potion-price-icon', infoPriceContainer);
       infoPriceIcon.src = '../icons/coin-icon.png';
-      const infoPrice = elementFactory.createAndAppendElement('p', ['potion-price', 'font-jersey'], infoPriceContainer);
-      infoPrice.textContent = potion.price;
+      const potionPrice = elementFactory.createAndAppendElement('p', ['potion-price', 'font-jersey'], infoPriceContainer);
+      potionPrice.textContent = potion.price;
 
       // Potion effect
-      const infoBody = elementFactory.createAndAppendElement('p', 'item-info-body', infoContainer);
-      infoBody.textContent = potion.effect;
+      const infoBody = elementFactory.createAndAppendElement('div', 'item-info-body', infoContainer);
+      const potionEffect = elementFactory.createAndAppendElement('p', ['potion-effect', 'font-jersey'], infoBody);
+      potionEffect.textContent = potion.effect;
     });
   }
 }
