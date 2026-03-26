@@ -6,7 +6,7 @@ export function renderPotion(potion) {
 
   // Potion image
   const image = elementFactory.createAndAppendElement('img', 'item-icon', displayContainer);
-  image.src = '../icons/test-icon.png';
+  image.src = '../icons/potion-icon.png';
 
   // Potion info, including name, type, effect, etc.
   const infoContainer = elementFactory.createAndAppendElement('div', 'item-info', displayContainer);
