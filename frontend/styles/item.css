@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
 
-  margin: -1px -1px 5px -1px;
+  margin: -2px -1px 5px -1px;
 
   border-style: solid;
   border-color: black;
@@ -35,7 +35,7 @@
 
   border-style: solid;
   border-color: black;
-  border-width: 2px 2px 3px 2px;
+  border-width: 3px 2px 3px 2px;
 }
 
 .item-info {
@@ -57,7 +57,7 @@
 
   border-style: solid;
   border-color: black;
-  border-width: 1px 1px 2px 1px;
+  border-width: 2px 1px 2px 1px;
 }
 
 .item-info-body {
@@ -69,7 +69,7 @@
 }
 
 /* Can be used for additional item content (like the ingredient list under each potion) */
-.item-extra {
+.item-underneath-container {
   height: 50px;
   background-color: green;
 }

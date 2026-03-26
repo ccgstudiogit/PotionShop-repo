@@ -2,6 +2,7 @@ import { clearAndGenerateSections } from "./panel.js";
 import * as buttonFactory from '../utils/button-factory.js';
 import * as elementFactory from '../utils/element-factory.js';
 import * as potionActions from '../actions/potion-actions.js';
+import * as potionRenderer from './potion-render.js';
 
 /**
  * Clear the current panel and display the potions panel.
@@ -9,7 +10,7 @@ import * as potionActions from '../actions/potion-actions.js';
 export function showPotionsPanel() {
   const [panel, options, results] = clearAndGenerateSections();
 
-  // results section is passed in as an argument to the functions that generate the options buttons so that when the buttons are clicked,
+  // Results section is passed in as an argument to the functions that generate the options buttons so that when the buttons are clicked,
   // the buttons can manipulate the results section to display the output of the respective button's function
   generateAndLinkOptionsButtons(options, results);
 }
@@ -44,36 +45,8 @@ async function displayAllPotions(resultsSection) {
 
   if (potions) {
     potions.forEach(potion => {
-      // The parent containers
-      const parentContainer = elementFactory.createAndAppendElement('div', 'item', resultsSection);
-      const displayContainer = elementFactory.createAndAppendElement('div', 'item-display', parentContainer);
-
-      // For displaying a potion's ingredients
-      const extra = elementFactory.createAndAppendElement('div', 'item-extra', parentContainer);
-
-      // Potion image
-      const image = elementFactory.createAndAppendElement('img', 'item-icon', displayContainer);
-      image.src = '../icons/test-icon.png';
-
-      // Potion info, including name, type, effect, etc.
-      const infoContainer = elementFactory.createAndAppendElement('div', 'item-info', displayContainer);
-
-      // Potion name, type, and cost
-      const infoHeader = elementFactory.createAndAppendElement('p', 'item-info-header', infoContainer);
-      const potionName = elementFactory.createAndAppendElement('p', ['potion-name', 'font-jersey'], infoHeader);
-      potionName.textContent = potion.name;
-      const potionType = elementFactory.createAndAppendElement('p', ['potion-type', 'font-jersey'], infoHeader);
-      potionType.textContent = potion.type;
-      const infoPriceContainer = elementFactory.createAndAppendElement('div', 'potion-price-container', infoHeader);
-      const infoPriceIcon = elementFactory.createAndAppendElement('img', 'potion-price-icon', infoPriceContainer);
-      infoPriceIcon.src = '../icons/coin-icon.png';
-      const potionPrice = elementFactory.createAndAppendElement('p', ['potion-price', 'font-jersey'], infoPriceContainer);
-      potionPrice.textContent = potion.price;
-
-      // Potion effect
-      const infoBody = elementFactory.createAndAppendElement('div', 'item-info-body', infoContainer);
-      const potionEffect = elementFactory.createAndAppendElement('p', ['potion-effect', 'font-jersey'], infoBody);
-      potionEffect.textContent = potion.effect;
+      const potionElement = potionRenderer.renderPotion(potion);
+      resultsSection.appendChild(potionElement);
     });
   }
 }
