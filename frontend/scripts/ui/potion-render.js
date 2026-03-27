@@ -2,17 +2,17 @@ import * as elementFactory from '../utils/element-factory.js';
 
 export function renderPotion(potion) {
   const potionElement = elementFactory.createElement('div', 'item');
-  const displayContainer = elementFactory.createAndAppendElement('div', 'item-display', potionElement);
+  const displayContainer = elementFactory.createAndAppendElement('div', 'potion-display', potionElement);
 
   // Potion image
-  const image = elementFactory.createAndAppendElement('img', 'item-icon', displayContainer);
+  const image = elementFactory.createAndAppendElement('img', 'potion-icon', displayContainer);
   image.src = '../icons/potion-icon.png';
 
   // Potion info, including name, type, effect, etc.
-  const infoContainer = elementFactory.createAndAppendElement('div', 'item-info', displayContainer);
+  const infoContainer = elementFactory.createAndAppendElement('div', 'potion-info', displayContainer);
 
   // Potion name, type, and cost
-  const infoHeader = elementFactory.createAndAppendElement('p', 'item-info-header', infoContainer);
+  const infoHeader = elementFactory.createAndAppendElement('div', 'potion-info-header', infoContainer);
   const potionName = elementFactory.createAndAppendElement('p', ['potion-name', 'font-jersey'], infoHeader);
   potionName.textContent = potion.name;
   const potionType = elementFactory.createAndAppendElement('p', ['potion-type', 'font-jersey'], infoHeader);
@@ -24,12 +24,12 @@ export function renderPotion(potion) {
   potionPrice.textContent = potion.price;
 
   // Potion effect
-  const infoBody = elementFactory.createAndAppendElement('div', 'item-info-body', infoContainer);
+  const infoBody = elementFactory.createAndAppendElement('div', 'potion-info-body', infoContainer);
   const potionEffect = elementFactory.createAndAppendElement('p', ['potion-effect', 'font-jersey'], infoBody);
   potionEffect.textContent = potion.effect;
 
   // For displaying a potion's ingredients
-  const ingredientsContainer = elementFactory.createAndAppendElement('div', 'item-underneath-container', potionElement);
+  const ingredientsContainer = elementFactory.createAndAppendElement('div', 'potion-ingredients-container', potionElement);
   const ingredientsButtonContainer = elementFactory.createAndAppendElement('div', 'potion-ingredients-button-container', ingredientsContainer);
   const ingredientsButton = elementFactory.createAndAppendElement('button', 'potion-ingredients-button', ingredientsButtonContainer);
   ingredientsButton.textContent = 'Show Ingredients (+)';

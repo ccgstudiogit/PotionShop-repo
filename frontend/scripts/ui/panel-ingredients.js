@@ -2,6 +2,7 @@ import { clearAndGenerateSections } from "./panel.js";
 import * as buttonFactory from '../utils/button-factory.js';
 import * as elementFactory from '../utils/element-factory.js';
 import * as ingredientActions from '../actions/ingredient-actions.js';
+import * as ingredientRenderer from './ingredient-render.js';
 
 /**
  * Clear the current panel and display the ingredients panel.
@@ -40,13 +41,15 @@ async function displayAllIngredients(resultsSection) {
 
   if (ingredients) {
     ingredients.forEach(ingredient => {
+      /*
       const ingredientElement = elementFactory.createElement('div', 'item');
       const displayContainer = elementFactory.createAndAppendElement('div', 'item-display', ingredientElement);
       const ingredientName = elementFactory.createAndAppendElement('p', ['ingredient-name', 'font-jersey'], displayContainer);
       ingredientName.textContent = ingredient.name;
       resultsSection.appendChild(ingredientElement);
-      //const ingredientElement = ingredientRenderer.renderIngredient(ingredient);
-      //resultsSection.appendChild(ingredientElement);
+      */
+      const ingredientElement = ingredientRenderer.renderIngredient(ingredient);
+      resultsSection.appendChild(ingredientElement);
     });
   }
 }
