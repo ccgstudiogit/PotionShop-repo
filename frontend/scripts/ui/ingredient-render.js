@@ -14,7 +14,6 @@ export function renderIngredient(ingredient) {
   ingredientName.textContent = ingredient.name;
   const ingredientRarity = elementFactory.createAndAppendElement('p', ['ingredient-rarity', 'font-jersey'], infoContainer);
   ingredientRarity.textContent = ingredient.rarity;
-  console.log(ingredient);
 
   return ingredientElement;
 }

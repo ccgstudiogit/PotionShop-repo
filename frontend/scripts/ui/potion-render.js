@@ -1,4 +1,5 @@
 import * as elementFactory from '../utils/element-factory.js';
+import * as ingredientRenderer from './ingredient-render.js';
 
 export function renderPotion(potion) {
   const potionElement = elementFactory.createElement('div', 'item');
@@ -30,9 +31,28 @@ export function renderPotion(potion) {
 
   // For displaying a potion's ingredients
   const ingredientsContainer = elementFactory.createAndAppendElement('div', 'potion-ingredients-container', potionElement);
+
   const ingredientsButtonContainer = elementFactory.createAndAppendElement('div', 'potion-ingredients-button-container', ingredientsContainer);
   const ingredientsButton = elementFactory.createAndAppendElement('button', 'potion-ingredients-button', ingredientsButtonContainer);
   ingredientsButton.textContent = 'Show Ingredients (+)';
+
+  const ingredient1 = {
+    id: 1,
+    name: 'Appleseed',
+    rarity: 'Common'
+  }
+
+  const ingredient2 = {
+    id: 2,
+    name: 'Dragon Scale',
+    rarity: 'Rare'
+  }
+
+  const ingredient1Rendered = ingredientRenderer.renderIngredient(ingredient1);
+  const ingredient2Rendered = ingredientRenderer.renderIngredient(ingredient2);
+
+  ingredientsContainer.appendChild(ingredient1Rendered);
+  ingredientsContainer.appendChild(ingredient2Rendered);
 
   return potionElement;
 }
