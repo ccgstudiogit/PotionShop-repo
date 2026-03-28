@@ -37,6 +37,12 @@
 }
 
 .ingredient-rarity {
+  margin-right: 30px;
+  
   font-style: italic;
+  font-size: 2.5rem;
+}
+
+.ingredient-quantity {
   font-size: 2.5rem;
 }

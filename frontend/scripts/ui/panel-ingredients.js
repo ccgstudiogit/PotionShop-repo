@@ -41,8 +41,8 @@ async function displayAllIngredients(resultsSection) {
 
   if (ingredients) {
     ingredients.forEach(ingredient => {
-      const ingredientElement = ingredientRenderer.renderIngredient(ingredient);
-      resultsSection.appendChild(ingredientElement);
+      const ingredientObject = ingredientRenderer.renderIngredient(ingredient);
+      resultsSection.appendChild(ingredientObject.root);
     });
   }
 }
