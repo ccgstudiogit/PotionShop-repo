@@ -1,7 +1,14 @@
 import * as elementFactory from '../utils/element-factory.js';
+import * as potionActions from '../actions/potion-actions.js';
 import * as ingredientRenderer from './ingredient-render.js';
 
-export function renderPotion(potion) {
+/**
+ * Renders a potion element in the DOM.
+ * 
+ * @param {Object} potion - The potion object to render (as JSON).
+ * @returns {HTMLElement} The rendered potion element.
+ */
+export async function renderPotion(potion) {
   const potionElement = elementFactory.createElement('div', 'item');
   const displayContainer = elementFactory.createAndAppendElement('div', 'potion-display', potionElement);
 
@@ -35,24 +42,20 @@ export function renderPotion(potion) {
   const ingredientsButtonContainer = elementFactory.createAndAppendElement('div', 'potion-ingredients-button-container', ingredientsContainer);
   const ingredientsButton = elementFactory.createAndAppendElement('button', 'potion-ingredients-button', ingredientsButtonContainer);
   ingredientsButton.textContent = 'Show Ingredients (+)';
+  ingredientsButton.addEventListener('click', () => {
+    ingredientsButton.textContent = ingredientsButton.textContent.includes('Show') ? 'Hide Ingredients (-)' : 'Show Ingredients (+)';
+  });
 
-  const ingredient1 = {
-    id: 1,
-    name: 'Appleseed',
-    rarity: 'Common'
-  }
-
-  const ingredient2 = {
-    id: 2,
-    name: 'Dragon Scale',
-    rarity: 'Rare'
-  }
-
-  const ingredient1Rendered = ingredientRenderer.renderIngredient(ingredient1);
-  const ingredient2Rendered = ingredientRenderer.renderIngredient(ingredient2);
-
-  ingredientsContainer.appendChild(ingredient1Rendered);
-  ingredientsContainer.appendChild(ingredient2Rendered);
+  // Get the ingredients for this potion and add them to the DOM, initially hidden until the button is clicked to show them
+  const ingredients = await potionActions.getIngredientsByPotionId(potion.id);
+  ingredients.forEach((ingredient) => {
+    const renderedIngredient = ingredientRenderer.renderIngredient(ingredient);
+    ingredientsContainer.appendChild(renderedIngredient);
+    renderedIngredient.style.display = 'none';
+    ingredientsButton.addEventListener('click', () => {
+      renderedIngredient.style.display = renderedIngredient.style.display !== 'none' ? 'none' : 'flex';
+    });
+  });
 
   return potionElement;
 }

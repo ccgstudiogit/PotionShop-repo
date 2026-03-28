@@ -41,13 +41,6 @@ async function displayAllIngredients(resultsSection) {
 
   if (ingredients) {
     ingredients.forEach(ingredient => {
-      /*
-      const ingredientElement = elementFactory.createElement('div', 'item');
-      const displayContainer = elementFactory.createAndAppendElement('div', 'item-display', ingredientElement);
-      const ingredientName = elementFactory.createAndAppendElement('p', ['ingredient-name', 'font-jersey'], displayContainer);
-      ingredientName.textContent = ingredient.name;
-      resultsSection.appendChild(ingredientElement);
-      */
       const ingredientElement = ingredientRenderer.renderIngredient(ingredient);
       resultsSection.appendChild(ingredientElement);
     });

@@ -1,5 +1,11 @@
 import * as elementFactory from '../utils/element-factory.js';
 
+/**
+ * Renders an ingredient element in the DOM.
+ * 
+ * @param {Object} ingredient - The ingredient object to render (as JSON).
+ * @returns {HTMLElement} The rendered ingredient element.
+ */
 export function renderIngredient(ingredient) {
   const ingredientElement = elementFactory.createElement('div', 'item');
   const displayContainer = elementFactory.createAndAppendElement('div', 'ingredient-display', ingredientElement);

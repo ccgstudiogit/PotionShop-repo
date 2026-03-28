@@ -44,8 +44,8 @@ async function displayAllPotions(resultsSection) {
   const potions = await potionActions.getAllPotions();
 
   if (potions) {
-    potions.forEach(potion => {
-      const potionElement = potionRenderer.renderPotion(potion);
+    potions.forEach(async potion => {
+      const potionElement = await potionRenderer.renderPotion(potion);
       resultsSection.appendChild(potionElement);
     });
   }
