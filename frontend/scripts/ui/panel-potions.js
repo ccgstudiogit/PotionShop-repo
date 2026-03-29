@@ -25,10 +25,6 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
   buttonFactory.createAndAppendButton('Get Potions', 'option-button', optionsSection, () => {
     displayAllPotions(resultsSection);
   });
-
-  buttonFactory.createAndAppendButton('Add Potion', 'option-button', optionsSection, () => {console.log('clicked!')});
-  buttonFactory.createAndAppendButton('Search', 'option-button', optionsSection, () => {console.log('clicked!')});
-  buttonFactory.createAndAppendButton('Extra Button', 'option-button', optionsSection, () => {console.log('clicked!')});
 }
 
 /**

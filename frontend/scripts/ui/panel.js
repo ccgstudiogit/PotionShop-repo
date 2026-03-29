@@ -77,5 +77,10 @@ export function clearAndGenerateSections() {
   elementFactory.createAndAppendElement('div', 'panel-line', panel); // Separator line between options and results sections
   const results = elementFactory.createAndAppendElement('div', ['panel-content-results', 'scrollable'], panel);
 
+  // Handle creating the default message in the results section before any buttons are clicked
+  const emptyResultsMessageContainer = elementFactory.createAndAppendElement('div', 'text-centered-flex-1', results);
+  const emptyResultsMessage = elementFactory.createAndAppendElement('p', ['font-jersey', 'text-big-static'], emptyResultsMessageContainer);
+  emptyResultsMessage.textContent = "Select an option to see results here.";
+
   return [panel, options, results];
 }

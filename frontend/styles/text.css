@@ -8,6 +8,14 @@
   align-items: center;
 }
 
+.text-centered-flex-1 {
+  flex: 1;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .text-big-static {
   font-size: 3.5rem;
 }
