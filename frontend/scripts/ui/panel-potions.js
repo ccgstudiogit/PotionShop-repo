@@ -3,7 +3,7 @@ import * as buttonFactory from '../utils/button-factory.js';
 import * as elementFactory from '../utils/element-factory.js';
 import * as potionActions from '../actions/potion-actions.js';
 import * as potionRenderer from './potion-render.js';
-import * as formFactory from '../utils/form-factory.js';
+import * as potionForms from './potion-forms.js';
 
 /**
  * Clear the current panel and display the potions panel.
@@ -55,5 +55,5 @@ async function displayAllPotions(resultsSection) {
 function addPotionForm(resultsSection) {
   resultsSection.innerHTML = '';
 
-  formFactory.addForm(resultsSection);
+  potionForms.addForm(resultsSection);
 }
