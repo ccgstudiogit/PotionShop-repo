@@ -1,0 +1,15 @@
+.add-form-container {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  margin: 25px 80px 25px 80px;
+
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+
+  background-color: rgb(155, 172, 230);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+}

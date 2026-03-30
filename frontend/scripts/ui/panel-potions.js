@@ -3,6 +3,7 @@ import * as buttonFactory from '../utils/button-factory.js';
 import * as elementFactory from '../utils/element-factory.js';
 import * as potionActions from '../actions/potion-actions.js';
 import * as potionRenderer from './potion-render.js';
+import * as formFactory from '../utils/form-factory.js';
 
 /**
  * Clear the current panel and display the potions panel.
@@ -25,6 +26,10 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
   buttonFactory.createAndAppendButton('Get Potions', 'option-button', optionsSection, () => {
     displayAllPotions(resultsSection);
   });
+
+  buttonFactory.createAndAppendButton('Add Potion', 'option-button', optionsSection, () => {
+    addPotionForm(resultsSection);
+  });
 }
 
 /**
@@ -45,4 +50,10 @@ async function displayAllPotions(resultsSection) {
       resultsSection.appendChild(potionObject.root);
     });
   }
+}
+
+function addPotionForm(resultsSection) {
+  resultsSection.innerHTML = '';
+
+  formFactory.addForm(resultsSection);
 }
