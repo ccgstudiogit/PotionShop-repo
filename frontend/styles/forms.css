@@ -29,9 +29,39 @@
 
 .add-form-input-container {
   display: flex;
+
+  margin-top: 6px;
+  margin-bottom: 12px;
 }
 
-/* The name of the input (e.g. for potion: Name, Type, Price, etc.) */
-.add-form-input-name {
-  
+/* The name/title of the input (e.g. for potion: Name, Type, Price, etc.) */
+.add-form-input-title {
+  margin-left: 14px;
+  margin-right: 20px;
+
+  font-size: 2rem;
+}
+
+.add-form-input-string,
+.add-form-input-int {
+  margin: 0px 20px 0px 0px;
+  padding: 0px 8px 0px 8px;
+
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 6px;
+
+  font-size: 1.35rem;
+  color: black;
+}
+
+/* Longform input (e.g. for potion: Name, Effect) */
+.add-form-input-string {
+  flex: 1;
+}
+
+/* Shorter input bar (e.g. for potion: Price) */
+.add-form-input-int {
+  max-width: 100px;
 }
