@@ -6,7 +6,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PotionIngredientMapper {
-    /// Map a PotionIngredient object to its Data Transfer Object equivalent.
+    /**
+     * Converts a {@link PotionIngredient} entity into its corresponding
+     * {@link PotionIngredientDTO} representation.
+     *
+     * @param potionIngredient the join entity linking a potion to an ingredient containing both ingredient details
+     *                         and quantity
+     * @return a DTO containing the ingredient's id, name, rarity, and quantity
+     */
     public PotionIngredientDTO toDTO(PotionIngredient potionIngredient) {
         Ingredient ingredient = potionIngredient.getIngredient();
         return new PotionIngredientDTO(

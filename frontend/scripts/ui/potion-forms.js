@@ -17,6 +17,7 @@ export function createAddPotionForm(parentElement) {
   const typeInputContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', formContainer);
   const typeInputTitle = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], typeInputContainer);
   typeInputTitle.textContent = 'Type:';
+  // NOTE ** MIGHT WANT TO CREATE A FUNCTION TO HANDLE CREATING DROPDOWNS IN ELEMENT-FACTORY **
   const typeDropdownLabel = elementFactory.createAndAppendElement('label', null, typeInputContainer);
   typeDropdownLabel.setAttribute('for', 'types');
   const typeDropdownSelect = elementFactory.createAndAppendElement('select', null, typeInputContainer);

@@ -29,13 +29,23 @@ public class PotionService {
         this.potionIngredientMapper = potionIngredientMapper;
     }
 
-    /// Get a list of potions currently stored in the database.
+    /**
+     * Retrieves all potions stored in the database as Data Transfer Objects.
+     *
+     * @return a list of PotionDTOs representing all potions
+     */
     public List<PotionDTO> getAllPotions() {
         // Mapper can be used to hide sensitive data from frontend
         return potionRepository.findAll().stream().map(potionMapper::toDTO).toList();
     }
 
-    /// Get a potion by its id. Also includes a list of the potion's ingredients.
+    /**
+     * Retrieves a potion by its id, including its list of ingredient DTOs.
+     *
+     * @param id the id of the potion to retrieve
+     * @return a PotionWithIngredientsDTO containing potion details and ingredients
+     * @throws EntityNotFoundException if no potion exists with the given id
+     */
     public PotionWithIngredientsDTO getPotionById(Integer id) {
         Potion potion = potionRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException(
@@ -46,7 +56,13 @@ public class PotionService {
         return potionMapper.toWithIngredientsDTO(potion, ingredients);
     }
 
-    /// Add a potion to the database and save it. A PotionDTO is returned if the potion was successfully added.
+    /**
+     * Creates and saves a new potion based on the provided creation DTO.
+     *
+     * @param createPotionDTO the data used to create the potion
+     * @return the newly created PotionDTO
+     * @throws EntityExistsException if a potion with the same name and type already exists
+     */
     public PotionDTO addPotion(CreatePotionDTO createPotionDTO) {
         Potion newPotion = potionMapper.fromCreateDTO(createPotionDTO);
         checkAndThrowIfPotionExists(newPotion);
@@ -55,7 +71,12 @@ public class PotionService {
         return potionMapper.toDTO(newPotion);
     }
 
-    /// Remove a potion from the database.
+    /**
+     * Deletes a potion from the database by its id.
+     *
+     * @param id the id of the potion to delete
+     * @throws EntityNotFoundException if no potion exists with the given id
+     */
     public void deletePotionById(Integer id) {
         Potion potion = potionRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException(
@@ -65,8 +86,18 @@ public class PotionService {
         potionRepository.deleteById(id);
     }
 
-    /// Update a potion based on the potion's id. The current potion tied to this id will have its data replaced by the updated
-    /// potion DTO.
+    /**
+     * Updates a potion's fields based on its id.
+     *
+     * <p>After applying updates, this method verifies that the resulting potion does not duplicate an existing
+     * name–type combination.</p>
+     *
+     * @param id the id of the potion to update
+     * @param updatedPotion the new potion values
+     * @return the updated PotionDTO
+     * @throws EntityNotFoundException if no potion exists with the given id
+     * @throws EntityExistsException if the updated potion conflicts with an existing one
+     */
     public PotionDTO updatePotionById(Integer id, UpdatePotionDTO updatedPotion) {
         Potion potion = potionRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException(
@@ -83,7 +114,12 @@ public class PotionService {
         return potionMapper.toDTO(potion);
     }
 
-    /// Check if a potion of the same name and type already exists in the database. If so, throw an EntityExistsException.
+    /**
+     * Checks whether a potion with the same name and type already exists.
+     *
+     * @param potion the potion to validate
+     * @throws EntityExistsException if a matching potion already exists
+     */
     public void checkAndThrowIfPotionExists(Potion potion) {
         if (potionRepository.existsByNameAndType(potion.getName(), potion.getType())) {
             throw new EntityExistsException(
@@ -96,7 +132,13 @@ public class PotionService {
         }
     }
 
-    /// Get all the ingredients for a potion via the potion's id.
+    /**
+     * Retrieves all ingredient DTOs associated with a potion by its id.
+     *
+     * @param id the id of the potion
+     * @return a list of PotionIngredientDTOs for the potion
+     * @throws EntityNotFoundException if the potion does not exist
+     */
     public List<PotionIngredientDTO> getAllPotionIngredientsById(Integer id) {
         Potion potion = potionRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException(
@@ -112,7 +154,13 @@ public class PotionService {
         return potionIngredientDTOS;
     }
 
-    /// Add an ingredient to a potion by the potion's id.
+    /**
+     * Adds an ingredient to a potion using the potion's id.
+     *
+     * @param potionId the id of the potion
+     * @param newIngredient the ingredient data to add
+     * @return the updated PotionWithIngredientsDTO
+     */
     public PotionWithIngredientsDTO addIngredientToPotionById(Integer potionId, CreatePotionIngredientDTO newIngredient) {
         PotionIngredient newPotionIngredient = new PotionIngredient(
             potionIngredientService.getPotionById(potionId),
@@ -124,13 +172,26 @@ public class PotionService {
         return getPotionById(potionId);
     }
 
-    /// Remove an ingredient from a potion via the potion and ingredient ids.
+    /**
+     * Removes an ingredient from a potion using the potion and ingredient ids.
+     *
+     * @param potionId the id of the potion
+     * @param ingredientId the id of the ingredient to remove
+     * @return the updated PotionWithIngredientsDTO
+     */
     public PotionWithIngredientsDTO removeIngredientFromPotionById(Integer potionId, Integer ingredientId) {
         potionIngredientService.deletePotionIngredient(potionId, ingredientId);
         return getPotionById(potionId);
     }
 
-    /// Update a potion ingredient relationship (such as changing the quantity of ingredients for that potion).
+    /**
+     * Updates a potion–ingredient relationship, such as modifying quantity.
+     *
+     * @param potionId the id of the potion
+     * @param ingredientId the id of the ingredient
+     * @param updatePotionIngredientDTO the updated quantity values
+     * @return the updated PotionWithIngredientsDTO
+     */
     public PotionWithIngredientsDTO updatePotionIngredientById(Integer potionId, Integer ingredientId, UpdatePotionIngredientDTO updatePotionIngredientDTO) {
         potionIngredientService.updatePotionIngredient(potionId, ingredientId, updatePotionIngredientDTO);
         return getPotionById(potionId);

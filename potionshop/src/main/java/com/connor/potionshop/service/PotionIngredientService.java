@@ -29,12 +29,23 @@ public class PotionIngredientService {
         this.ingredientRepository = ingredientRepository;
     }
 
-    /// Get a list of PotionIngredient from a potion. The potion is fetched by its id.
+    /**
+     * Retrieves all PotionIngredient entries associated with a given potion id.
+     *
+     * @param id the id of the potion
+     * @return a list of PotionIngredient entities linked to the potion
+     */
     public List<PotionIngredient> getIngredientsByPotionId(Integer id) {
         return potionIngredientRepository.findByPotionId(id);
     }
 
-    /// Get a potion object by its id.
+    /**
+     * Retrieves a Potion entity by its id.
+     *
+     * @param id the id of the potion to retrieve
+     * @return the Potion entity
+     * @throws EntityNotFoundException if no potion exists with the given id
+     */
     public Potion getPotionById(Integer id) {
         return potionRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException(
@@ -42,7 +53,13 @@ public class PotionIngredientService {
             ));
     }
 
-    /// Get an ingredient object by its id.
+    /**
+     * Retrieves an Ingredient entity by its id.
+     *
+     * @param id the id of the ingredient to retrieve
+     * @return the Ingredient entity
+     * @throws EntityNotFoundException if no ingredient exists with the given id
+     */
     public Ingredient getIngredientById(Integer id) {
         return ingredientRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException(
@@ -50,13 +67,26 @@ public class PotionIngredientService {
             ));
     }
 
-    /// Add and save a potion ingredient object to the database.
+    /**
+     * Saves a new PotionIngredient entry to the database.
+     *
+     * <p>The composite primary key is checked to ensure the relationship does not already exist.</p>
+     *
+     * @param potionIngredient the join entity to save
+     * @return the saved PotionIngredient entity
+     * @throws EntityExistsException if the potion already contains the ingredient
+     */
     public PotionIngredient addPotionIngredient(PotionIngredient potionIngredient) {
         checkAndThrowIfPotionIngredientExists(potionIngredient.getId());
         return potionIngredientRepository.save(potionIngredient);
     }
 
-    /// Check if a PotionIngredient already exists in the database (the composite PK is used). If so, throw an EntityExistsException.
+    /**
+     * Checks whether a PotionIngredient with the given composite key already exists.
+     *
+     * @param id the composite primary key (potionId, ingredientId)
+     * @throws EntityExistsException if the relationship already exists
+     */
     public void checkAndThrowIfPotionIngredientExists(PotionIngredientPk id) {
         if (potionIngredientRepository.existsById(id)) {
             throw new EntityExistsException(
@@ -68,8 +98,13 @@ public class PotionIngredientService {
         }
     }
 
-    /// Delete a PotionIngredient row from the database. The primary key is formed from the potionId and ingredientId. If the
-    /// PotionIngredient with that pk does not exist in the database, an EntityNotFoundException is thrown.
+    /**
+     * Deletes a PotionIngredient entry identified by its composite key.
+     *
+     * @param potionId     the id of the potion
+     * @param ingredientId the id of the ingredient
+     * @throws EntityNotFoundException if the relationship does not exist
+     */
     public void deletePotionIngredient(Integer potionId, Integer ingredientId) {
         PotionIngredientPk id = new PotionIngredientPk(potionId, ingredientId);
         checkAndThrowIfPotionIngredientNotExists(id);
@@ -77,7 +112,15 @@ public class PotionIngredientService {
         potionIngredientRepository.deleteById(id);
     }
 
-    /// Update a potion ingredient's attributes.
+    /**
+     * Updates the attributes of an existing PotionIngredient entry.
+     *
+     * @param potionId               the id of the potion
+     * @param ingredientId           the id of the ingredient
+     * @param updatedPotionIngredient the new quantity values
+     * @return the updated PotionIngredient entity
+     * @throws EntityNotFoundException if the relationship does not exist
+     */
     public PotionIngredient updatePotionIngredient(Integer potionId, Integer ingredientId, UpdatePotionIngredientDTO updatedPotionIngredient) {
         PotionIngredientPk id = new PotionIngredientPk(potionId, ingredientId);
         checkAndThrowIfPotionIngredientNotExists(id);
@@ -96,7 +139,12 @@ public class PotionIngredientService {
         return updated;
     }
 
-    /// Check if a PotionIngredient doesn't exist in the database (the composite PK is used). If not, throw an EntityNotExistsException.
+    /**
+     * Ensures that a PotionIngredient with the given composite key exists.
+     *
+     * @param id the composite primary key (potionId, ingredientId)
+     * @throws EntityNotFoundException if the relationship does not exist
+     */
     public void checkAndThrowIfPotionIngredientNotExists(PotionIngredientPk id) {
         if (!potionIngredientRepository.existsById(id)) {
             throw new EntityNotFoundException(

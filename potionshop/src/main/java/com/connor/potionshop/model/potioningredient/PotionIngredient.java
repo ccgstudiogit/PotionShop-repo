@@ -37,7 +37,11 @@ public class PotionIngredient {
         id = new PotionIngredientPk(potion.getId(), ingredient.getId());
     }
 
-    /// Get this PotionIngredient's id, which is the composite key: (potionId, ingredientId).
+    /**
+     * Returns this join entity's composite primary key (potionId, ingredientId).
+     *
+     * @return the composite key identifying this PotionIngredient
+     */
     public PotionIngredientPk getId() {
         return id;
     }
@@ -58,7 +62,14 @@ public class PotionIngredient {
         this.quantity = quantity;
     }
 
-    /// PotionIngredients are considered equal if they share the same composite primary key.
+    /**
+     * Determines equality based on the composite primary key.
+     *
+     * <p>Two PotionIngredient instances are considered equal if they share the same {@link PotionIngredientPk}.</p>
+     *
+     * @param o the object to compare with
+     * @return true if both objects have the same composite key, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {
