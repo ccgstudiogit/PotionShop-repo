@@ -13,7 +13,7 @@ export async function getAllPotions() {
 /**
  * Fetches ingredients for a specific potion from the backend via the API layer and returns them.
  * 
- * @param {Integer} potionId - The ID of the potion for which to fetch ingredients.
+ * @param {Integer} potionId - The ID of the potion for which to fetch ingredients
  * @returns {Array} An array of ingredient objects, or undefined if there was an error fetching the ingredients
  */
 export async function getIngredientsByPotionId(potionId) {

@@ -2,7 +2,8 @@
   font-family: "Jersey 15", Arial;
 }
 
-.text-centered {
+.text-centered,
+.text-centered-flex-1 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,10 +11,6 @@
 
 .text-centered-flex-1 {
   flex: 1;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .text-big-static {

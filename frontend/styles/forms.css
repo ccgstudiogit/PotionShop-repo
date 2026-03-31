@@ -65,3 +65,15 @@
 .add-form-input-int {
   max-width: 100px;
 }
+
+.add-form-input-dropdown-select {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 6px;
+
+  font-size: 1.35rem;
+  color: black;
+
+  cursor: pointer;
+}

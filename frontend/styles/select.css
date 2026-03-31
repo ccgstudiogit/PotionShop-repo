@@ -1,0 +1,57 @@
+.custom-select {
+  min-width: 100px;
+
+  position: relative;
+}
+
+.custom-select select {
+  appearance: none;
+
+  padding: 0.675em 6em 0.675em 1em;
+  width: 100%;
+
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 6px;
+
+  background-color: red;
+
+  font-size: 1.15rem;
+  color: #000;
+
+  cursor: pointer;
+}
+
+.custom-select::before,
+.custom-select::after {
+  --size: 0.3rem;
+
+  position: absolute;
+  right: 1rem;
+
+  content: "";
+
+  pointer-events: none;
+}
+
+.custom-select::before {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-bottom: var(--size) solid black;
+
+  top: 40%;
+}
+
+.custom-select::after {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-top: var(--size) solid black;
+
+  top: 55%;
+}
+
+.custom-select.select-valid select {
+  background-color: #e9f7df;
+  border-color: #28a745;
+}
