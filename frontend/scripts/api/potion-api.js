@@ -1,7 +1,7 @@
 /**
  * Fetches all potions from the backend API.
  * 
- * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions.
+ * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions
  */
 export async function fetchAllPotions() {
   try {
@@ -21,8 +21,8 @@ export async function fetchAllPotions() {
 /**
  * Fetches ingredients for a specific potion from the backend API.
  * 
- * @param {Integer} potionId - The ID of the potion for which to fetch ingredients.
- * @returns {Array} An array of ingredient objects, or undefined if there was an error fetching the ingredients.
+ * @param {Integer} potionId - The ID of the potion for which to fetch ingredients
+ * @returns {Array} An array of ingredient objects, or undefined if there was an error fetching the ingredients
  */
 export async function fetchIngredientsByPotionId(potionId) {
   try {

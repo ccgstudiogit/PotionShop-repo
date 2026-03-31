@@ -5,17 +5,17 @@ import * as ingredientRenderer from './ingredient-render.js';
 /**
  * Renders a potion element in the DOM.
  * 
- * @param {Object} potion - The potion object to render (as JSON).
+ * @param {Object} potion - The potion object to render (as JSON)
  * @returns {Object} An object containing:
- * - {HTMLElement} root: The root HTML element for the potion.
- * - {HTMLElement} infoHeader: The container holding the potion's name/type/cost.
- * - {HTMLElement} potionName: The HTML element for the potion's name.
- * - {HTMLElement} potionType: The HTML element for the potion's type.
- * - {HTMLElement} potionPrice: The HTML element for the potion's price.
- * - {HTMLElement} infoBody: The container holding the potion's effect.
- * - {HTMLElement} potionEffect: The HTML element for the potion's effect.
- * - {HTMLElement} ingredientsContainer: The container for the potion's ingredients.
- * - {HTMLElement} ingredientsButton: The button to show/hide the potion's ingredients.
+ * - {HTMLElement} root: The root HTML element for the potion
+ * - {HTMLElement} infoHeader: The container holding the potion's name/type/cost
+ * - {HTMLElement} potionName: The HTML element for the potion's name
+ * - {HTMLElement} potionType: The HTML element for the potion's type
+ * - {HTMLElement} potionPrice: The HTML element for the potion's price
+ * - {HTMLElement} infoBody: The container holding the potion's effect
+ * - {HTMLElement} potionEffect: The HTML element for the potion's effect
+ * - {HTMLElement} ingredientsContainer: The container for the potion's ingredients
+ * - {HTMLElement} ingredientsButton: The button to show/hide the potion's ingredients
  */
 export async function renderPotion(potion) {
   const potionElement = elementFactory.createElement('div', 'item');

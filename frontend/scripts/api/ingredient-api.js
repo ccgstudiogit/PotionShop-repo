@@ -1,7 +1,7 @@
 /**
  * Fetches all ingredients from the backend API.
  * 
- * @returns {Array} An array of ingredient objects, or undefined if there was an error fetching the ingredients.
+ * @returns {Array} An array of ingredient objects, or undefined if there was an error fetching the ingredients
  */
 export async function fetchAllIngredients() {
   try {

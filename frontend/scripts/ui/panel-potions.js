@@ -19,8 +19,8 @@ export function showPotionsPanel() {
 /**
  * Generates the options buttons for the potions panel and links them to their respective functions so the output is displayed in results.
  * 
- * @param {HTMLElement} optionsSection The parent HTML element for the options section.
- * @param {HTMLElement} resultsSection The parent HTML element for the results section.
+ * @param {HTMLElement} optionsSection The parent HTML element for the options section
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section
  */
 function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
   buttonFactory.createAndAppendButton('Get Potions', 'option-button', optionsSection, () => {
@@ -35,7 +35,7 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
 /**
  * Displays all potions in the results section.
  * 
- * @param {HTMLElement} resultsSection The parent HTML element for the results section.
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section
  */
 async function displayAllPotions(resultsSection) {
   // Clear the results section before displaying the new results
@@ -55,7 +55,7 @@ async function displayAllPotions(resultsSection) {
 /**
  * Clear the results section and display an add potion form.
  * 
- * @param {HTMLElement} resultsSection 
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section
  */
 function addPotionForm(resultsSection) {
   resultsSection.innerHTML = '';

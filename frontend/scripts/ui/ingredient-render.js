@@ -3,12 +3,12 @@ import * as elementFactory from '../utils/element-factory.js';
 /**
  * Renders an ingredient element in the DOM.
  * 
- * @param {Object} ingredient - The ingredient object to render (as JSON).
+ * @param {Object} ingredient - The ingredient object to render (as JSON)
  * @returns {Object} An object containing:
- * - {HTMLElement} root: The root HTML element for the ingredient.
- * - {HTMLElement} infoContainer: The container holding name/rarity/quantity.
- * - {HTMLElement} nameElement: The HTML element for the ingredient's name.
- * - {HTMLElement} rarityElement: The HTML element for the ingredient's rarity.
+ * - {HTMLElement} root: The root HTML element for the ingredient
+ * - {HTMLElement} infoContainer: The container holding name/rarity/quantity
+ * - {HTMLElement} nameElement: The HTML element for the ingredient's name
+ * - {HTMLElement} rarityElement: The HTML element for the ingredient's rarity
  */
 export function renderIngredient(ingredient) {
   const ingredientElement = elementFactory.createElement('div', 'item');

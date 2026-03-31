@@ -13,7 +13,7 @@ export function createPanelBackground() {
  * Generates the panel section with 'panel' class along with a div containing the 'panel-background' class. The HTML is
  * generated via document.createElement().
  * 
- * @returns {HTMLElement} The newly created DOM element.
+ * @returns {HTMLElement} The newly created DOM element
  */
 function generatePanelBackgroundHTML() {
   const section = elementFactory.createElement('section', 'panel');
@@ -26,7 +26,7 @@ function generatePanelBackgroundHTML() {
 /**
  * An empty panel lets the user know to click one of the options above to view/edit data.
  * 
- * @param {string} message Can be used to override the given message that is already displayed.
+ * @param {string} message Can be used to override the given message that is already displayed
  */
 export function showEmptyPanel(message = null) {
   clearPanel();
@@ -54,7 +54,7 @@ export function clearPanel() {
  * @returns {HTMLElement[]} An array containing:
  *   [0] the main panel element which contains both the options and results sections as children,
  *   [1] the options section element,
- *   [2] the results section element.
+ *   [2] the results section element
  */
 export function clearAndGenerateSections() {
   clearPanel();

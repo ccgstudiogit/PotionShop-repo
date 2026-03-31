@@ -18,8 +18,8 @@ export function showIngredientsPanel() {
 /**
  * Generates the options buttons for the ingredients panel and links them to their respective functions so the output is displayed in results.
  * 
- * @param {HTMLElement} optionsSection The parent HTML element for the options section.
- * @param {HTMLElement} resultsSection The parent HTML element for the results section.
+ * @param {HTMLElement} optionsSection The parent HTML element for the options section
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section
  */
 function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
   buttonFactory.createAndAppendButton('Get Ingredients', 'option-button', optionsSection, () => {
@@ -30,7 +30,7 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
 /**
  * Displays all ingredients in the results section.
  * 
- * @param {HTMLElement} resultsSection The parent HTML element for the results section.
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section
  */
 async function displayAllIngredients(resultsSection) {
   // Clear the results section before displaying the new results
