@@ -1,6 +1,6 @@
 import * as elementFactory from '../utils/element-factory.js';
 
-export function addForm(parentElement) {
+export function createAddPotionForm(parentElement) {
   const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
 
   const formTitle = elementFactory.createAndAppendElement('p', ['add-form-title', 'font-jersey'], formContainer);
@@ -17,6 +17,19 @@ export function addForm(parentElement) {
   const typeInputContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', formContainer);
   const typeInputTitle = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], typeInputContainer);
   typeInputTitle.textContent = 'Type:';
+  const typeDropdownLabel = elementFactory.createAndAppendElement('label', null, typeInputContainer);
+  typeDropdownLabel.setAttribute('for', 'types');
+  const typeDropdownSelect = elementFactory.createAndAppendElement('select', null, typeInputContainer);
+  typeDropdownSelect.setAttribute('name', 'types');
+  const typeOption1 = elementFactory.createAndAppendElement('option', null, typeDropdownSelect);
+  typeOption1.value = 'Buff';
+  typeOption1.textContent = 'Buff';
+  const typeOption2 = elementFactory.createAndAppendElement('option', null, typeDropdownSelect);
+  typeOption2.value = 'Healing';
+  typeOption2.textContent = 'Healing';
+  const typeOption3 = elementFactory.createAndAppendElement('option', null, typeDropdownSelect);
+  typeOption3.value = 'Poison';
+  typeOption3.textContent = 'Poison';
 
   // Price input
   const priceInputContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', formContainer);
@@ -29,4 +42,6 @@ export function addForm(parentElement) {
   const effectInputContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', formContainer);
   const effectInputTitle = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], effectInputContainer);
   effectInputTitle.textContent = 'Effect:';
+  const effectInput = elementFactory.createAndAppendElement('input', ['add-form-input-string', 'font-jersey'], effectInputContainer);
+  effectInput.placeholder = 'New effect...'
 }

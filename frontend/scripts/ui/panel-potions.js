@@ -52,8 +52,12 @@ async function displayAllPotions(resultsSection) {
   }
 }
 
+/**
+ * Clear the results section and display an add potion form.
+ * 
+ * @param {HTMLElement} resultsSection 
+ */
 function addPotionForm(resultsSection) {
   resultsSection.innerHTML = '';
-
-  potionForms.addForm(resultsSection);
+  potionForms.createAddPotionForm(resultsSection);
 }
