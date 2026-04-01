@@ -1,12 +1,29 @@
-/* Container for the display area within each ingredient (for the image and info) */
+/* Overall container that acts as the outer card */
+.ingredient-item {
+  flex: 1;
+
+  display: flex;
+
+  margin: -2px -1px 5px -1px;
+
+  min-height: 60px;
+  max-height: 64px;
+
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+}
+
+/* 
+    Container for the display area within each ingredient (for the image and info). This is kept separate from
+    .ingredient-item so future UI changes (like adding controls or extra fields) don’t affect the visual block styling.
+ */
 .ingredient-display {
   flex: 1;
 
-  min-height: 50px;
+  display: flex;
 
   background-color: rgb(187, 153, 226);
-
-  display: flex;
 }
 
 .ingredient-icon {

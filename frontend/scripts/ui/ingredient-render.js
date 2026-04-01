@@ -11,7 +11,7 @@ import * as elementFactory from '../utils/element-factory.js';
  * - {HTMLElement} rarityElement: The HTML element for the ingredient's rarity
  */
 export function renderIngredient(ingredient) {
-  const ingredientElement = elementFactory.createElement('div', 'item');
+  const ingredientElement = elementFactory.createElement('div', 'ingredient-item');
   const displayContainer = elementFactory.createAndAppendElement('div', 'ingredient-display', ingredientElement);
 
   // Ingredient image

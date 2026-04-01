@@ -1,6 +1,8 @@
 import * as elementFactory from '../utils/element-factory.js';
 import * as potionActions from '../actions/potion-actions.js';
 
+import * as ingredientRenderer from './ingredient-render.js';
+
 export async function createAddPotionForm(parentElement) {
   const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
 
@@ -40,4 +42,17 @@ export async function createAddPotionForm(parentElement) {
   effectInputTitle.textContent = 'Effect:';
   const effectInput = elementFactory.createAndAppendElement('input', ['add-form-input-string', 'font-jersey'], effectInputContainer);
   effectInput.placeholder = 'New effect...'
+
+  // Ingredients
+  const ingredientsTitleContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', formContainer);
+  const ingredientsTitle = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], ingredientsTitleContainer);
+  ingredientsTitle.textContent = 'Selected Ingredients:';
+  const ingredientsContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-ingredients-container', formContainer);
+
+  const ingredient1Obj = {
+    "name": "Applesause",
+    "rarity": "Common"
+  }
+  const ingredient1 = ingredientRenderer.renderIngredient(ingredient1Obj);
+  ingredientsContainer.appendChild(ingredient1.root);
 }

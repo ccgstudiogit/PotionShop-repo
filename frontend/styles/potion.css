@@ -1,12 +1,26 @@
+/* Overall container that acts as the outer card */
+.potion-item {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  margin: -2px -1px 5px -1px;
+
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+}
+
 /* Container for the display area within each potion (for the image and info) */
 .potion-display {
   flex: 1;
 
+  display: flex;
+
   min-height: 150px;
 
   background-color: rgb(155, 172, 230);
-
-  display: flex;
 }
 
 .potion-icon {

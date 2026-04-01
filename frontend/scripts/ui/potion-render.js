@@ -18,7 +18,7 @@ import * as ingredientRenderer from './ingredient-render.js';
  * - {HTMLElement} ingredientsButton: The button to show/hide the potion's ingredients
  */
 export async function renderPotion(potion) {
-  const potionElement = elementFactory.createElement('div', 'item');
+  const potionElement = elementFactory.createElement('div', 'potion-item');
   const displayContainer = elementFactory.createAndAppendElement('div', 'potion-display', potionElement);
 
   // Potion image
