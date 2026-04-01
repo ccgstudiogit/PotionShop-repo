@@ -64,4 +64,9 @@ public class PotionController {
     public PotionWithIngredientsDTO updatePotionIngredientById(@PathVariable Integer potionId, @PathVariable Integer ingredientId, @RequestBody UpdatePotionIngredientDTO updatePotionIngredientDTO) {
         return potionService.updatePotionIngredientById(potionId, ingredientId, updatePotionIngredientDTO);
     }
+
+    @GetMapping("types")
+    public List<String> getPotionTypes() {
+        return potionService.getPotionTypes();
+    }
 }

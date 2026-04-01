@@ -1,6 +1,7 @@
 package com.connor.potionshop.service;
 
 import java.util.*;
+import java.util.stream.*;
 
 import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.model.potioningredient.*;
@@ -195,5 +196,14 @@ public class PotionService {
     public PotionWithIngredientsDTO updatePotionIngredientById(Integer potionId, Integer ingredientId, UpdatePotionIngredientDTO updatePotionIngredientDTO) {
         potionIngredientService.updatePotionIngredient(potionId, ingredientId, updatePotionIngredientDTO);
         return getPotionById(potionId);
+    }
+
+    /**
+     * Get a list of all potion types from the PotionType enum as a list of Strings.
+     *
+     * @return a list of PotionType values as Strings.
+     */
+    public List<String> getPotionTypes() {
+        return Stream.of(PotionType.values()).map(PotionType::name).toList();
     }
 }
