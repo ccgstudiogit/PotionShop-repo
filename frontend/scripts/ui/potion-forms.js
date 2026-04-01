@@ -1,5 +1,4 @@
 import * as elementFactory from '../utils/element-factory.js';
-import * as buttonFactory from '../utils/button-factory.js';
 
 export function createAddPotionForm(parentElement) {
   const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
@@ -20,7 +19,7 @@ export function createAddPotionForm(parentElement) {
   typeInputTitle.textContent = 'Type:';
 
   const customDropdown = elementFactory.createAndAppendElement('div', 'custom-select', typeInputContainer);
-  const select = elementFactory.createAndAppendElement('select', null, customDropdown);
+  const select = elementFactory.createAndAppendElement('select', 'font-jersey', customDropdown);
   const option1 = elementFactory.createAndAppendElement('option', null, select);
   option1.value = 'Buff';
   option1.textContent = 'Buff';
@@ -31,7 +30,7 @@ export function createAddPotionForm(parentElement) {
   option3.value = 'Poison';
   option3.textContent = 'Poison';
 
-  
+  /*
   document.addEventListener('DOMContentLoaded', function () {
     const selectElement = document.querySelector('select');
     const customSelect = document.querySelector('.custom-select');

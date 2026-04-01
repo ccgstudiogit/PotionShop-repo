@@ -7,7 +7,7 @@
 .custom-select select {
   appearance: none;
 
-  padding: 0.675em 6em 0.675em 1em;
+  padding: 0.125em 2.75em 0.125em 0.5em;
   width: 100%;
 
   border-style: solid;
@@ -15,20 +15,30 @@
   border-color: black;
   border-radius: 6px;
 
-  background-color: red;
+  background-color: white;
 
-  font-size: 1.15rem;
-  color: #000;
+  font-size: 1.5rem;
+  color: black;
 
   cursor: pointer;
 }
 
+.custom-select option {
+  background-color: white;
+
+  /* Changing font does not work for custom fonts (Verdana, Arial, Times New Roman, etc. all work but 'Jersey 15' doesn't */
+  font-family: Verdana;
+  font-size: 1.15rem;
+  color: black;
+}
+
+/* For creating the double-arrow in the dropdown */
 .custom-select::before,
 .custom-select::after {
   --size: 0.3rem;
 
   position: absolute;
-  right: 1rem;
+  right: 0.75rem;
 
   content: "";
 
@@ -40,7 +50,7 @@
   border-right: var(--size) solid transparent;
   border-bottom: var(--size) solid black;
 
-  top: 40%;
+  top: 35%;
 }
 
 .custom-select::after {
@@ -48,10 +58,5 @@
   border-right: var(--size) solid transparent;
   border-top: var(--size) solid black;
 
-  top: 55%;
-}
-
-.custom-select.select-valid select {
-  background-color: #e9f7df;
-  border-color: #28a745;
+  top: 50%;
 }
