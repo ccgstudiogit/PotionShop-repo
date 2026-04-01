@@ -38,3 +38,23 @@ export async function fetchIngredientsByPotionId(potionId) {
     console.error(`Error fetching ingredients by potion ID ${potionId}:`, error);
   }
 }
+
+/**
+ * Fetches the types potions can be (Buff, Healing, Poison, etc.).
+ * 
+ * @returns {Array} An array of types, or undefined if there was an error fetching potion types
+ */
+export async function fetchPotionTypes() {
+  try {
+    const response = await fetch('http://localhost:8080/potions/types', { method: 'GET' });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const types = await response.json();
+    return types;
+  } catch (error) {
+    console.error('Error fetching potion types:', error);
+  }
+}

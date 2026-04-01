@@ -1,6 +1,7 @@
 import * as elementFactory from '../utils/element-factory.js';
+import * as potionActions from '../actions/potion-actions.js';
 
-export function createAddPotionForm(parentElement) {
+export async function createAddPotionForm(parentElement) {
   const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
 
   const formTitle = elementFactory.createAndAppendElement('p', ['add-form-title', 'font-jersey'], formContainer);
@@ -13,25 +14,19 @@ export function createAddPotionForm(parentElement) {
   const nameInput = elementFactory.createAndAppendElement('input', ['add-form-input-string', 'font-jersey'], nameInputContainer);
   nameInput.placeholder = 'New potion name...';
 
-  // Type input
+  // Type input (as dropdown)
   const typeInputContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', formContainer);
   const typeInputTitle = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], typeInputContainer);
   typeInputTitle.textContent = 'Type:';
-
   const typeDropdown = elementFactory.createAndAppendDropdownShell('custom-select', 'font-jersey', typeInputContainer);
   const typeSelection = typeDropdown.selection;
-
-  // NOTE: Will replace with a get request to get and append valid options to the dropdown
-  const option1 = elementFactory.createAndAppendElement('option', null, typeSelection);
-  option1.value = 'Buff';
-  option1.textContent = 'Buff';
-  const option2 = elementFactory.createAndAppendElement('option', null, typeSelection);
-  option2.value = 'Healing';
-  option2.textContent = 'Healing';
-  const option3 = elementFactory.createAndAppendElement('option', null, typeSelection);
-  option3.value = 'Poison';
-  option3.textContent = 'Poison';
-
+  const types = await potionActions.getPotionTypes(); // Fetch the types so they are always accurate and up-to-date
+  types.forEach(type => {
+    const option = elementFactory.createAndAppendElement('option', null, typeSelection);
+    option.value = type;
+    option.textContent = type;
+  });
+  
   // Price input
   const priceInputContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', formContainer);
   const priceInputTitle = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], priceInputContainer);

@@ -20,3 +20,13 @@ export async function getIngredientsByPotionId(potionId) {
   const ingredients = await potionApi.fetchIngredientsByPotionId(potionId);
   return ingredients;
 }
+
+/**
+ * Fetches valid potion types (Buff, Healing, Poison, etc.) from the backend via the API layer and returns them.
+ * 
+ * @returns {Array} An array of types, or undefined if there was an error fetching potion types
+ */
+export async function getPotionTypes() {
+  const types = await potionApi.fetchPotionTypes();
+  return types;
+}
