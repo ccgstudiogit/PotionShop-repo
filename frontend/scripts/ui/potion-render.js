@@ -4,11 +4,11 @@ import * as ingredientRenderer from './ingredient-render.js';
 import * as mathHelper from '../utils/math-helper.js';
 
 const potionIcons = [
+  'potion-icon-0.png',
   'potion-icon-1.png',
   'potion-icon-2.png',
   'potion-icon-3.png',
-  'potion-icon-4.png',
-  'potion-icon-5.png'
+  'potion-icon-4.png'
 ];
 
 /**
@@ -32,8 +32,8 @@ export async function renderPotion(potion) {
 
   // Potion icon (choose a random one from potionIcons)
   const icon = elementFactory.createAndAppendElement('img', 'potion-icon', displayContainer);
-  const randomIcon = potionIcons[mathHelper.getRandomInt(0, potionIcons.length - 1)];
-  icon.src = `../icons/${randomIcon}`;
+  const index = potion.id % potionIcons.length;
+  icon.src = `../icons/potion-icon-${index}.png`;
 
   // Potion info, including name, type, effect, etc.
   const infoContainer = elementFactory.createAndAppendElement('div', 'potion-info', displayContainer);
