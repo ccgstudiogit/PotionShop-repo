@@ -1,4 +1,4 @@
-import * as elementFactory from '../utils/element-factory.js';
+import * as elementFactory from '../../utils/element-factory.js';
 
 /**
  * Create the panel background. A <section> element with the class 'panel' is created with an inner <div> containing the

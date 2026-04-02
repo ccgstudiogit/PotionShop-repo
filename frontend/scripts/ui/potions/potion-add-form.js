@@ -1,9 +1,8 @@
-import * as elementFactory from '../utils/element-factory.js';
-import * as buttonFactory from '../utils/button-factory.js';
-import * as potionActions from '../actions/potion-actions.js';
-import * as ingredientActions from '../actions/ingredient-actions.js';
-
-import * as ingredientRenderer from './ingredient-render.js';
+import * as elementFactory from '../../utils/element-factory.js';
+import * as buttonFactory from '../../utils/button-factory.js';
+import * as potionActions from '../../actions/potion-actions.js';
+import * as ingredientActions from '../../actions/ingredient-actions.js';
+import * as ingredientRenderer from '../ingredients/ingredient-render.js';
 
 export async function createAddPotionForm(parentElement) {
   const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
@@ -63,6 +62,7 @@ export async function createAddPotionForm(parentElement) {
   const i1QuantityInput = elementFactory.createAndAppendElement('input', ['add-potion-form-input-ing-quantity', 'font-jersey'], i1Info);
   i1QuantityInput.value = 1;
   ingredientsContainer.appendChild(ingredient1.root);
+  
   const removeButton = buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ing-button', i1Info, () => {console.log('clicked');});
 
   const addIngredientDropdownContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-select-ing-container', ingredientsContainer);
@@ -77,28 +77,4 @@ export async function createAddPotionForm(parentElement) {
     option.value = ingredient.id;
     option.textContent = ingredient.name;
   });
-
-  //const addIngredientButton = buttonFactory.createAndAppendButton('Add', 'add-ingredient-button', ingredientsContainer, () => {console.log("adding")});
-  /*
-  const ingredient2Obj = {
-    "name": "Mayo",
-    "rarity": "Legendary"
-  }
-  const ingredient2 = ingredientRenderer.renderIngredient(ingredient2Obj);
-  ingredientsContainer.appendChild(ingredient2.root);
-
-  const ingredient3Obj = {
-    "name": "Lettuce",
-    "rarity": "Uncommon"
-  }
-  const ingredient3 = ingredientRenderer.renderIngredient(ingredient3Obj);
-  ingredientsContainer.appendChild(ingredient3.root);
-
-  const ingredient4Obj = {
-    "name": "Ramen Noodles",
-    "rarity": "Rare"
-  }
-  const ingredient4 = ingredientRenderer.renderIngredient(ingredient4Obj);
-  ingredientsContainer.appendChild(ingredient4.root);
-  */
 }

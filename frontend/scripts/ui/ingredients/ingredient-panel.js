@@ -1,7 +1,7 @@
-import { clearAndGenerateSections } from "./panel.js";
-import * as buttonFactory from '../utils/button-factory.js';
-import * as elementFactory from '../utils/element-factory.js';
-import * as ingredientActions from '../actions/ingredient-actions.js';
+import { clearAndGenerateSections } from "../shared/base-panel.js";
+import * as buttonFactory from '../../utils/button-factory.js';
+import * as elementFactory from '../../utils/element-factory.js';
+import * as ingredientActions from '../../actions/ingredient-actions.js';
 import * as ingredientRenderer from './ingredient-render.js';
 
 /**

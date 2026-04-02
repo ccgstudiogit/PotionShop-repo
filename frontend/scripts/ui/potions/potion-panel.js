@@ -1,9 +1,9 @@
-import { clearAndGenerateSections } from "./panel.js";
-import * as buttonFactory from '../utils/button-factory.js';
-import * as elementFactory from '../utils/element-factory.js';
-import * as potionActions from '../actions/potion-actions.js';
+import { clearAndGenerateSections } from "../shared/base-panel.js";
+import * as buttonFactory from '../../utils/button-factory.js';
+import * as elementFactory from '../../utils/element-factory.js';
+import * as potionActions from '../../actions/potion-actions.js';
 import * as potionRenderer from './potion-render.js';
-import * as potionForms from './potion-forms.js';
+import * as potionForms from './potion-add-form.js';
 
 /**
  * Clear the current panel and display the potions panel.

@@ -1,4 +1,4 @@
-import * as elementFactory from '../utils/element-factory.js';
+import * as elementFactory from '../../utils/element-factory.js';
 
 /**
  * Renders an ingredient element in the DOM.

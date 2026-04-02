@@ -1,7 +1,6 @@
-import * as elementFactory from '../utils/element-factory.js';
-import * as potionActions from '../actions/potion-actions.js';
-import * as ingredientRenderer from './ingredient-render.js';
-import * as mathHelper from '../utils/math-helper.js';
+import * as elementFactory from '../../utils/element-factory.js';
+import * as potionActions from '../../actions/potion-actions.js';
+import * as ingredientRenderer from '../ingredients/ingredient-render.js';
 
 const potionIcons = [
   'potion-icon-0.png',
