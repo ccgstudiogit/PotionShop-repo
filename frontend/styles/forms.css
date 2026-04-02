@@ -97,3 +97,9 @@
 
   font-size: 1.85rem;
 }
+
+.select-ingredient-container {
+  max-width: 350px;
+
+  align-self: center;
+}

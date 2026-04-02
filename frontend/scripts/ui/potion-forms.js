@@ -1,5 +1,7 @@
 import * as elementFactory from '../utils/element-factory.js';
+import * as buttonFactory from '../utils/button-factory.js';
 import * as potionActions from '../actions/potion-actions.js';
+import * as ingredientActions from '../actions/ingredient-actions.js';
 
 import * as ingredientRenderer from './ingredient-render.js';
 
@@ -62,6 +64,21 @@ export async function createAddPotionForm(parentElement) {
   i1QuantityInput.value = 1;
   ingredientsContainer.appendChild(ingredient1.root);
 
+  const addIngredientDropdownContainer = elementFactory.createAndAppendElement('div', 'select-ingredient-container', ingredientsContainer);
+  const addIngredientDropdown = elementFactory.createAndAppendDropdownShell('custom-select', 'font-jersey', addIngredientDropdownContainer);
+  const ingredientsSelection = addIngredientDropdown.selection;
+  const starterOption = elementFactory.createAndAppendElement('option', null, ingredientsSelection);
+  starterOption.value = '';
+  starterOption.textContent = 'Add another ingredient';
+  const ingredients = await ingredientActions.getAllIngredients();
+  ingredients.forEach(ingredient => {
+    const option = elementFactory.createAndAppendElement('option', null, ingredientsSelection);
+    option.value = ingredient.name;
+    option.textContent = ingredient.name;
+  });
+
+  //const addIngredientButton = buttonFactory.createAndAppendButton('Add', 'add-ingredient-button', ingredientsContainer, () => {console.log("adding")});
+  /*
   const ingredient2Obj = {
     "name": "Mayo",
     "rarity": "Legendary"
@@ -82,4 +99,5 @@ export async function createAddPotionForm(parentElement) {
   }
   const ingredient4 = ingredientRenderer.renderIngredient(ingredient4Obj);
   ingredientsContainer.appendChild(ingredient4.root);
+  */
 }
