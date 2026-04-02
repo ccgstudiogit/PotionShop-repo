@@ -98,8 +98,15 @@
   font-size: 1.85rem;
 }
 
-.select-ingredient-container {
+.add-potion-form-select-ing-container {
   max-width: 350px;
 
   align-self: center;
+}
+
+.add-potion-form-remove-ing-button {
+  margin-left: auto; /* Pushes all the way to the right */
+  margin-right: 11px;
+
+  font-size: 1.5rem;
 }

@@ -63,8 +63,9 @@ export async function createAddPotionForm(parentElement) {
   const i1QuantityInput = elementFactory.createAndAppendElement('input', ['add-potion-form-input-ing-quantity', 'font-jersey'], i1Info);
   i1QuantityInput.value = 1;
   ingredientsContainer.appendChild(ingredient1.root);
+  const removeButton = buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ing-button', i1Info, () => {console.log('clicked');});
 
-  const addIngredientDropdownContainer = elementFactory.createAndAppendElement('div', 'select-ingredient-container', ingredientsContainer);
+  const addIngredientDropdownContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-select-ing-container', ingredientsContainer);
   const addIngredientDropdown = elementFactory.createAndAppendDropdownShell('custom-select', 'font-jersey', addIngredientDropdownContainer);
   const ingredientsSelection = addIngredientDropdown.selection;
   const starterOption = elementFactory.createAndAppendElement('option', null, ingredientsSelection);
@@ -73,7 +74,7 @@ export async function createAddPotionForm(parentElement) {
   const ingredients = await ingredientActions.getAllIngredients();
   ingredients.forEach(ingredient => {
     const option = elementFactory.createAndAppendElement('option', null, ingredientsSelection);
-    option.value = ingredient.name;
+    option.value = ingredient.id;
     option.textContent = ingredient.name;
   });
 
