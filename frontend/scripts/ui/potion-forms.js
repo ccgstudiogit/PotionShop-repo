@@ -49,10 +49,37 @@ export async function createAddPotionForm(parentElement) {
   ingredientsTitle.textContent = 'Selected Ingredients:';
   const ingredientsContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-ingredients-container', formContainer);
 
+  /* FOR TESTING PURPOSES AND MAKING SURE EVERYTHING LOOKS GOOD */
   const ingredient1Obj = {
-    "name": "Applesause",
+    "name": "Applesauce",
     "rarity": "Common"
   }
   const ingredient1 = ingredientRenderer.renderIngredient(ingredient1Obj);
+  const i1Info = ingredient1.infoContainer;
+  const times = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], i1Info);
+  times.textContent = 'x';
+  const i1QuantityInput = elementFactory.createAndAppendElement('input', ['add-potion-form-input-ing-quantity', 'font-jersey'], i1Info);
+  i1QuantityInput.value = 1;
   ingredientsContainer.appendChild(ingredient1.root);
+
+  const ingredient2Obj = {
+    "name": "Mayo",
+    "rarity": "Legendary"
+  }
+  const ingredient2 = ingredientRenderer.renderIngredient(ingredient2Obj);
+  ingredientsContainer.appendChild(ingredient2.root);
+
+  const ingredient3Obj = {
+    "name": "Lettuce",
+    "rarity": "Uncommon"
+  }
+  const ingredient3 = ingredientRenderer.renderIngredient(ingredient3Obj);
+  ingredientsContainer.appendChild(ingredient3.root);
+
+  const ingredient4Obj = {
+    "name": "Ramen Noodles",
+    "rarity": "Rare"
+  }
+  const ingredient4 = ingredientRenderer.renderIngredient(ingredient4Obj);
+  ingredientsContainer.appendChild(ingredient4.root);
 }

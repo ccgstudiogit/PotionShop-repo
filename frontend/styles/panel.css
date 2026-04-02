@@ -79,7 +79,7 @@
   height: 100%;
 }
 
-.scrollable {
+.panel-scrollable {
   height: 500px;
   
   overflow-y: auto;
