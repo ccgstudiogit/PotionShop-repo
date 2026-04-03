@@ -110,3 +110,13 @@
 
   font-size: 1.5rem;
 }
+
+.add-potion-form-submit-button {
+  margin-bottom: 15px;
+
+  max-width: 265px;
+
+  align-self: center;
+
+  font-size: 1.5rem;
+}

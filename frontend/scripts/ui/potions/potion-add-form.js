@@ -1,4 +1,5 @@
 import * as elementFactory from '../../utils/element-factory.js';
+import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionFormUtils from './potion-form-utils.js';
 
 export async function createAddPotionForm(parentElement) {
@@ -13,5 +14,13 @@ export async function createAddPotionForm(parentElement) {
   const effectInput = potionFormUtils.createEffectInput(formContainer);
 
   await potionFormUtils.createIngredientsInput(formContainer);
+
+  const submitButton = buttonFactory.createAndAppendButton('Submit', 'add-potion-form-submit-button', formContainer, () => {
+    console.log('Submitting form with following attributes:');
+    console.log('Name: ' + nameInput.input.value);
+    console.log('Type: ' + typeInput.select.value);
+    console.log('Price: ' + priceInput.input.value);
+    console.log('Effect: ' + effectInput.input.value);
+  });
 }
 
