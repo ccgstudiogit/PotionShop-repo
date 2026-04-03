@@ -13,12 +13,12 @@
     vw = viewport width, with vw representing 1% of the viewport's total width and 9vw as 9%.
     clamp() = (minimum, preferred, maximum).
   */
-  font-size: clamp(4rem, 7.5vw, 6.5rem);
+  font-size: clamp(4rem, 6vw, 5rem);
 
-  margin-top: -30px;
-  margin-bottom: 8px;
+  margin-top: -22px;
+  margin-bottom: 2px;
 }
 
 .title-sub-header {
-  font-size: clamp(2rem, 3.75vw, 3.5rem);
+  font-size: clamp(2rem, 3vw, 3rem);
 }

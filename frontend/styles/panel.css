@@ -1,10 +1,9 @@
 .panel {
   display: flex;
 
-  margin: 25px 50px 50px 50px;
+  margin: 25px 35px 40px 35px;
 
-  height: calc(100vh - 360px); /* Subtracting 360px accounts for title and margins */
-  min-height: 65vh;
+  height: 70vh; /* Subtracting 360px accounts for title and margins */
 }
 
 .panel-background {
@@ -26,9 +25,10 @@
 
 /* panel-header share panel portion with panel-content. panel-header is on top, panel-content below which contains options/results */
 .panel-header {
-  flex: 0.5;
 
   display: flex;
+
+  height: 50px;
 
   border-style: solid;
   border-color: black;
@@ -37,6 +37,10 @@
   margin: -2px; /* To make sure the border aligns with panel-background */
 
   background-color: rgb(136, 118, 202);
+}
+
+.panel-header-title {
+  font-size: 2.4rem;
 }
 
 .panel-header-options {
@@ -50,6 +54,8 @@
 /* For the options section and results section. Flex is shared with panel-header */
 .panel-content {
   flex: 3;
+
+  min-height: 0;
 
   display: flex;
   justify-content: center;
@@ -70,6 +76,8 @@
   display: flex;
   flex-direction: column;
 
+  min-height: 0;
+
   padding-top: 2px;
 } 
 
@@ -80,7 +88,7 @@
 }
 
 .panel-scrollable {
-  height: 500px;
+  min-height: 0;
   
   overflow-y: auto;
 }

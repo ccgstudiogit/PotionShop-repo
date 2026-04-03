@@ -64,11 +64,11 @@ export function clearAndGenerateSections() {
   // Handle creating the header which shows the "Options" and "Results" text at the top. This is the same regardless of the option picked
   const header = elementFactory.createAndAppendElement('div', 'panel-header', background); 
   const headerOptions = elementFactory.createAndAppendElement('div', ['panel-header-options', 'text-centered'], header);
-  const headerOptionsText = elementFactory.createAndAppendElement('p', ['font-jersey', 'text-big-dynamic'], headerOptions);
+  const headerOptionsText = elementFactory.createAndAppendElement('p', ['font-jersey', 'panel-header-title'], headerOptions);
   headerOptionsText.textContent = "Options";
   elementFactory.createAndAppendElement('div', 'panel-line', header);
   const headerResults = elementFactory.createAndAppendElement('div', ['panel-header-results', 'text-centered'], header);
-  const headerResultsText = elementFactory.createAndAppendElement('p', ['font-jersey', 'text-big-dynamic'], headerResults);
+  const headerResultsText = elementFactory.createAndAppendElement('p', ['font-jersey', 'panel-header-title'], headerResults);
   headerResultsText.textContent = "Results";
 
   // Handle creating the main body of the panel which contains the options and results sections
