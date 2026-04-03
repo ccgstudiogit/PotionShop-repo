@@ -4,6 +4,13 @@ import * as potionActions from '../../actions/potion-actions.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
 import * as ingredientRenderer from '../ingredients/ingredient-render.js';
 
+/**
+ * Creates a labeled text input for entering a potion's name.
+ *
+ * @param {HTMLElement} container - The parent element to append the input block into.
+ * @returns {{root: HTMLElement, title: HTMLElement, input: HTMLInputElement}}
+ *   An object containing references to the root container, title label, and input element.
+ */
 export function createNameInput(container) {
   const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', container);
 
@@ -20,6 +27,13 @@ export function createNameInput(container) {
   };
 }
 
+/**
+ * Creates a labeled dropdown input for selecting a potion type. Fetches available potion types from the backend to ensure accuracy.
+ *
+ * @param {HTMLElement} container - The parent element to append the dropdown block into
+ * @returns {{root: HTMLElement, title: HTMLElement, dropdown: HTMLElement, select: HTMLSelectElement}}
+ *   An object containing references to the root container, title label, the dropdown shell, and the underlying <select> element
+ */
 export async function createTypeInput(container) {
   const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', container);
 
@@ -45,6 +59,13 @@ export async function createTypeInput(container) {
   };
 }
 
+/**
+ * Creates a labeled numeric input for entering a potion's price.
+ *
+ * @param {HTMLElement} container - The parent element to append the input block into
+ * @returns {{root: HTMLElement, title: HTMLElement, input: HTMLInputElement}}
+ *   An object containing references to the root container, title label, and input element
+ */
 export function createPriceInput(container) {
   const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', container);
 
@@ -61,6 +82,13 @@ export function createPriceInput(container) {
   };
 }
 
+/**
+ * Creates a labeled text input for entering a potion's effect description.
+ *
+ * @param {HTMLElement} container - The parent element to append the input block into
+ * @returns {{root: HTMLElement, title: HTMLElement, input: HTMLInputElement}}
+ *   An object containing references to the root container, title label, and input element
+ */
 export function createEffectInput(container) {
   const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', container);
 
