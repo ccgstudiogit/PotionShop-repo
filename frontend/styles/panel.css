@@ -13,10 +13,7 @@
   flex-direction: column;
   justify-content: center;
 
-  border-style: solid;
-  border-color: black;
-  border-width: 2px;
-
+  border: 3px solid black;
   background-color: rgb(182, 161, 255);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 
@@ -25,17 +22,14 @@
 
 /* panel-header share panel portion with panel-content. panel-header is on top, panel-content below which contains options/results */
 .panel-header {
-
   display: flex;
 
   height: 50px;
 
+
   border-style: solid;
+  border-width: 0px 0px 3px 0px;
   border-color: black;
-  border-width: 2px;
-
-  margin: -2px; /* To make sure the border aligns with panel-background */
-
   background-color: rgb(136, 118, 202);
 }
 
@@ -53,7 +47,7 @@
 
 /* For the options section and results section. Flex is shared with panel-header */
 .panel-content {
-  flex: 3;
+  flex: 1;
 
   min-height: 0;
 
@@ -82,13 +76,14 @@
 } 
 
 .panel-line {
-  border: 1px solid black;
+  border: 2px solid black;
   
-  height: 100%;
+  height: 99.5%;
 }
 
 .panel-scrollable {
   min-height: 0;
   
   overflow-y: auto;
+  overflow-x: hidden;
 }
