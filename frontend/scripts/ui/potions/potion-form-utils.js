@@ -1,7 +1,6 @@
 import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionActions from '../../actions/potion-actions.js';
-import * as ingredientActions from '../../actions/ingredient-actions.js';
 import * as ingredientRenderer from '../ingredients/ingredient-render.js';
 
 /**
@@ -44,7 +43,7 @@ export async function createTypeInput(container) {
   const selection = dropdown.selection;
 
   // Fetch the types from the backend so they are always accurate and up-to-date
-  const types = await potionActions.getPotionTypes(); 
+  const types = await potionActions.getPotionTypes();
   types.forEach(type => {
     const option = elementFactory.createAndAppendElement('option', null, selection);
     option.value = type;
@@ -105,37 +104,76 @@ export function createEffectInput(container) {
   };
 }
 
-export async function createIngredientsInput(container) {
+export function createIngredientsInput(container, startingIngredients, selectableIngredients) {
+  if (!Array.isArray(startingIngredients)) {
+    console.error("startingIngredients is not array!");
+    return null;
+  }
+
+  // Create the title
   const ingredientsTitleContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', container);
+  ingredientsTitleContainer.id = 'ingredientsTitleContainer';
   const ingredientsTitle = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], ingredientsTitleContainer);
   ingredientsTitle.textContent = 'Selected Ingredients:';
+
+  // Create the actual ingredients container. This is where all of the ingredients will go as well as add ingredient dropdown
   const ingredientsContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-ingredients-container', container);
+  ingredientsContainer.id = 'ingredientsContainer';
 
-  /* FOR TESTING PURPOSES AND MAKING SURE EVERYTHING LOOKS GOOD */
-  const ingredient1Obj = {
-    "name": "Applesauce",
-    "rarity": "Common"
-  }
-  const ingredient1 = ingredientRenderer.renderIngredient(ingredient1Obj);
-  const i1Info = ingredient1.infoContainer;
-  const times = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], i1Info);
-  times.textContent = 'x';
-  const i1QuantityInput = elementFactory.createAndAppendElement('input', ['add-potion-form-input-ing-quantity', 'font-jersey'], i1Info);
-  i1QuantityInput.value = 1;
-  ingredientsContainer.appendChild(ingredient1.root);
-  
-  const removeButton = buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ing-button', i1Info, () => {console.log('clicked');});
+  // Add the ingredients
+  startingIngredients.forEach(ingredientObject => {
+    const ingredientObj = createIngredient(ingredientObject);
 
+    // Only add a remove button if there are 2 or more ingredients. Prevents the user from having no ingredients selected
+    if (startingIngredients.length > 1) {
+      buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ing-button', ingredientObj.infoContainer, () => {
+        document.getElementById('ingredientsTitleContainer').remove();
+        document.getElementById('ingredientsContainer').remove();
+
+        const newStartingIngredients = startingIngredients.filter(ingredient => ingredient.id !== ingredientObject.id);
+        selectableIngredients.push(ingredientObject);
+        const newSelectableIngredients = [...selectableIngredients];
+        createIngredientsInput(container, newStartingIngredients, newSelectableIngredients);
+      });
+    }
+
+    ingredientsContainer.appendChild(ingredientObj.root);
+  });
+
+  // Add and setup the ingredient dropdown
   const addIngredientDropdownContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-select-ing-container', ingredientsContainer);
   const addIngredientDropdown = elementFactory.createAndAppendDropdownShell('custom-select', 'font-jersey', addIngredientDropdownContainer);
   const ingredientsSelection = addIngredientDropdown.selection;
   const starterOption = elementFactory.createAndAppendElement('option', null, ingredientsSelection);
   starterOption.value = '';
   starterOption.textContent = 'Add another ingredient';
-  const ingredients = await ingredientActions.getAllIngredients();
-  ingredients.forEach(ingredient => {
+
+  // Fill the dropdown with ingredients
+  selectableIngredients.forEach(ingredient => {
     const option = elementFactory.createAndAppendElement('option', null, ingredientsSelection);
     option.value = ingredient.id;
     option.textContent = ingredient.name;
   });
+}
+
+function createIngredient(ingredientObject) {
+  const ingredientObj = ingredientRenderer.renderIngredient(ingredientObject);
+
+  // Create the quantity input field with a 'x' symbol
+  const infoContainer = ingredientObj.infoContainer;
+  const timesElement = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], infoContainer);
+  timesElement.textContent = 'x';
+  const quantityInput = elementFactory.createAndAppendElement('input', ['add-potion-form-input-ing-quantity', 'font-jersey'], infoContainer);
+  quantityInput.value = 1; // Default the quantity to 1 and make sure it doesn't go below 1
+  quantityInput.addEventListener('change', (input) => {
+    if (input.value < 1) {
+      input.value = 1;
+    }
+  });
+
+  return {
+    root: ingredientObj.root,
+    infoContainer: infoContainer,
+    quantityInput: quantityInput
+  }
 }
