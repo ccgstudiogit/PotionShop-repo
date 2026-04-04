@@ -164,12 +164,15 @@ function createIngredient(ingredientObject) {
   const timesElement = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], infoContainer);
   timesElement.textContent = 'x';
   const quantityInput = elementFactory.createAndAppendElement('input', ['add-potion-form-input-ing-quantity', 'font-jersey'], infoContainer);
-  quantityInput.value = 1; // Default the quantity to 1 and make sure it doesn't go below 1
-  quantityInput.addEventListener('change', (input) => {
-    if (input.value < 1) {
-      input.value = 1;
+  
+  // Default the quantity to 1 and make sure it doesn't go below 1
+  quantityInput.value = 1; 
+  quantityInput.onchange = () => {
+    const val = Number(quantityInput.value);
+    if (Number.isNaN(val) || !Number.isInteger(val) || val < 1) {
+      quantityInput.value = 1;
     }
-  });
+  }
 
   return {
     root: ingredientObj.root,
