@@ -17,7 +17,10 @@ export async function createAddPotionForm(parentElement) {
   const ingredients = await ingredientActions.getAllIngredients();
   const startingIngredients = ingredients.splice(0, 5);
 
-  potionFormUtils.createIngredientsInput(formContainer, startingIngredients, ingredients);
+  // The empty div exists to make sure that the submit button always stays below the ingredients (when an ingredient is removed, the current
+  // ingredient HTML structure is destroyed and updated. Using a div wrapper prevents the submit button from going above the newly created list)
+  const ingredientsContainer = elementFactory.createAndAppendElement('div', null, formContainer);
+  potionFormUtils.createIngredientsInput(ingredientsContainer, startingIngredients, ingredients);
 
   const submitButton = buttonFactory.createAndAppendButton('Submit', 'add-potion-form-submit-button', formContainer, () => {
     console.log('Submitting form with following attributes:');
