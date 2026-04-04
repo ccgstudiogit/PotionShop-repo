@@ -127,12 +127,13 @@ export function createIngredientsInput(container, startingIngredients, selectabl
     // Only add a remove button if there are 2 or more ingredients. Prevents the user from having no ingredients selected
     if (startingIngredients.length > 1) {
       buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ing-button', ingredientObj.infoContainer, () => {
+        // Remove the old ingredients before using recursion to build the updated list
         document.getElementById('ingredientsTitleContainer').remove();
         document.getElementById('ingredientsContainer').remove();
 
         const newStartingIngredients = startingIngredients.filter(ingredient => ingredient.id !== ingredientObject.id);
-        selectableIngredients.push(ingredientObject);
         const newSelectableIngredients = [...selectableIngredients];
+        newSelectableIngredients.push(ingredientObject);
         createIngredientsInput(container, newStartingIngredients, newSelectableIngredients);
       });
     }
@@ -148,7 +149,8 @@ export function createIngredientsInput(container, startingIngredients, selectabl
   starterOption.value = '';
   starterOption.textContent = 'Add another ingredient';
 
-  // Fill the dropdown with ingredients
+  // Sort alphabetically then fill the dropdown with ingredients
+  selectableIngredients.sort((a, b) => a.name.localeCompare(b.name));
   selectableIngredients.forEach(ingredient => {
     const option = elementFactory.createAndAppendElement('option', null, ingredientsSelection);
     option.value = ingredient.id;
