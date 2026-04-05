@@ -2,6 +2,8 @@ package com.connor.potionshop.service;
 
 import java.util.*;
 import com.connor.potionshop.model.ingredient.*;
+import com.connor.potionshop.model.potioningredient.*;
+import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.repository.IngredientRepository;
 import com.connor.potionshop.mapper.IngredientMapper;
 import jakarta.persistence.*;
@@ -11,10 +13,16 @@ import org.springframework.stereotype.*;
 public class IngredientService {
     private final IngredientRepository ingredientRepository;
     private final IngredientMapper ingredientMapper;
+    private final PotionIngredientService potionIngredientService;
 
-    public IngredientService(IngredientRepository ingredientRepository, IngredientMapper ingredientMapper) {
+    public IngredientService(
+        IngredientRepository ingredientRepository,
+        IngredientMapper ingredientMapper,
+        PotionIngredientService potionIngredientService
+    ) {
         this.ingredientRepository = ingredientRepository;
         this.ingredientMapper = ingredientMapper;
+        this.potionIngredientService = potionIngredientService;
     }
 
     /**
@@ -70,6 +78,13 @@ public class IngredientService {
             .orElseThrow(() -> new EntityNotFoundException(
                 String.format("Ingredient with id %d not found.", id)
             ));
+
+        // Make sure to delete this ingredient from a potion's ingredient list if that potion has this ingredient
+        List<PotionIngredient> potionsWithThisIngredient = potionIngredientService.getIngredientsByIngredientId(id);
+        for (int i = 0; i < potionsWithThisIngredient.size(); i++) {
+            Potion potion = potionsWithThisIngredient.get(i).getPotion();
+            potionIngredientService.deletePotionIngredient(potion.getId(), id);
+        }
 
         ingredientRepository.deleteById(id);
     }

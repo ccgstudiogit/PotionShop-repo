@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PotionIngredientRepository extends JpaRepository<PotionIngredient, PotionIngredientPk> {
     List<PotionIngredient> findByPotionId(Integer id);
+    List<PotionIngredient> findByIngredientId(Integer id);
 }

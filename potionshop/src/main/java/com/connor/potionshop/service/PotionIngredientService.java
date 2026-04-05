@@ -30,13 +30,23 @@ public class PotionIngredientService {
     }
 
     /**
-     * Retrieves all PotionIngredient entries associated with a given potion id.
+     * Retrieves all PotionIngredient entries associated with the given potion id.
      *
      * @param id the id of the potion
      * @return a list of PotionIngredient entities linked to the potion
      */
     public List<PotionIngredient> getIngredientsByPotionId(Integer id) {
         return potionIngredientRepository.findByPotionId(id);
+    }
+
+    /**
+     * Retrieves all PotionIngredient entries associated with the given ingredient id.
+     *
+     * @param id the id of the ingredient
+     * @return a list of PotionIngredient entities linked to the ingredient
+     */
+    public List<PotionIngredient> getIngredientsByIngredientId(Integer id) {
+        return potionIngredientRepository.findByIngredientId(id);
     }
 
     /**
