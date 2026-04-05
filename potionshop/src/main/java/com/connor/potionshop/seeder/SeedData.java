@@ -6,7 +6,12 @@ import com.connor.potionshop.model.ingredient.*;
 import com.connor.potionshop.model.potioningredient.*;
 
 public class SeedData {
-    public List<Potion> getPotionSeedData() {
+    /**
+     * Retrieve the potion seed data, which contains 21 potions ready to go.
+     *
+     * @return a list of potion objects
+     */
+    public static List<Potion> getPotionSeedData() {
         return new ArrayList<Potion>(List.of(
             new Potion(
                 "Healing Draught",
@@ -137,7 +142,12 @@ public class SeedData {
         ));
     }
 
-    public List<Ingredient> getIngredientSeedData() {
+    /**
+     * Retrieve the ingredient seed data, which contains 32 ingredients ready to go.
+     *
+     * @return a list of ingredient objects
+     */
+    public static List<Ingredient> getIngredientSeedData() {
         return new ArrayList<Ingredient>(List.of(
             new Ingredient("Moonpetal Leaf", Rarity.Uncommon),
             new Ingredient("Dragonfly Husk", Rarity.Common),
@@ -174,7 +184,24 @@ public class SeedData {
         ));
     }
 
-    public List<PotionIngredient> getPotionIngredientSeedData(ArrayList<Potion> savedPotions, ArrayList<Ingredient> savedIngredients) {
+    /**
+     * Retrieve the potion-ingredient relationship seed data, where each potion gets assigned its ingredients and the
+     * ingredient quantities. This must be called AFTER both the potions and ingredient data have been saved to the
+     * database, as PotionIngredient uses potion_id and ingredient_id as its composite key.
+     *
+     * @param savedPotions A list of potions FROM the database
+     * @param savedIngredients A list of ingredients FROM the database
+     * @return A list of PotionIngredient objects
+     * @throws RuntimeException If the list of potions or list of ingredients is not from the database, this exception
+     *                          is thrown
+     */
+    public static List<PotionIngredient> getPotionIngredientSeedData(List<Potion> savedPotions, List<Ingredient> savedIngredients) {
+        if (savedPotions.get(0).getId() == null || savedIngredients.get(0).getId() == null) {
+            throw new RuntimeException(
+                "Potion or ingredient id null. Unable to create list of PotionIngredients. savedPotions and savedIngredients must come from the database."
+            );
+        }
+
         return new ArrayList<PotionIngredient>(List.of(
             new PotionIngredient(savedPotions.get(0), savedIngredients.get(0), 2),
             new PotionIngredient(savedPotions.get(0), savedIngredients.get(6), 1),
@@ -209,10 +236,13 @@ public class SeedData {
             new PotionIngredient(savedPotions.get(9), savedIngredients.get(3), 3),
             new PotionIngredient(savedPotions.get(9), savedIngredients.get(23), 1),
             new PotionIngredient(savedPotions.get(9), savedIngredients.get(2), 1),
-            new PotionIngredient(savedPotions.get(11), savedIngredients.get(6), 2),
-            new PotionIngredient(savedPotions.get(11), savedIngredients.get(0), 1),
+            new PotionIngredient(savedPotions.get(10), savedIngredients.get(6), 2),
+            new PotionIngredient(savedPotions.get(10), savedIngredients.get(0), 1),
+            new PotionIngredient(savedPotions.get(10), savedIngredients.get(27), 1),
+            new PotionIngredient(savedPotions.get(10), savedIngredients.get(25), 1),
+            new PotionIngredient(savedPotions.get(11), savedIngredients.get(6), 1),
             new PotionIngredient(savedPotions.get(11), savedIngredients.get(27), 1),
-            new PotionIngredient(savedPotions.get(11), savedIngredients.get(25), 1),
+            new PotionIngredient(savedPotions.get(11), savedIngredients.get(0), 1),
             new PotionIngredient(savedPotions.get(12), savedIngredients.get(1), 2),
             new PotionIngredient(savedPotions.get(12), savedIngredients.get(26), 1),
             new PotionIngredient(savedPotions.get(12), savedIngredients.get(19), 1),
