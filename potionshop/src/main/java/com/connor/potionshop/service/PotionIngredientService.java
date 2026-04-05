@@ -35,7 +35,7 @@ public class PotionIngredientService {
      * @param id the id of the potion
      * @return a list of PotionIngredient entities linked to the potion
      */
-    public List<PotionIngredient> getIngredientsByPotionId(Integer id) {
+    public List<PotionIngredient> getPotionIngredientsByPotionId(Integer id) {
         return potionIngredientRepository.findByPotionId(id);
     }
 
@@ -45,7 +45,7 @@ public class PotionIngredientService {
      * @param id the id of the ingredient
      * @return a list of PotionIngredient entities linked to the ingredient
      */
-    public List<PotionIngredient> getIngredientsByIngredientId(Integer id) {
+    public List<PotionIngredient> getPotionIngredientsByIngredientId(Integer id) {
         return potionIngredientRepository.findByIngredientId(id);
     }
 

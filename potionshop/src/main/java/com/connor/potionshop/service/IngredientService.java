@@ -3,7 +3,6 @@ package com.connor.potionshop.service;
 import java.util.*;
 import com.connor.potionshop.model.ingredient.*;
 import com.connor.potionshop.model.potioningredient.*;
-import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.repository.IngredientRepository;
 import com.connor.potionshop.mapper.IngredientMapper;
 import jakarta.persistence.*;
@@ -68,7 +67,7 @@ public class IngredientService {
     }
 
     /**
-     * Deletes an ingredient from the database by its id.
+     * Deletes an ingredient from the database by its id. Also deletes any associated PotionIngredient.
      *
      * @param id the id of the ingredient to delete
      * @throws EntityNotFoundException if no ingredient exists with the given id
@@ -80,10 +79,9 @@ public class IngredientService {
             ));
 
         // Make sure to delete this ingredient from a potion's ingredient list if that potion has this ingredient
-        List<PotionIngredient> potionsWithThisIngredient = potionIngredientService.getIngredientsByIngredientId(id);
-        for (int i = 0; i < potionsWithThisIngredient.size(); i++) {
-            Potion potion = potionsWithThisIngredient.get(i).getPotion();
-            potionIngredientService.deletePotionIngredient(potion.getId(), id);
+        List<PotionIngredient> potionIngredients = potionIngredientService.getPotionIngredientsByIngredientId(id);
+        for (int i = 0; i < potionIngredients.size(); i++) {
+            potionIngredientService.deletePotionIngredient(potionIngredients.get(i).getPotion().getId(), id);
         }
 
         ingredientRepository.deleteById(id);

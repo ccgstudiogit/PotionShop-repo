@@ -73,7 +73,7 @@ public class PotionService {
     }
 
     /**
-     * Deletes a potion from the database by its id.
+     * Deletes a potion from the database by its id. Also deletes any associated PotionIngredient.
      *
      * @param id the id of the potion to delete
      * @throws EntityNotFoundException if no potion exists with the given id
@@ -83,6 +83,12 @@ public class PotionService {
             .orElseThrow(() -> new EntityNotFoundException(
                 String.format("Potion with id %d not found.", id)
             ));
+
+        // Make sure to delete any PotionIngredient relationship related to this potion that's being deleted
+        List<PotionIngredient> potionIngredients = potionIngredientService.getPotionIngredientsByPotionId(id);
+        for (int i = 0; i < potionIngredients.size(); i++) {
+            potionIngredientService.deletePotionIngredient(id, potionIngredients.get(i).getIngredient().getId());
+        }
 
         potionRepository.deleteById(id);
     }
@@ -146,7 +152,7 @@ public class PotionService {
                 String.format("Potion with id %d not found.", id)
             ));
 
-        List<PotionIngredient> potionIngredients = potionIngredientService.getIngredientsByPotionId(potion.getId());
+        List<PotionIngredient> potionIngredients = potionIngredientService.getPotionIngredientsByPotionId(potion.getId());
         List<PotionIngredientDTO> potionIngredientDTOS = new ArrayList<>();
         for (int i = 0; i < potionIngredients.size(); i++) {
             potionIngredientDTOS.add(potionIngredientMapper.toDTO(potionIngredients.get(i)));
