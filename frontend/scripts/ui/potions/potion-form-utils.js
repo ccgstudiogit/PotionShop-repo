@@ -105,8 +105,8 @@ export function createEffectInput(container) {
 }
 
 export function createIngredientsInput(container, startingIngredients, selectableIngredients) {
-  if (!Array.isArray(startingIngredients)) {
-    console.error("startingIngredients is not array!");
+  if (!Array.isArray(startingIngredients) || !Array.isArray(selectableIngredients)) {
+    console.error("startingIngredients and selectableIngredients need to be an array!");
     return null;
   }
 
@@ -128,12 +128,16 @@ export function createIngredientsInput(container, startingIngredients, selectabl
     if (startingIngredients.length > 1) {
       buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ing-button', ingredientObj.infoContainer, () => {
         // Remove the old ingredients before using recursion to build the updated list
-        document.getElementById('ingredientsTitleContainer').remove();
-        document.getElementById('ingredientsContainer').remove();
-
+        clearIngredients();
+        
+        // Remove this ingredient from the starting ingredients
         const newStartingIngredients = startingIngredients.filter(ingredient => ingredient.id !== ingredientObject.id);
+
+        // Put this ingredient back in the ingredient selection dropdown
         const newSelectableIngredients = [...selectableIngredients];
         newSelectableIngredients.push(ingredientObject);
+
+        // Recreate the ingredients list with the now-removed ingredient
         createIngredientsInput(container, newStartingIngredients, newSelectableIngredients);
       });
     }
@@ -156,6 +160,29 @@ export function createIngredientsInput(container, startingIngredients, selectabl
     option.value = ingredient.id;
     option.textContent = ingredient.name;
   });
+
+  ingredientsSelection.addEventListener('change', () => {
+    clearIngredients();
+
+    // The id of the ingredient that should be added to the list
+    const ingredientIdToAdd = Number(ingredientsSelection.options[ingredientsSelection.selectedIndex].value);
+
+    // Remove the desired ingredient from the selectable dropdown
+    const index = selectableIngredients.findIndex(ingredient => ingredient.id === ingredientIdToAdd);
+    const [ingredientObjToAdd] = selectableIngredients.splice(index, 1);
+
+    // Add the desired ingredient to the starting ingredients, so when the ingredients list is rebuilt it's included
+    const newStartingIngredients = [...startingIngredients];
+    newStartingIngredients.push(ingredientObjToAdd);
+    
+    // Recreate the ingredients list with the now-removed ingredient
+    createIngredientsInput(container, newStartingIngredients, selectableIngredients);
+  });
+}
+
+function clearIngredients() {
+  document.getElementById('ingredientsTitleContainer').remove();
+  document.getElementById('ingredientsContainer').remove();
 }
 
 function createIngredient(ingredientObject) {
