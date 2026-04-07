@@ -1,9 +1,10 @@
 import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
+import * as mathHelper from '../../utils/math-helper.js';
 import * as potionFormUtils from './potion-form-utils.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
 
-export async function createAddPotionForm(parentElement) {
+export async function createAddPotionForm(parentElement, startingIngredientCount) {
   const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
 
   const formTitle = elementFactory.createAndAppendElement('p', ['add-form-title', 'font-jersey'], formContainer);
@@ -14,8 +15,14 @@ export async function createAddPotionForm(parentElement) {
   const priceInput = potionFormUtils.createPriceInput(formContainer);
   const effectInput = potionFormUtils.createEffectInput(formContainer);
 
+  // Pick random starting ingredients
+  const startingIngredients = [];
   const ingredients = await ingredientActions.getAllIngredients();
-  const startingIngredients = ingredients.splice(0, 5);
+  for (let i = 0; i < startingIngredientCount; i++) {
+    const randomIndex = mathHelper.getRandomInt(0, ingredients.length - 1)
+    startingIngredients.push(ingredients[randomIndex]);
+    ingredients.splice(randomIndex, 1);
+  }
 
   // The empty div exists to make sure that the submit button always stays below the ingredients (when an ingredient is removed, the current
   // ingredient HTML structure is destroyed and updated. Using a div wrapper prevents the submit button from going above the newly created list)
@@ -30,4 +37,3 @@ export async function createAddPotionForm(parentElement) {
     console.log('Effect: ' + effectInput.input.value);
   });
 }
-

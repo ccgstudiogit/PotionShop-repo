@@ -59,5 +59,5 @@ async function displayAllPotions(resultsSection) {
  */
 function addPotionForm(resultsSection) {
   resultsSection.innerHTML = '';
-  potionForms.createAddPotionForm(resultsSection);
+  potionForms.createAddPotionForm(resultsSection, 3); // The integer is how many random ingredients there will be
 }
