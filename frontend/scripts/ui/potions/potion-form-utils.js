@@ -2,6 +2,8 @@ import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionActions from '../../actions/potion-actions.js';
 import * as ingredientRenderer from '../ingredients/ingredient-render.js';
+import { EventBus } from '../../events/event-bus.js';
+import * as ingredientEvents from '../../events/ingredient-events.js';
 
 /**
  * Creates a labeled text input for entering a potion's name.
@@ -122,11 +124,11 @@ export function createIngredientsInput(container, startingIngredients, selectabl
 
   // Add the ingredients
   startingIngredients.forEach(ingredientObject => {
-    const ingredientObj = createIngredient(ingredientObject);
+    const ingredientDOMElement = createIngredient(ingredientObject);
 
     // Only add a remove button if there are 2 or more ingredients. Prevents the user from having no ingredients selected
     if (startingIngredients.length > 1) {
-      buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ing-button', ingredientObj.infoContainer, () => {
+      buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ing-button', ingredientDOMElement.infoContainer, () => {
         // Remove the old ingredients before using recursion to build the updated list
         clearIngredients();
         
@@ -136,13 +138,15 @@ export function createIngredientsInput(container, startingIngredients, selectabl
         // Put this ingredient back in the ingredient selection dropdown
         const newSelectableIngredients = [...selectableIngredients];
         newSelectableIngredients.push(ingredientObject);
+        
+        EventBus.dispatchEvent(ingredientEvents.addIngredient(ingredientObject, 3));
 
         // Recreate the ingredients list with the now-removed ingredient
         createIngredientsInput(container, newStartingIngredients, newSelectableIngredients);
       });
     }
 
-    ingredientsContainer.appendChild(ingredientObj.root);
+    ingredientsContainer.appendChild(ingredientDOMElement.root);
   });
 
   // Add and setup the ingredient dropdown
@@ -186,10 +190,10 @@ function clearIngredients() {
 }
 
 function createIngredient(ingredientObject) {
-  const ingredientObj = ingredientRenderer.renderIngredient(ingredientObject);
+  const ingredientDOMElement = ingredientRenderer.renderIngredient(ingredientObject);
 
   // Create the quantity input field with a 'x' symbol
-  const infoContainer = ingredientObj.infoContainer;
+  const infoContainer = ingredientDOMElement.infoContainer;
   const timesElement = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], infoContainer);
   timesElement.textContent = 'x';
   const quantityInput = elementFactory.createAndAppendElement('input', ['add-potion-form-input-ing-quantity', 'font-jersey'], infoContainer);
@@ -204,7 +208,7 @@ function createIngredient(ingredientObject) {
   }
 
   return {
-    root: ingredientObj.root,
+    root: ingredientDOMElement.root,
     infoContainer: infoContainer,
     quantityInput: quantityInput
   }

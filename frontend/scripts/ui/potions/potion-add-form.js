@@ -3,6 +3,8 @@ import * as buttonFactory from '../../utils/button-factory.js';
 import * as mathHelper from '../../utils/math-helper.js';
 import * as potionFormUtils from './potion-form-utils.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
+import { EventBus } from '../../events/event-bus.js';
+import * as ingredientEvents from '../../events/ingredient-events.js';
 
 export async function createAddPotionForm(parentElement, startingIngredientCount) {
   const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
@@ -35,5 +37,18 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
     console.log('Type: ' + typeInput.select.value);
     console.log('Price: ' + priceInput.input.value);
     console.log('Effect: ' + effectInput.input.value);
+    /*
+    console.log('Ingredients:');
+    const ingredients = potionFormUtils.getCurrentIngredients();
+    for (let i = 0; i < ingredients.length; i++) {
+      console.log(ingredients[i].name);
+    }
+     */
+  });
+
+  EventBus.addEventListener(ingredientEvents.addIngredientEvent, (event) => {
+    console.log('ingredient info:');
+    console.log('ingredient id: ' + event.detail.id);
+    console.log('ingredient quantity: ' + event.detail.quantity);
   });
 }
