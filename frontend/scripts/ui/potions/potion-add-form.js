@@ -3,8 +3,8 @@ import * as buttonFactory from '../../utils/button-factory.js';
 import * as mathHelper from '../../utils/math-helper.js';
 import * as potionFormUtils from './potion-form-utils.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
-import { EventBus } from '../../events/event-bus.js';
-import * as ingredientEvents from '../../events/ingredient-events.js';
+//import { EventBus } from '../../events/event-bus.js';
+//import * as ingredientEvents from '../../events/ingredient-events.js';
 
 export async function createAddPotionForm(parentElement, startingIngredientCount) {
   const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
@@ -31,24 +31,25 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
   const ingredientsContainer = elementFactory.createAndAppendElement('div', null, formContainer);
   potionFormUtils.createIngredientsInput(ingredientsContainer, startingIngredients, ingredients);
 
+  //const ingredientsWithQuantities = [];
+
   const submitButton = buttonFactory.createAndAppendButton('Submit', 'add-potion-form-submit-button', formContainer, () => {
     console.log('Submitting form with following attributes:');
     console.log('Name: ' + nameInput.input.value);
     console.log('Type: ' + typeInput.select.value);
     console.log('Price: ' + priceInput.input.value);
     console.log('Effect: ' + effectInput.input.value);
-    /*
-    console.log('Ingredients:');
-    const ingredients = potionFormUtils.getCurrentIngredients();
-    for (let i = 0; i < ingredients.length; i++) {
-      console.log(ingredients[i].name);
-    }
-     */
   });
 
-  EventBus.addEventListener(ingredientEvents.addIngredientEvent, (event) => {
-    console.log('ingredient info:');
-    console.log('ingredient id: ' + event.detail.id);
-    console.log('ingredient quantity: ' + event.detail.quantity);
+  /*
+  EventBus.addEventListener(ingredientEvents.onUpdateIngredients, (event) => {
+    ingredientsWithQuantities.push(event.detail);
+    console.log('ingredients info:');
+    ingredientsWithQuantities.forEach((ing) => {
+      console.log('ingredient id: ' + ing.id);
+      console.log('ingredient quantity: ' + ing.quantity);
+      console.log();
+    });
   });
+  */
 }

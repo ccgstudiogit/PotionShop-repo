@@ -2,8 +2,8 @@ import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionActions from '../../actions/potion-actions.js';
 import * as ingredientRenderer from '../ingredients/ingredient-render.js';
-import { EventBus } from '../../events/event-bus.js';
-import * as ingredientEvents from '../../events/ingredient-events.js';
+//import { EventBus } from '../../events/event-bus.js';
+//import * as ingredientEvents from '../../events/ingredient-events.js';
 
 /**
  * Creates a labeled text input for entering a potion's name.
@@ -109,8 +109,10 @@ export function createEffectInput(container) {
 export function createIngredientsInput(container, startingIngredients, selectableIngredients) {
   if (!Array.isArray(startingIngredients) || !Array.isArray(selectableIngredients)) {
     console.error("startingIngredients and selectableIngredients need to be an array!");
-    return null;
+    return;
   }
+
+  const currentIngredients = [];
 
   // Create the title
   const ingredientsTitleContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', container);
@@ -122,6 +124,7 @@ export function createIngredientsInput(container, startingIngredients, selectabl
   const ingredientsContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-ingredients-container', container);
   ingredientsContainer.id = 'ingredientsContainer';
 
+  /*
   // Add the ingredients
   startingIngredients.forEach(ingredientObject => {
     const ingredientDOMElement = createIngredient(ingredientObject);
@@ -138,8 +141,6 @@ export function createIngredientsInput(container, startingIngredients, selectabl
         // Put this ingredient back in the ingredient selection dropdown
         const newSelectableIngredients = [...selectableIngredients];
         newSelectableIngredients.push(ingredientObject);
-        
-        EventBus.dispatchEvent(ingredientEvents.addIngredient(ingredientObject, 3));
 
         // Recreate the ingredients list with the now-removed ingredient
         createIngredientsInput(container, newStartingIngredients, newSelectableIngredients);
@@ -148,6 +149,7 @@ export function createIngredientsInput(container, startingIngredients, selectabl
 
     ingredientsContainer.appendChild(ingredientDOMElement.root);
   });
+  */
 
   // Add and setup the ingredient dropdown
   const addIngredientDropdownContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-select-ing-container', ingredientsContainer);
@@ -157,6 +159,7 @@ export function createIngredientsInput(container, startingIngredients, selectabl
   starterOption.value = '';
   starterOption.textContent = 'Add another ingredient';
 
+  /*
   // Sort alphabetically then fill the dropdown with ingredients
   selectableIngredients.sort((a, b) => a.name.localeCompare(b.name));
   selectableIngredients.forEach(ingredient => {
@@ -165,6 +168,7 @@ export function createIngredientsInput(container, startingIngredients, selectabl
     option.textContent = ingredient.name;
   });
 
+  // If the user selects an ingredient from the dropdown, add that ingredient to the list
   ingredientsSelection.addEventListener('change', () => {
     clearIngredients();
 
@@ -181,6 +185,39 @@ export function createIngredientsInput(container, startingIngredients, selectabl
     
     // Recreate the ingredients list with the now-removed ingredient
     createIngredientsInput(container, newStartingIngredients, selectableIngredients);
+  });
+  */
+}
+
+function updateIngredientList(ingredientsContainer, activeIngredients, dropdownIngredients, dropdownContainer, dropdownSelection) {
+  ingredientsContainer.innerHTML = '';
+
+  activeIngredients.forEach(ingredientObject => {
+    const ingredientDOMElement = createIngredient(ingredientObject);
+
+    // Only add a remove button if there are 2 or more ingredients. Prevents the user from having no ingredients selected
+    if (startingIngredients.length > 1) {
+      buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ing-button', ingredientDOMElement.infoContainer, () => {
+        // Remove this ingredient from the starting ingredients
+        const newStartingIngredients = startingIngredients.filter(ingredient => ingredient.id !== ingredientObject.id);
+
+        // Put this ingredient back in the ingredient selection dropdown
+        const newSelectableIngredients = [...selectableIngredients];
+        newSelectableIngredients.push(ingredientObject);
+
+        // Recreate the ingredients list with the now-removed ingredient
+        updateIngredientList(ingredientsContainer, newStartingIngredients, newSelectableIngredients, dropdownContainer, dropdownSelection);
+      });
+    }
+
+    ingredientsContainer.appendChild(ingredientDOMElement.root);
+  });
+
+  dropdownIngredients.sort((a, b) => a.name.localeCompare(b.name));
+  dropdownIngredients.forEach(ingredient => {
+    const option = elementFactory.createAndAppendElement('option', null, dropdownSelection);
+    option.value = ingredient.id;
+    option.textContent = ingredient.name;
   });
 }
 
