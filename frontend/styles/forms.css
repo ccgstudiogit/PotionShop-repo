@@ -89,7 +89,7 @@
   margin: -6px 12px 6px 12px;
 }
 
-.add-potion-form-input-ing-quantity {
+.add-potion-form-input-ingredient-quantity {
   margin-left: 6px;
   padding: 0px 3px 0px 3px;
 
@@ -98,13 +98,13 @@
   font-size: 1.85rem;
 }
 
-.add-potion-form-select-ing-container {
+.add-potion-form-ingredient-dropdown-container {
   max-width: 350px;
 
   align-self: center;
 }
 
-.add-potion-form-remove-ing-button {
+.add-potion-form-remove-ingredient-button {
   margin-left: auto; /* Pushes all the way to the right */
   margin-right: 11px;
 

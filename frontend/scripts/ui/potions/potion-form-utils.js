@@ -8,12 +8,12 @@ import * as ingredientRenderer from '../ingredients/ingredient-render.js';
 /**
  * Creates a labeled text input for entering a potion's name.
  *
- * @param {HTMLElement} container - The parent element to append the input block into.
+ * @param {HTMLElement} parent - The parent element to append the input block into.
  * @returns {{root: HTMLElement, title: HTMLElement, input: HTMLInputElement}}
  *   An object containing references to the root container, title label, and input element.
  */
-export function createNameInput(container) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', container);
+export function createNameInput(parent) {
+  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', parent);
 
   const title = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], rootElement);
   title.textContent = 'Name:';
@@ -31,12 +31,12 @@ export function createNameInput(container) {
 /**
  * Creates a labeled dropdown input for selecting a potion type. Fetches available potion types from the backend to ensure accuracy.
  *
- * @param {HTMLElement} container - The parent element to append the dropdown block into
+ * @param {HTMLElement} parent - The parent element to append the dropdown block into
  * @returns {{root: HTMLElement, title: HTMLElement, dropdown: HTMLElement, select: HTMLSelectElement}}
  *   An object containing references to the root container, title label, the dropdown shell, and the underlying <select> element
  */
-export async function createTypeInput(container) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', container);
+export async function createTypeInput(parent) {
+  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', parent);
 
   const title = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], rootElement);
   title.textContent = 'Type:';
@@ -63,12 +63,12 @@ export async function createTypeInput(container) {
 /**
  * Creates a labeled numeric input for entering a potion's price.
  *
- * @param {HTMLElement} container - The parent element to append the input block into
+ * @param {HTMLElement} parent - The parent element to append the input block into
  * @returns {{root: HTMLElement, title: HTMLElement, input: HTMLInputElement}}
  *   An object containing references to the root container, title label, and input element
  */
-export function createPriceInput(container) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', container);
+export function createPriceInput(parent) {
+  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', parent);
 
   const title = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], rootElement);
   title.textContent = 'Price:';
@@ -86,12 +86,12 @@ export function createPriceInput(container) {
 /**
  * Creates a labeled text input for entering a potion's effect description.
  *
- * @param {HTMLElement} container - The parent element to append the input block into
+ * @param {HTMLElement} parent - The parent element to append the input block into
  * @returns {{root: HTMLElement, title: HTMLElement, input: HTMLInputElement}}
  *   An object containing references to the root container, title label, and input element
  */
-export function createEffectInput(container) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', container);
+export function createEffectInput(parent) {
+  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', parent);
 
   const title = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], rootElement);
   title.textContent = 'Effect:';
@@ -106,124 +106,110 @@ export function createEffectInput(container) {
   };
 }
 
-export function createIngredientsInput(container, startingIngredients, selectableIngredients) {
-  if (!Array.isArray(startingIngredients) || !Array.isArray(selectableIngredients)) {
+export function createIngredientsInputList(parent, activeIngredients, remainingIngredientOptions) {
+  if (!Array.isArray(activeIngredients) || !Array.isArray(remainingIngredientOptions)) {
     console.error("startingIngredients and selectableIngredients need to be an array!");
     return;
   }
 
-  const currentIngredients = [];
-
   // Create the title
-  const ingredientsTitleContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', container);
+  const ingredientsTitleContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', parent);
   ingredientsTitleContainer.id = 'ingredientsTitleContainer';
   const ingredientsTitle = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], ingredientsTitleContainer);
   ingredientsTitle.textContent = 'Selected Ingredients:';
 
-  // Create the actual ingredients container. This is where all of the ingredients will go as well as add ingredient dropdown
-  const ingredientsContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-ingredients-container', container);
-  ingredientsContainer.id = 'ingredientsContainer';
+  // Create the container that holds the ingredient list and dropdown. This is here so that when the ingredients list is cleared and remade, the
+  // ingredient dropdown stays below this div
+  const ingredientsListContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-ingredients-container', parent);
 
-  /*
-  // Add the ingredients
-  startingIngredients.forEach(ingredientObject => {
-    const ingredientDOMElement = createIngredient(ingredientObject);
+  // Create the container for the ingredient list (this holds the actual ingredient elements)
+  const ingredientsContainer = elementFactory.createAndAppendElement('div', null, ingredientsListContainer);
 
-    // Only add a remove button if there are 2 or more ingredients. Prevents the user from having no ingredients selected
-    if (startingIngredients.length > 1) {
-      buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ing-button', ingredientDOMElement.infoContainer, () => {
-        // Remove the old ingredients before using recursion to build the updated list
-        clearIngredients();
-        
-        // Remove this ingredient from the starting ingredients
-        const newStartingIngredients = startingIngredients.filter(ingredient => ingredient.id !== ingredientObject.id);
-
-        // Put this ingredient back in the ingredient selection dropdown
-        const newSelectableIngredients = [...selectableIngredients];
-        newSelectableIngredients.push(ingredientObject);
-
-        // Recreate the ingredients list with the now-removed ingredient
-        createIngredientsInput(container, newStartingIngredients, newSelectableIngredients);
-      });
-    }
-
-    ingredientsContainer.appendChild(ingredientDOMElement.root);
-  });
-  */
-
-  // Add and setup the ingredient dropdown
-  const addIngredientDropdownContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-select-ing-container', ingredientsContainer);
-  const addIngredientDropdown = elementFactory.createAndAppendDropdownShell('custom-select', 'font-jersey', addIngredientDropdownContainer);
-  const ingredientsSelection = addIngredientDropdown.selection;
-  const starterOption = elementFactory.createAndAppendElement('option', null, ingredientsSelection);
-  starterOption.value = '';
-  starterOption.textContent = 'Add another ingredient';
-
-  /*
-  // Sort alphabetically then fill the dropdown with ingredients
-  selectableIngredients.sort((a, b) => a.name.localeCompare(b.name));
-  selectableIngredients.forEach(ingredient => {
-    const option = elementFactory.createAndAppendElement('option', null, ingredientsSelection);
-    option.value = ingredient.id;
-    option.textContent = ingredient.name;
-  });
-
-  // If the user selects an ingredient from the dropdown, add that ingredient to the list
-  ingredientsSelection.addEventListener('change', () => {
-    clearIngredients();
-
-    // The id of the ingredient that should be added to the list
-    const ingredientIdToAdd = Number(ingredientsSelection.options[ingredientsSelection.selectedIndex].value);
-
-    // Remove the desired ingredient from the selectable dropdown
-    const index = selectableIngredients.findIndex(ingredient => ingredient.id === ingredientIdToAdd);
-    const [ingredientObjToAdd] = selectableIngredients.splice(index, 1);
-
-    // Add the desired ingredient to the starting ingredients, so when the ingredients list is rebuilt it's included
-    const newStartingIngredients = [...startingIngredients];
-    newStartingIngredients.push(ingredientObjToAdd);
-    
-    // Recreate the ingredients list with the now-removed ingredient
-    createIngredientsInput(container, newStartingIngredients, selectableIngredients);
-  });
-  */
+  // Create the ingredient dropdown container. The actual dropdown element is created in refreshAddIngredientDropdown()
+  const addIngredientDropdownContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-ingredient-dropdown-container', ingredientsListContainer);
+  
+  // Render the list. The list is continually updated via recursion as the user adds/removes ingredients
+  updateIngredientList(ingredientsContainer, activeIngredients, remainingIngredientOptions, addIngredientDropdownContainer);
 }
 
-function updateIngredientList(ingredientsContainer, activeIngredients, dropdownIngredients, dropdownContainer, dropdownSelection) {
+function updateIngredientList(ingredientsContainer, activeIngredients, remainingIngredientOptions, dropdownContainer) {
   ingredientsContainer.innerHTML = '';
 
   activeIngredients.forEach(ingredientObject => {
     const ingredientDOMElement = createIngredient(ingredientObject);
 
     // Only add a remove button if there are 2 or more ingredients. Prevents the user from having no ingredients selected
-    if (startingIngredients.length > 1) {
-      buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ing-button', ingredientDOMElement.infoContainer, () => {
-        // Remove this ingredient from the starting ingredients
-        const newStartingIngredients = startingIngredients.filter(ingredient => ingredient.id !== ingredientObject.id);
-
-        // Put this ingredient back in the ingredient selection dropdown
-        const newSelectableIngredients = [...selectableIngredients];
-        newSelectableIngredients.push(ingredientObject);
-
-        // Recreate the ingredients list with the now-removed ingredient
-        updateIngredientList(ingredientsContainer, newStartingIngredients, newSelectableIngredients, dropdownContainer, dropdownSelection);
+    if (activeIngredients.length > 1) {
+      buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ingredient-button', ingredientDOMElement.infoContainer, () => {
+        // Get updated active/remaining options lists with the removed active potion and then update the DOM
+        const updated = removeFromActiveIngredients(ingredientObject, activeIngredients, remainingIngredientOptions);
+        updateIngredientList(ingredientsContainer, updated.active, updated.options, dropdownContainer);
       });
     }
 
     ingredientsContainer.appendChild(ingredientDOMElement.root);
   });
 
-  dropdownIngredients.sort((a, b) => a.name.localeCompare(b.name));
-  dropdownIngredients.forEach(ingredient => {
+  refreshAddIngredientDropdown(ingredientsContainer, activeIngredients, remainingIngredientOptions, dropdownContainer);
+}
+
+// These functions could handle adding/removing an ingredient to the list and returning both an updated active ingredient list and a dropdown ingredient list
+function addToActiveIngredients(ingredientToAddId, activeIngredients, remainingIngredientOptions) {
+  // Remove the desired ingredient from the remaining ingredient options that are currently in the dropdown
+  const index = remainingIngredientOptions.findIndex(ingredient => ingredient.id === ingredientToAddId);
+  const [ingredientObjToAdd] = remainingIngredientOptions.splice(index, 1);
+
+  // Add the desired ingredient to the active ingredients, so when the ingredients list is rebuilt it's included
+  activeIngredients.push(ingredientObjToAdd);
+
+  return {
+    active: activeIngredients,
+    options: remainingIngredientOptions
+  }
+}
+
+function removeFromActiveIngredients(ingredientToRemove, activeIngredients, remainingIngredientOptions) {
+  const ingredientToRemoveId = ingredientToRemove.id;
+
+  // Remove this ingredient from the active ingredients
+  activeIngredients = activeIngredients.filter(ingredient => ingredient.id !== ingredientToRemoveId);
+
+  // Put this ingredient back in the ingredient selection dropdown
+  remainingIngredientOptions.push(ingredientToRemove);
+
+  return {
+    active: activeIngredients,
+    options: remainingIngredientOptions
+  }
+}
+
+function refreshAddIngredientDropdown(ingredientsContainer, activeIngredients, remainingIngredientOptions, dropdownContainer) {
+  // Clear the current dropdown and create a new one. This is done so that a clean event can be added to the dropdown's selection
+  dropdownContainer.innerHTML = '';
+  const addIngredientDropdownRoot = elementFactory.createAndAppendDropdownShell('custom-select', 'font-jersey', dropdownContainer);
+  const dropdownSelection = addIngredientDropdownRoot.selection;
+
+  // If the user selects an ingredient from the dropdown, add that ingredient to the list
+  dropdownSelection.addEventListener('change', () => {
+    const ingredientIdToAdd = Number(dropdownSelection.options[dropdownSelection.selectedIndex].value);
+    const updated = addToActiveIngredients(ingredientIdToAdd, activeIngredients, remainingIngredientOptions);
+    
+    // Recreate the ingredients list with the now-removed ingredient
+    updateIngredientList(ingredientsContainer, updated.active, updated.options, dropdownContainer);
+  });
+
+  // Create the starter option that is displayed when an ingredient is not selected
+  const starterOption = elementFactory.createAndAppendElement('option', null, dropdownSelection);
+  starterOption.value = '';
+  starterOption.textContent = 'Add another ingredient';
+
+  // Sort the remaining ingredients array, then add them as options to the dropdwon
+  remainingIngredientOptions.sort((a, b) => a.name.localeCompare(b.name));
+  remainingIngredientOptions.forEach(ingredient => {
     const option = elementFactory.createAndAppendElement('option', null, dropdownSelection);
     option.value = ingredient.id;
     option.textContent = ingredient.name;
   });
-}
-
-function clearIngredients() {
-  document.getElementById('ingredientsTitleContainer').remove();
-  document.getElementById('ingredientsContainer').remove();
 }
 
 function createIngredient(ingredientObject) {
@@ -233,10 +219,10 @@ function createIngredient(ingredientObject) {
   const infoContainer = ingredientDOMElement.infoContainer;
   const timesElement = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], infoContainer);
   timesElement.textContent = 'x';
-  const quantityInput = elementFactory.createAndAppendElement('input', ['add-potion-form-input-ing-quantity', 'font-jersey'], infoContainer);
-  
+  const quantityInput = elementFactory.createAndAppendElement('input', ['add-potion-form-input-ingredient-quantity', 'font-jersey'], infoContainer);
+
   // Default the quantity to 1 and make sure it doesn't go below 1
-  quantityInput.value = 1; 
+  quantityInput.value = 1;
   quantityInput.onchange = () => {
     const val = Number(quantityInput.value);
     if (Number.isNaN(val) || !Number.isInteger(val) || val < 1) {

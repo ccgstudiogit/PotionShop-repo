@@ -18,18 +18,18 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
   const effectInput = potionFormUtils.createEffectInput(formContainer);
 
   // Pick random starting ingredients
-  const startingIngredients = [];
-  const ingredients = await ingredientActions.getAllIngredients();
+  const activeIngredients = []; // Active ingredients are what ingredients the potion will be created with
+  const remainingIngredientOptions = await ingredientActions.getAllIngredients(); // Remaining ingredients are shown in the dropdown
   for (let i = 0; i < startingIngredientCount; i++) {
-    const randomIndex = mathHelper.getRandomInt(0, ingredients.length - 1)
-    startingIngredients.push(ingredients[randomIndex]);
-    ingredients.splice(randomIndex, 1);
+    const randomIndex = mathHelper.getRandomInt(0, remainingIngredientOptions.length - 1)
+    activeIngredients.push(remainingIngredientOptions[randomIndex]);
+    remainingIngredientOptions.splice(randomIndex, 1);
   }
 
   // The empty div exists to make sure that the submit button always stays below the ingredients (when an ingredient is removed, the current
   // ingredient HTML structure is destroyed and updated. Using a div wrapper prevents the submit button from going above the newly created list)
   const ingredientsContainer = elementFactory.createAndAppendElement('div', null, formContainer);
-  potionFormUtils.createIngredientsInput(ingredientsContainer, startingIngredients, ingredients);
+  potionFormUtils.createIngredientsInputList(ingredientsContainer, activeIngredients, remainingIngredientOptions);
 
   //const ingredientsWithQuantities = [];
 
