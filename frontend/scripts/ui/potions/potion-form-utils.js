@@ -2,8 +2,6 @@ import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionActions from '../../actions/potion-actions.js';
 import * as ingredientRenderer from '../ingredients/ingredient-render.js';
-//import { EventBus } from '../../events/event-bus.js';
-//import * as ingredientEvents from '../../events/ingredient-events.js';
 
 /**
  * Creates a labeled text input for entering a potion's name.
@@ -128,15 +126,35 @@ export function createIngredientsInputList(parent, selectedIngredients, availabl
   // Create the ingredient dropdown container. The actual dropdown element is created in refreshAddIngredientDropdown()
   const ingredientDropdownContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-ingredient-dropdown-container', ingredientsListContainer);
 
+  // The internal state of the ingredients list
   const state = {
     selectedIngredients,
     availableIngredients,
     ingredientsContainer,
     dropdownContainer: ingredientDropdownContainer
-  }
+  };
   
+  // Variable that will eventually hold a function
+  let onChangeCallback = null;
+
+  // Adding a method onto the state object
+  state.notifyChange = () => {
+    // Checks whether the parent actually registered a callback
+    if (onChangeCallback) {
+      // Call the parent's function and give it the updated state
+      onChangeCallback(state);
+    }
+  }
+
+  // Give callers the initial state and let them "subscribe" to be notified when the state changes
+  const ingredientUI = {
+    state,
+    onChange(callback) { onChangeCallback = callback }
+  };
+
   // Render the list. The list is continually updated via recursion as the user adds/removes ingredients
   renderIngredientList(state);
+  return ingredientUI;
 }
 
 function renderIngredientList(state) {
@@ -160,6 +178,9 @@ function renderIngredientList(state) {
   });
 
   renderIngredientDropdown(state);
+
+  // Let "subscribers" know the state has changed (e.g. the caller functions of createIngredientsInputList())
+  state.notifyChange();
 }
 
 // These functions could handle adding/removing an ingredient to the list and returning both an updated active ingredient list and a dropdown ingredient list
@@ -205,8 +226,6 @@ function renderIngredientDropdown(state) {
   dropdownSelection.addEventListener('change', () => {
     const ingredientIdToAdd = Number(dropdownSelection.options[dropdownSelection.selectedIndex].value);
     addIngredient(ingredientIdToAdd, state);
-    
-    // Recreate the ingredients list with updated state that no longer has the removed ingredient in the active list
     renderIngredientList(state);
   });
 
