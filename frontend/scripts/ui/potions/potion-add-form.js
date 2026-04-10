@@ -28,10 +28,13 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
   const ingredientUI = potionFormUtils.createIngredientsInputList(formContainer, initialSelectedIngredients, availableIngredients);
 
   // "Subscribe" to be notified whenever the ingredients list state changes (i.e. whenever the user adds/removes an ingredient)
-  let selectedIngredients = [...initialSelectedIngredients];
+  let selectedIngredients = [];
+  let quantityInputs = {};
   ingredientUI.onChange((state) => {
     selectedIngredients = [...state.selectedIngredients];
+    quantityInputs = { ...state.quantityInputs }
   });
+  ingredientUI.state.notifyChange(); // Get initial ingredients with their default quantities
 
   const submitButton = buttonFactory.createAndAppendButton('Submit', 'add-potion-form-submit-button', formContainer, () => {
     console.log('Submitting form with following attributes:');
@@ -40,17 +43,9 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
     console.log('Price: ' + priceInput.input.value);
     console.log('Effect: ' + effectInput.input.value);
     console.log(selectedIngredients);
-  });
 
-  /*
-  EventBus.addEventListener(ingredientEvents.onUpdateIngredients, (event) => {
-    ingredientsWithQuantities.push(event.detail);
-    console.log('ingredients info:');
-    ingredientsWithQuantities.forEach((ing) => {
-      console.log('ingredient id: ' + ing.id);
-      console.log('ingredient quantity: ' + ing.quantity);
-      console.log();
-    });
+    for (const [id, input] of Object.entries(quantityInputs)) {
+      console.log('ingredient with id ' + id + ' has quantity: ' + input.value);
+    }
   });
-  */
 }

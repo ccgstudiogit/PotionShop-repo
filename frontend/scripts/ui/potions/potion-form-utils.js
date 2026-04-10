@@ -129,6 +129,7 @@ export function createIngredientsInputList(parent, selectedIngredients, availabl
   // The internal state of the ingredients list
   const state = {
     selectedIngredients,
+    quantityInputs: {},
     availableIngredients,
     ingredientsContainer,
     dropdownContainer: ingredientDropdownContainer
@@ -162,8 +163,10 @@ function renderIngredientList(state) {
   const ingredientsContainer = state.ingredientsContainer;
   ingredientsContainer.innerHTML = ''; // Clear the displayed ingredients
 
+  state.quantityInputs = {};
   selectedIngredients.forEach(ingredientObject => {
     const ingredientDOMElement = renderIngredientRow(ingredientObject);
+    state.quantityInputs[ingredientObject.id] = ingredientDOMElement.quantityInput;
 
     // Only add a remove button if there are 2 or more ingredients. Prevents the user from having no ingredients selected
     if (selectedIngredients.length > 1) {
