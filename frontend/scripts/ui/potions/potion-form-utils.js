@@ -104,6 +104,22 @@ export function createEffectInput(parent) {
   };
 }
 
+/**
+ * Creates and renders the ingredient selection UI component.
+ * This component manages:
+ *  - The list of currently selected ingredients
+ *  - The dropdown of available ingredients
+ *  - Quantity inputs for each ingredient
+ *  - A subscription callback for parent components
+ *
+ * @param {HTMLElement} parent - The parent DOM element to render into
+ * @param {Array<Object>} selectedIngredients - Initial ingredients already selected
+ * @param {Array<Object>} availableIngredients - Ingredients available to add via dropdown
+ * @returns {{
+ *   state: Object,
+ *   onChange: function(Function): void
+ * }} A UI controller with state and a subscription method
+ */
 export function createIngredientsInputList(parent, selectedIngredients, availableIngredients) {
   if (!Array.isArray(selectedIngredients) || !Array.isArray(availableIngredients)) {
     console.error("startingIngredients and selectableIngredients need to be an array!");
@@ -138,7 +154,13 @@ export function createIngredientsInputList(parent, selectedIngredients, availabl
   // Variable that will eventually hold a function
   let onChangeCallback = null;
 
-  // Adding a method onto the state object
+  /**
+   * Notifies the parent component (if subscribed) that the internal state changed.
+   * Called after every full re-render of the ingredient list.
+   *
+   * @function notifyChange
+   * @memberof state
+   */
   state.notifyChange = () => {
     // Checks whether the parent actually registered a callback
     if (onChangeCallback) {
@@ -158,6 +180,20 @@ export function createIngredientsInputList(parent, selectedIngredients, availabl
   return ingredientUI;
 }
 
+/**
+ * Renders the full ingredient list UI:
+ *  - Clears and rebuilds the ingredient rows
+ *  - Rebuilds the quantityInputs map
+ *  - Re-renders the dropdown
+ *  - Notifies subscribers of updated state
+ *
+ * @param {Object} state - Internal component state
+ * @param {Array<Object>} state.selectedIngredients - Current selected ingredients
+ * @param {Object<string, HTMLInputElement>} state.quantityInputs - Map of ingredientId -> quantity input element
+ * @param {Array<Object>} state.availableIngredients - Ingredients available for selection
+ * @param {HTMLElement} state.ingredientsContainer - DOM container for ingredient rows
+ * @param {HTMLElement} state.dropdownContainer - DOM container for the dropdown
+ */
 function renderIngredientList(state) {
   const selectedIngredients = [...state.selectedIngredients];
   const ingredientsContainer = state.ingredientsContainer;
@@ -186,7 +222,13 @@ function renderIngredientList(state) {
   state.notifyChange();
 }
 
-// These functions could handle adding/removing an ingredient to the list and returning both an updated active ingredient list and a dropdown ingredient list
+/**
+ * Adds an ingredient to the selected list and removes it from the available list. Does NOT render the UI, caller must invoke
+ * renderIngredientList(). Essentially, this function only modifies the state.
+ *
+ * @param {number} ingredientToAddId - ID of the ingredient to add
+ * @param {Object} state - Internal component state
+ */
 function addIngredient(ingredientToAddId, state) {
   const updatedAvailableIngredients = [...state.availableIngredients];
 
@@ -202,6 +244,13 @@ function addIngredient(ingredientToAddId, state) {
   state.availableIngredients = updatedAvailableIngredients;
 }
 
+/**
+ * Removes an ingredient from the selected list and returns it to the available list. Does NOT render the UI, caller must invoke
+ * renderIngredientList(). Essentially, this function only modifies the state.
+ *
+ * @param {Object} ingredientToRemove - Ingredient object to remove
+ * @param {Object} state - Internal component state
+ */
 function removeIngredient(ingredientToRemove, state) {
   const ingredientToRemoveId = ingredientToRemove.id;
 
@@ -216,6 +265,15 @@ function removeIngredient(ingredientToRemove, state) {
   state.availableIngredients = updatedAvailableIngredients;
 }
 
+/**
+ * Renders the ingredient dropdown:
+ *  - Clears the existing dropdown
+ *  - Creates a new dropdown shell
+ *  - Populates it with sorted available ingredients
+ *  - Registers the "add ingredient" change handler
+ *
+ * @param {Object} state - Internal component state
+ */
 function renderIngredientDropdown(state) {
   const availableIngredients = state.availableIngredients;
   const dropdownContainer = state.dropdownContainer;
@@ -246,6 +304,19 @@ function renderIngredientDropdown(state) {
   });
 }
 
+/**
+ * Renders a single ingredient row, including:
+ *  - Ingredient name + rarity (via ingredientRenderer)
+ *  - A quantity input (default 1, min 1)
+ *  - A small "x" label before the input
+ *
+ * @param {Object} ingredientObject - Ingredient data object
+ * @returns {{
+ *   root: HTMLElement,
+ *   infoContainer: HTMLElement,
+ *   quantityInput: HTMLInputElement
+ * }} DOM references for the rendered ingredient row
+ */
 function renderIngredientRow(ingredientObject) {
   const ingredientDOMElement = ingredientRenderer.renderIngredient(ingredientObject);
 
