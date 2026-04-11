@@ -30,3 +30,20 @@ export async function getPotionTypes() {
   const types = await potionApi.fetchPotionTypes();
   return types;
 }
+
+/**
+ * Creates a new potion by delegating to the potion API layer. This function acts as the service-level wrapper between
+ * the UI and the backend-facing API module.
+ *
+ * @param {string} name - The name of the potion to create
+ * @param {string} type - The potion type (must match backend PotionType enum)
+ * @param {number|string} price - The potion's price. String or integer is fine since string will be converted to a number
+ * @param {string} effect - Description of the potion's effect
+ * @param {Object.<string, HTMLInputElement>} quantityInputs A dictionary where keys are ingredient IDs and values are
+ *        the corresponding quantity `<input>` elements
+ * @returns {Promise<Object|null>} The created potion DTO returned by the backend, or null if an error occurs
+ */
+export async function addPotion(name, type, price, effect, quantityInputs) {
+  const added = await potionApi.addPotion(name, type, price, effect, quantityInputs);
+  return added;
+}

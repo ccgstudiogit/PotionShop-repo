@@ -44,6 +44,12 @@ public class PotionController {
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
+    @PostMapping
+    public ResponseEntity<PotionWithIngredientsDTO> addPotionWithIngredients(@RequestBody CreatePotionWithIngDTO createPotionWithIngDTO) {
+        PotionWithIngredientsDTO created = potionService.addPotionWithIngredients(createPotionWithIngDTO);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
+    }
+
     @PostMapping("/{id}/ingredients")
     public ResponseEntity<PotionWithIngredientsDTO> addIngredientToPotionById(@PathVariable Integer id, @RequestBody CreatePotionIngredientDTO createPotionIngredientDTO) {
         PotionWithIngredientsDTO updated = potionService.addIngredientToPotionById(id, createPotionIngredientDTO);

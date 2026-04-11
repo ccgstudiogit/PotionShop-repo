@@ -38,17 +38,24 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
   ingredientUI.state.notifyChange(); // Get initial ingredients with their default quantities
 
   const submitButton = buttonFactory.createAndAppendButton('Submit', 'add-potion-form-submit-button', formContainer, () => {
+    const name = nameInput.input.value;
+    const type = typeInput.select.value;
+    const price = priceInput.input.value;
+    const effect = effectInput.input.value;
+
     console.log('Submitting form with following attributes:');
-    console.log('Name: ' + nameInput.input.value);
-    console.log('Type: ' + typeInput.select.value);
-    console.log('Price: ' + priceInput.input.value);
-    console.log('Effect: ' + effectInput.input.value);
+    console.log('Name: ' + name);
+    console.log('Type: ' + type);
+    console.log('Price: ' + price);
+    console.log('Effect: ' + effect);
     console.log(selectedIngredients);
 
     for (const [id, input] of Object.entries(quantityInputs)) {
       console.log('ingredient with id ' + id + ' has quantity: ' + input.value);
     }
 
-    
+    console.log();
+    const result = potionActions.addPotion(name, type, price, effect, quantityInputs);
+    console.log(result);
   });
 }

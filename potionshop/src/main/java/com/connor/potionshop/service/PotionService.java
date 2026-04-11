@@ -73,6 +73,35 @@ public class PotionService {
     }
 
     /**
+     * Creates a new potion along with its associated ingredient relationships.
+     *
+     * @param createPotionWithIngDTO The DTO containing potion fields and a list of ingredient/quantity pairs
+     * @return A {@link PotionWithIngredientsDTO} representing the newly created potion along with its associated ingredient DTOs
+     * @throws EntityExistsException If a potion with the same identifying fields already exists
+     */
+    public PotionWithIngredientsDTO addPotionWithIngredients(CreatePotionWithIngDTO createPotionWithIngDTO) {
+        Potion newPotion = potionMapper.fromCreateDTO(createPotionWithIngDTO);
+        checkAndThrowIfPotionExists(newPotion);
+        potionRepository.save(newPotion);
+
+        // After creating and saving the new potion, create the potion-ingredient tables to save their relationship
+        List<PotionIngredientDTO> potionIngredientDTOS = new ArrayList<>(); // For returning a list of ingredients
+        List<CreatePotionIngredientDTO> potionIngredients = createPotionWithIngDTO.ingredients().stream().toList();
+        for (int i = 0; i < potionIngredients.size(); i++) {
+            PotionIngredient potionIngredient = potionIngredientMapper.fromCreateDTO(
+                potionIngredients.get(i),
+                newPotion,
+                potionIngredientService.getIngredientById(potionIngredients.get(i).ingredientId())
+            );
+
+            potionIngredientService.addPotionIngredient(potionIngredient);
+            potionIngredientDTOS.add(potionIngredientMapper.toDTO(potionIngredient));
+        }
+
+        return potionMapper.toWithIngredientsDTO(newPotion, potionIngredientDTOS);
+    }
+
+    /**
      * Deletes a potion from the database by its id. Also deletes any associated PotionIngredient.
      *
      * @param id the id of the potion to delete
