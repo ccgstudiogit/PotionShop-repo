@@ -73,6 +73,12 @@ export function createPriceInput(parent) {
 
   const input = elementFactory.createAndAppendElement('input', ['add-form-input-int', 'font-jersey'], rootElement);
   input.placeholder = 'New price...';
+  input.onchange = () => {
+    const val = Number(input.value);
+    if (Number.isNaN(val) || !Number.isInteger(val)) {
+      input.value = '';
+    }
+  }
 
   return {
     root: rootElement,
