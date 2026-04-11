@@ -44,7 +44,7 @@ public class PotionController {
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    @PostMapping
+    @PostMapping("/ingredients")
     public ResponseEntity<PotionWithIngredientsDTO> addPotionWithIngredients(@RequestBody CreatePotionWithIngDTO createPotionWithIngDTO) {
         PotionWithIngredientsDTO created = potionService.addPotionWithIngredients(createPotionWithIngDTO);
         return new ResponseEntity<>(created, HttpStatus.CREATED);

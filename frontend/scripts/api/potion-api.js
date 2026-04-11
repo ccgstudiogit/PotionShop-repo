@@ -94,7 +94,7 @@ export async function addPotion(name, type, price, effect, quantityInputs) {
       ingredients.push(ingredient);
     }
 
-    const response = await fetch(`http://localhost:8080/potions`, {
+    const response = await fetch(`http://localhost:8080/potions/ingredients`, {
       method: 'POST',
       headers: { 
         "Content-Type": 'application/json'
