@@ -154,13 +154,7 @@ export function createIngredientsInputList(parent, selectedIngredients, availabl
   // Variable that will eventually hold a function
   let onChangeCallback = null;
 
-  /**
-   * Notifies the parent component (if subscribed) that the internal state changed.
-   * Called after every full re-render of the ingredient list.
-   *
-   * @function notifyChange
-   * @memberof state
-   */
+  // Adding a custom method onto the state object
   state.notifyChange = () => {
     // Checks whether the parent actually registered a callback
     if (onChangeCallback) {
@@ -207,7 +201,7 @@ function renderIngredientList(state) {
     // Only add a remove button if there are 2 or more ingredients. Prevents the user from having no ingredients selected
     if (selectedIngredients.length > 1) {
       buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ingredient-button', ingredientDOMElement.infoContainer, () => {
-        // Get updated state after removing the ingredient and then update the DOM
+        // The state gets mutated after removing the ingredient
         removeIngredient(ingredientObject, state);
         renderIngredientList(state);
       });

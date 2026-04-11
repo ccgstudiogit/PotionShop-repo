@@ -7,7 +7,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("ingredients")
+@RequestMapping("/ingredients")
 public class IngredientController {
     private final IngredientService ingredientService;
 
@@ -20,7 +20,7 @@ public class IngredientController {
         return ingredientService.getAllIngredients();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public IngredientDTO getIngredientById(@PathVariable Integer id) {
         return ingredientService.getIngredientById(id);
     }
@@ -31,13 +31,13 @@ public class IngredientController {
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("{id}")
-    public void deleteIngredientById(@PathVariable Integer id) {
-        ingredientService.deleteIngredientById(id);
-    }
-
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public IngredientDTO updateIngredientById(@PathVariable Integer id, @RequestBody UpdateIngredientDTO updateIngredientDTO) {
         return ingredientService.updateIngredientById(id, updateIngredientDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteIngredientById(@PathVariable Integer id) {
+        ingredientService.deleteIngredientById(id);
     }
 }

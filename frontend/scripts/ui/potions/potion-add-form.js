@@ -3,6 +3,7 @@ import * as buttonFactory from '../../utils/button-factory.js';
 import * as mathHelper from '../../utils/math-helper.js';
 import * as potionFormUtils from './potion-form-utils.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
+import * as potionActions from '../../actions/potion-actions.js';
 
 export async function createAddPotionForm(parentElement, startingIngredientCount) {
   const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
@@ -47,5 +48,7 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
     for (const [id, input] of Object.entries(quantityInputs)) {
       console.log('ingredient with id ' + id + ' has quantity: ' + input.value);
     }
+
+    
   });
 }
