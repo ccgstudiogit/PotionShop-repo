@@ -2,6 +2,7 @@ import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionActions from '../../actions/potion-actions.js';
 import * as ingredientRenderer from '../ingredients/ingredient-render.js';
+import * as dropdownRenderer from '../components/dropdown.js';
 
 /**
  * Creates a labeled text input for entering a potion's name.
@@ -39,7 +40,7 @@ export async function createTypeInput(parent) {
   const title = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], rootElement);
   title.textContent = 'Type:';
 
-  const dropdown = elementFactory.createAndAppendDropdownShell('custom-select', 'font-jersey', rootElement);
+  const dropdown = dropdownRenderer.createAndAppendDropdownShell('custom-select', 'font-jersey', rootElement);
   const selection = dropdown.selection;
 
   // Fetch the types from the backend so they are always accurate and up-to-date
@@ -280,7 +281,7 @@ function renderIngredientDropdown(state) {
 
   // Clear the current dropdown and create a new one. This is done so that a clean event can be added to the dropdown's selection
   dropdownContainer.innerHTML = '';
-  const addIngredientDropdownRoot = elementFactory.createAndAppendDropdownShell('custom-select', 'font-jersey', dropdownContainer);
+  const addIngredientDropdownRoot = dropdownRenderer.createAndAppendDropdownShell('custom-select', 'font-jersey', dropdownContainer);
   const dropdownSelection = addIngredientDropdownRoot.selection;
 
   // If the user selects an ingredient from the dropdown, add that ingredient to the list

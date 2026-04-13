@@ -2,7 +2,7 @@ import * as panel from './scripts/ui/shared/base-panel.js?v=3';
 import { showPotionsPanel } from './scripts/ui/potions/potion-panel.js';
 import { showIngredientsPanel } from './scripts/ui/ingredients/ingredient-panel.js';
 
-import { popup } from './scripts/ui/popups/popup.js';
+import { renderModal } from './scripts/ui/components/modal.js';
 
 startApp();
 
@@ -24,5 +24,5 @@ function startApp() {
   panel.showEmptyPanel();
 
   // HERE FOR TESTING PURPOSES. REMOVE LATER
-  popup(document.getElementsByTagName('body')[0]);
+  renderModal(document.getElementsByTagName('body')[0]);
 }
