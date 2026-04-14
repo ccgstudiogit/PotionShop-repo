@@ -1,5 +1,6 @@
 import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
+import * as modal from '../components/modal.js';
 import * as mathHelper from '../../utils/math-helper.js';
 import * as potionFormUtils from './potion-form-utils.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
@@ -37,25 +38,52 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
   });
   ingredientUI.state.notifyChange(); // Get initial ingredients with their default quantities
 
-  const submitButton = buttonFactory.createAndAppendButton('Submit', 'add-potion-form-submit-button', formContainer, () => {
-    const name = nameInput.input.value;
-    const type = typeInput.select.value;
-    const price = priceInput.input.value;
-    const effect = effectInput.input.value;
-
-    console.log('Submitting form with following attributes:');
-    console.log('Name: ' + name);
-    console.log('Type: ' + type);
-    console.log('Price: ' + price);
-    console.log('Effect: ' + effect);
-    console.log(selectedIngredients);
-
-    for (const [id, input] of Object.entries(quantityInputs)) {
-      console.log('ingredient with id ' + id + ' has quantity: ' + input.value);
+  // Create the button to handle submitting the potion form. The current state of the form as passed
+  buttonFactory.createAndAppendButton('Submit', 'add-potion-form-submit-button', formContainer, () => {
+    const state = {
+      nameInput,
+      typeInput,
+      priceInput,
+      effectInput, 
+      quantityInputs,
+      root: parentElement,
+      count: startingIngredientCount
     }
 
-    console.log();
-    const result = potionActions.addPotion(name, type, price, effect, quantityInputs);
-    console.log(result);
+    submitForm(state);
   });
+}
+
+async function submitForm(state) {
+  try {
+    const name = state.nameInput.input.value;
+    if (name === '') {
+      throw new Error('Name cannot be empty.');
+    }
+
+    // Type will always be correct since it retrieves the types from the backend, so no need for validation
+    const type = state.typeInput.select.value;
+
+    const price = state.priceInput.input.value;
+    if (price === '') {
+      throw new Error('Price cannot be empty.');
+    }
+
+    const effect = state.effectInput.input.value;
+    if (effect === '') {
+      throw new Error('Effect cannot empty.');
+    }
+
+    const result = await potionActions.addPotion(name, type, price, effect, state.quantityInputs);
+    console.log(result);
+
+    // Recreate a blank form after the potion was successfully added
+    state.root.innerHTML = '';
+    createAddPotionForm(state.root, state.count);
+  } catch ({ name, message }) {
+    const errorModal = modal.renderGlobalModal();
+
+    errorModal.windowTitle.textContent = 'Alchemy error!';
+    errorModal.windowText.textContent = message;
+  }
 }

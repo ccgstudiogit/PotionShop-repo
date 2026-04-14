@@ -2,8 +2,6 @@ import * as panel from './scripts/ui/shared/base-panel.js?v=3';
 import { showPotionsPanel } from './scripts/ui/potions/potion-panel.js';
 import { showIngredientsPanel } from './scripts/ui/ingredients/ingredient-panel.js';
 
-import { renderModal } from './scripts/ui/components/modal.js';
-
 startApp();
 
 function startApp() {
@@ -22,7 +20,4 @@ function startApp() {
   // Generate an empty panel to start off with. Once the user clicks one of the options, the panel for that option
   // will be generated via base-panel.js in scripts/ui/shared
   panel.showEmptyPanel();
-
-  // HERE FOR TESTING PURPOSES. REMOVE LATER
-  renderModal(document.getElementsByTagName('body')[0]);
 }

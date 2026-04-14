@@ -1,10 +1,11 @@
 import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 
-// Have the only parameter be the parent and return an object of the modal with its components so the caller function can customize
-// the modal window to whatever it needs to be/display
-export function renderModal(parent) {
-  const container = elementFactory.createAndAppendElement('div', 'modal-container', parent);
+
+export function renderGlobalModal() {
+  const body = document.getElementsByTagName('body')[0];
+
+  const container = elementFactory.createAndAppendElement('div', 'modal-container', body);
   const window = elementFactory.createAndAppendElement('div', 'modal-window', container);
 
   const windowTitle = elementFactory.createAndAppendElement('p', ['modal-title', 'font-jersey'], window);
@@ -17,6 +18,14 @@ export function renderModal(parent) {
 
   const closeButton = buttonFactory.createAndAppendButton('Okay', 'close-button', window, () => {
     container.remove();
+  });
+
+  // Pressing ESC key will also dismiss the modal
+  document.addEventListener('keydown', function escHandler(press) {
+    if (press.key === 'Escape') {
+      document.removeEventListener('keydown', escHandler);
+      container.remove();
+    }
   });
 
   return {
