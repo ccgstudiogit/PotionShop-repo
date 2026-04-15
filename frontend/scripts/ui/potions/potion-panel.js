@@ -2,7 +2,8 @@ import { clearAndGenerateSections } from "../shared/base-panel.js";
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionActions from '../../actions/potion-actions.js';
 import * as potionRenderer from './potion-render.js';
-import * as potionForms from './potion-add-form.js';
+import * as potionAddForm from './potion-add-form.js';
+import * as potionEditForm from './potion-edit-form.js';
 
 /**
  * Clear the current panel and display the potions panel.
@@ -73,11 +74,10 @@ async function displayAllPotions(resultsSection) {
  */
 function addPotionForm(resultsSection) {
   resultsSection.innerHTML = '';
-  potionForms.createAddPotionForm(resultsSection, 3); // The integer is how many random ingredients there will be
+  potionAddForm.createAddPotionForm(resultsSection, 3); // The integer is how many random ingredients there will be
 }
 
 function editPotionForm(resultsSection, potion) {
   resultsSection.innerHTML = '';
-  console.log('Editing:');
-  console.log(potion);
+  potionEditForm.createEditPotionForm(resultsSection, potion);
 }
