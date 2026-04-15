@@ -1,6 +1,0 @@
-.main-options {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  column-gap: clamp(3vw, 10vw, 200px);
-}

@@ -1,4 +1,5 @@
 import * as elementFactory from '../../utils/element-factory.js';
+import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionActions from '../../actions/potion-actions.js';
 import * as ingredientRenderer from '../ingredients/ingredient-render.js';
 
@@ -56,6 +57,11 @@ export async function renderPotion(potion) {
   infoPriceIcon.src = '../icons/coin-icon.png';
   const potionPrice = elementFactory.createAndAppendElement('p', ['potion-price', 'font-jersey'], infoPriceContainer);
   potionPrice.textContent = potion.price;
+
+  // Potion edit button
+  const editButton = buttonFactory.createAndAppendButton('Edit', 'potion-edit-button', infoHeader, () => {
+    console.log('editing!');
+  });
 
   // Potion effect
   const infoBody = elementFactory.createAndAppendElement('div', 'potion-info-body', infoContainer);

@@ -12,7 +12,7 @@
 }
 
 /* Container for the display area within each potion (for the image and info) */
-.potion-display {
+ .potion-item .potion-display {
   flex: 1;
 
   display: flex;
@@ -22,7 +22,7 @@
   background-color: rgb(155, 172, 230);
 }
 
-.potion-icon {
+.potion-display .potion-icon {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 
@@ -33,7 +33,7 @@
   border-width: 0px 3px 3px 0px;
 }
 
-.potion-info {
+.potion-display .potion-info {
   /* Flex is shared with .potion-icon */
   flex: 1;
 
@@ -45,7 +45,7 @@
 }
 
 /* Header can contain additional information (for potions, it's name and type) */
-.potion-info-header {
+.potion-info .potion-info-header {
   flex: 1;
 
   display: flex;
@@ -58,15 +58,15 @@
   border-width: 0px 0px 3px 0px;
 }
 
-.potion-info-body {
+.potion-info .potion-info-body {
   flex: 1;
 }
 
-.potion-ingredients-container {
+.potion-item .potion-ingredients-container {
   background-color: rgb(119, 134, 182);
 }
 
-.potion-name {
+.potion-info-header .potion-name {
   margin-top: 0px;
   margin-right: 30px;
 
@@ -76,7 +76,7 @@
   font-size: 3rem;
 }
 
-.potion-type {
+.potion-info-header .potion-type {
   margin-top: 0px;
   margin-right: 30px;
 
@@ -85,13 +85,13 @@
 }
 
 /* Container for the price icon and price value */
-.potion-price-container {
+.potion-info-header .potion-price-container {
   display: flex;
 
   align-items: center;
 }
 
-.potion-price-icon {
+.potion-price-container .potion-price-icon {
   margin: 0px;
   
   image-rendering: pixelated;
@@ -102,21 +102,30 @@
   width: 55px;
 }
 
-.potion-price {
+.potion-price-container .potion-price {
   font-size: 2rem;
 }
 
-.potion-effect {
+.potion-info-header .potion-edit-button {
+  margin-left: auto; /* Pushes all the way to the right */
+  margin-right: 10px;
+
+  align-self: center;
+
+  font-size: 2rem;
+}
+
+.potion-info-body .potion-effect {
   font-size: 2rem;
 
   padding-left: 8px;
 }
 
-.potion-ingredients-button-container {
+.potion-item .potion-ingredients-button-container {
   display: flex;
 }
 
-.potion-ingredients-button {
+.potion-ingredients-button-container .potion-ingredients-button {
   margin: -2px 0px 2px 10px;
   padding: 0px;
 

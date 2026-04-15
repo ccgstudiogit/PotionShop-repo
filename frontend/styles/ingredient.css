@@ -18,7 +18,7 @@
     Container for the display area within each ingredient (for the image and info). This is kept separate from
     .ingredient-item so future UI changes (like adding controls or extra fields) don’t affect the visual block styling.
  */
-.ingredient-display {
+.ingredient-item .ingredient-display {
   flex: 1;
 
   display: flex;
@@ -26,7 +26,7 @@
   background-color: rgb(187, 153, 226);
 }
 
-.ingredient-icon {
+.ingredient-display .ingredient-icon {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 
@@ -37,7 +37,7 @@
   margin-left: -1px;
 }
 
-.ingredient-info {
+.ingredient-display .ingredient-info {
   /* Flex is shared with .ingredient-icon */
   flex: 1;
 
@@ -45,7 +45,7 @@
   align-items: center;
 }
 
-.ingredient-name {
+.ingredient-info .ingredient-name {
   padding-left: 8px;
   margin-right: 30px;
 
@@ -53,13 +53,13 @@
   font-size: 2.5rem;
 }
 
-.ingredient-rarity {
+.ingredient-info .ingredient-rarity {
   margin-right: 30px;
   
   font-style: italic;
   font-size: 2.5rem;
 }
 
-.ingredient-quantity {
+.ingredient-info .ingredient-quantity {
   font-size: 2.5rem;
 }

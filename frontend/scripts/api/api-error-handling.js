@@ -8,7 +8,8 @@
 export async function parseError(response) {
   const raw = await response.text();
 
-  let backendMessage = `HTTP ${response.status}`;
+  let backendMessage;
+  console.log(`HTTP ${response.status}`);
 
   try {
     // Try to parse JSON from the raw text
