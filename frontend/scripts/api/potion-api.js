@@ -3,6 +3,7 @@ import * as errorHandler from './api-error-handling.js';
 /**
  * Fetches all potions from the backend API.
  * 
+ * @async
  * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions
  * @throws {Error} Throws an error with the backend message if a problem is encountered
  */
@@ -21,6 +22,7 @@ export async function fetchAllPotions() {
 /**
  * Fetches ingredients for a specific potion from the backend API.
  * 
+ * @async
  * @param {Integer} potionId - The ID of the potion for which to fetch ingredients
  * @returns {Array} An array of ingredient objects, or undefined if there was an error fetching the ingredients
  * @throws {Error} Throws an error with the backend message if a problem is encountered
@@ -40,6 +42,7 @@ export async function fetchIngredientsByPotionId(potionId) {
 /**
  * Fetches the types potions can be (Buff, Healing, Poison, etc.).
  * 
+ * @async
  * @returns {Array} An array of types, or undefined if there was an error fetching potion types
  * @throws {Error} Throws an error with the backend message if a problem is encountered
  */
@@ -70,6 +73,7 @@ export async function fetchPotionTypes() {
  *   ]
  * }
  *
+ * @async
  * @param {string} name - The name of the potion
  * @param {string} type - The potion type (must match backend PotionType enum)
  * @param {number|string} price - The potion's price. String or integer is fine since string will be converted to a number

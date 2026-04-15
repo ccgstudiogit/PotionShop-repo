@@ -30,6 +30,7 @@ export function createNameInput(parent) {
 /**
  * Creates a labeled dropdown input for selecting a potion type. Fetches available potion types from the backend to ensure accuracy.
  *
+ * @async
  * @param {HTMLElement} parent - The parent element to append the dropdown block into
  * @returns {{root: HTMLElement, title: HTMLElement, dropdown: HTMLElement, select: HTMLSelectElement}}
  *   An object containing references to the root container, title label, the dropdown shell, and the underlying <select> element
@@ -122,10 +123,8 @@ export function createEffectInput(parent) {
  * @param {HTMLElement} parent - The parent DOM element to render into
  * @param {Array<Object>} selectedIngredients - Initial ingredients already selected
  * @param {Array<Object>} availableIngredients - Ingredients available to add via dropdown
- * @returns {{
- *   state: Object,
- *   onChange: function(Function): void
- * }} A UI controller with state and a subscription method
+ * @returns {{state: Object, onChange: function(Function): void}}
+ *   A UI controller with state and a subscription method
  */
 export function createIngredientsInputList(parent, selectedIngredients, availableIngredients) {
   if (!Array.isArray(selectedIngredients) || !Array.isArray(availableIngredients)) {

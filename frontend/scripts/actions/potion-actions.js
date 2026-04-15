@@ -2,7 +2,8 @@ import * as potionApi from '../api/potion-api.js';
 
 /**
  * Fetches all potions from the backend via the API layer and returns them.
- *  
+ * 
+ * @async
  * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions
  * @throws {Error} Throws an error with the backend message if a problem is encountered
  */
@@ -14,6 +15,7 @@ export async function getAllPotions() {
 /**
  * Fetches ingredients for a specific potion from the backend via the API layer and returns them.
  * 
+ * @async
  * @param {Integer} potionId - The ID of the potion for which to fetch ingredients
  * @returns {Array} An array of ingredient objects, or undefined if there was an error fetching the ingredients
  * @throws {Error} Throws an error with the backend message if a problem is encountered
@@ -26,6 +28,7 @@ export async function getIngredientsByPotionId(potionId) {
 /**
  * Fetches valid potion types (Buff, Healing, Poison, etc.) from the backend via the API layer and returns them.
  * 
+ * @async
  * @returns {Array} An array of types, or undefined if there was an error fetching potion types
  * @throws {Error} Throws an error with the backend message if a problem is encountered
  */
@@ -38,6 +41,7 @@ export async function getPotionTypes() {
  * Creates a new potion by delegating to the potion API layer. This function acts as the service-level wrapper between
  * the UI and the backend-facing API module.
  *
+ * @async
  * @param {string} name - The name of the potion to create
  * @param {string} type - The potion type (must match backend PotionType enum)
  * @param {number|string} price - The potion's price. String or integer is fine since string will be converted to a number

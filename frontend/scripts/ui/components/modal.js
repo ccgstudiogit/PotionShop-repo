@@ -1,7 +1,27 @@
 import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 
-
+/**
+ * Renders a global modal window attached to the document body.
+ *
+ * Creates a modal overlay containing:
+ * - a centered modal window
+ * - a title element
+ * - a divider line
+ * - a text/message element
+ * - an "Okay" button that dismisses the modal
+ *
+ * The modal is removed when the user clicks the button or presses Escape.
+ *
+ * @returns {{
+ *   container: HTMLDivElement,
+ *   window: HTMLDivElement,
+ *   windowTitle: HTMLParagraphElement,
+ *   line: HTMLDivElement,
+ *   windowText: HTMLParagraphElement,
+ *   closeButton: HTMLButtonElement
+ * }} DOM references for the rendered modal window
+ */
 export function renderGlobalModal() {
   const body = document.getElementsByTagName('body')[0];
 

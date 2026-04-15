@@ -34,6 +34,7 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
 /**
  * Displays all potions in the results section.
  * 
+ * @async
  * @param {HTMLElement} resultsSection The parent HTML element for the results section
  */
 async function displayAllPotions(resultsSection) {

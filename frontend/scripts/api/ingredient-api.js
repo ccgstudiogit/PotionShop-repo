@@ -3,6 +3,7 @@ import * as errorHandler from './api-error-handling.js';
 /**
  * Fetches all ingredients from the backend API.
  * 
+ * @async
  * @returns {Array} An array of ingredient objects, or undefined if there was an error fetching the ingredients
  * @throws {Error} Throws an error with the backend message if a problem is encountered
  */
