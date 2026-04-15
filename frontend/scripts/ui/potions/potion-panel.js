@@ -53,6 +53,11 @@ async function displayAllPotions(resultsSection) {
       potions.forEach(async potion => {
         const potionObject = await potionRenderer.renderPotion(potion);
         resultsSection.appendChild(potionObject.root);
+
+        // If the edit button is pressed, open the edit potion form with that potion's information
+        potionObject.editButton.onclick = function() {
+          editPotionForm(resultsSection, potion);
+        };
       });
     }
   } catch (message) {
@@ -69,4 +74,10 @@ async function displayAllPotions(resultsSection) {
 function addPotionForm(resultsSection) {
   resultsSection.innerHTML = '';
   potionForms.createAddPotionForm(resultsSection, 3); // The integer is how many random ingredients there will be
+}
+
+function editPotionForm(resultsSection, potion) {
+  resultsSection.innerHTML = '';
+  console.log('Editing:');
+  console.log(potion);
 }

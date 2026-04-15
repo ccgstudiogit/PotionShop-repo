@@ -23,16 +23,17 @@ const potionIcons = [
  * @async
  * @param {Object} potion - The potion object to render (as JSON)
  * @returns {{
- *   root: HTMLElement,
- *   infoHeader: HTMLElement,
- *   potionName: HTMLElement,
- *   potionType: HTMLElement,
- *   potionPrice: HTMLElement,
- *   infoBody: HTMLElement,
- *   potionEffect: HTMLElement,
- *   ingredientsContainer: HTMLElement,
+ *   root: HTMLDivElement,
+ *   infoHeader: HTMLDivElement,
+ *   potionName: HTMLParagraphElement,
+ *   potionType: HTMLParagraphElement,
+ *   potionPrice: HTMLParagraphElement,
+ *   editButton: HTMLButtonElement
+ *   infoBody: HTMLDivElement,
+ *   potionEffect: HTMLParagraphElement,
+ *   ingredientsContainer: HTMLDivElement,
  *   ingredientsButton: HTMLButtonElement
- * }} DOM references for the rendered potion element.
+ * }} DOM references for the rendered potion element
  */
 export async function renderPotion(potion) {
   const potionElement = elementFactory.createElement('div', 'potion-item');
@@ -58,10 +59,8 @@ export async function renderPotion(potion) {
   const potionPrice = elementFactory.createAndAppendElement('p', ['potion-price', 'font-jersey'], infoPriceContainer);
   potionPrice.textContent = potion.price;
 
-  // Potion edit button
-  const editButton = buttonFactory.createAndAppendButton('Edit', 'potion-edit-button', infoHeader, () => {
-    console.log('editing!');
-  });
+  // Potion edit button. The button's onClick event should be handled by the caller function
+  const editButton = buttonFactory.createAndAppendButton('Edit', 'potion-edit-button', infoHeader, null);
 
   // Potion effect
   const infoBody = elementFactory.createAndAppendElement('div', 'potion-info-body', infoContainer);
@@ -102,13 +101,14 @@ export async function renderPotion(potion) {
 
   return {
     root: potionElement,
-    infoHeader: infoHeader,
-    potionName: potionName,
-    potionType: potionType,
-    potionPrice: potionPrice,
-    infoBody: infoBody,
-    potionEffect: potionEffect,
-    ingredientsContainer: ingredientsContainer,
-    ingredientsButton: ingredientsButton
+    infoHeader,
+    potionName,
+    potionType,
+    potionPrice,
+    editButton,
+    infoBody,
+    potionEffect,
+    ingredientsContainer,
+    ingredientsButton
   }
 }
