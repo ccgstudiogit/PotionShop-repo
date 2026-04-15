@@ -197,6 +197,7 @@ export function createIngredientsInputList(parent, selectedIngredients, availabl
  * @param {Array<Object>} state.availableIngredients - Ingredients available for selection
  * @param {HTMLElement} state.ingredientsContainer - DOM container for ingredient rows
  * @param {HTMLElement} state.dropdownContainer - DOM container for the dropdown
+ * @returns {void}
  */
 function renderIngredientList(state) {
   const selectedIngredients = [...state.selectedIngredients];
@@ -232,6 +233,7 @@ function renderIngredientList(state) {
  *
  * @param {number} ingredientToAddId - ID of the ingredient to add
  * @param {Object} state - Internal component state
+ * @returns {void}
  */
 function addIngredient(ingredientToAddId, state) {
   const updatedAvailableIngredients = [...state.availableIngredients];
@@ -254,6 +256,7 @@ function addIngredient(ingredientToAddId, state) {
  *
  * @param {Object} ingredientToRemove - Ingredient object to remove
  * @param {Object} state - Internal component state
+ * @returns {void}
  */
 function removeIngredient(ingredientToRemove, state) {
   const ingredientToRemoveId = ingredientToRemove.id;
@@ -277,6 +280,7 @@ function removeIngredient(ingredientToRemove, state) {
  *  - Registers the "add ingredient" change handler
  *
  * @param {Object} state - Internal component state
+ * @returns {void}
  */
 function renderIngredientDropdown(state) {
   const availableIngredients = state.availableIngredients;

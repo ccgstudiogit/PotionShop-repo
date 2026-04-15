@@ -5,6 +5,8 @@ import * as ingredientRenderer from './ingredient-render.js';
 
 /**
  * Clear the current panel and display the ingredients panel.
+ * 
+ * @returns {void}
  */
 export function showIngredientsPanel() {
   const [panel, options, results] = clearAndGenerateSections();
@@ -19,6 +21,7 @@ export function showIngredientsPanel() {
  * 
  * @param {HTMLElement} optionsSection The parent HTML element for the options section
  * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ * @returns {void}
  */
 function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
   buttonFactory.createAndAppendButton('Get Ingredients', 'option-button', optionsSection, () => {
@@ -31,6 +34,7 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
  * 
  * @async
  * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ * @returns {void}
  */
 async function displayAllIngredients(resultsSection) {
   // Clear the results section before displaying the new results

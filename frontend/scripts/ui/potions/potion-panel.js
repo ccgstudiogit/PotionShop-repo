@@ -6,6 +6,8 @@ import * as potionForms from './potion-add-form.js';
 
 /**
  * Clear the current panel and display the potions panel.
+ * 
+ * @returns {void}
  */
 export function showPotionsPanel() {
   const [panel, options, results] = clearAndGenerateSections();
@@ -20,6 +22,7 @@ export function showPotionsPanel() {
  * 
  * @param {HTMLElement} optionsSection The parent HTML element for the options section
  * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ * @returns {void}
  */
 function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
   buttonFactory.createAndAppendButton('Get Potions', 'option-button', optionsSection, () => {
@@ -36,6 +39,7 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
  * 
  * @async
  * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ * @returns {void}
  */
 async function displayAllPotions(resultsSection) {
   // Clear the results section before displaying the new results
@@ -60,6 +64,7 @@ async function displayAllPotions(resultsSection) {
  * Clear the results section and display an add potion form.
  * 
  * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ * @returns {void}
  */
 function addPotionForm(resultsSection) {
   resultsSection.innerHTML = '';

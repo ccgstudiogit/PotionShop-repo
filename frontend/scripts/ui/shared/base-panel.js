@@ -3,6 +3,8 @@ import * as elementFactory from '../../utils/element-factory.js';
 /**
  * Create the panel background. A <section> element with the class 'panel' is created with an inner <div> containing the
  * 'panel-background' class.
+ * 
+ * @returns {void}
  */
 export function createPanelBackground() {
   const panelBackground = generatePanelBackgroundHTML();
@@ -27,6 +29,7 @@ function generatePanelBackgroundHTML() {
  * An empty panel lets the user know to click one of the options above to view/edit data.
  * 
  * @param {string} message Can be used to override the given message that is already displayed
+ * @returns {void}
  */
 export function showEmptyPanel(message = null) {
   clearPanel();
@@ -42,6 +45,8 @@ export function showEmptyPanel(message = null) {
 
 /**
  * Clear the panel and reset to an empty background.
+ * 
+ * @returns {void}
  */
 export function clearPanel() {
   const background = document.querySelector('.panel-background');
