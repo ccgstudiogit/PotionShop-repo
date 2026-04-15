@@ -45,12 +45,16 @@ export async function createTypeInput(parent) {
   const selection = dropdown.selection;
 
   // Fetch the types from the backend so they are always accurate and up-to-date
-  const types = await potionActions.getPotionTypes();
-  types.forEach(type => {
-    const option = elementFactory.createAndAppendElement('option', null, selection);
-    option.value = type;
-    option.textContent = type;
-  });
+  try {
+    const types = await potionActions.getPotionTypes();
+    types.forEach(type => {
+      const option = elementFactory.createAndAppendElement('option', null, selection);
+      option.value = type;
+      option.textContent = type;
+    });
+  } catch (message) {
+    console.error(message);
+  }
 
   return {
     root: rootElement,
@@ -156,7 +160,7 @@ export function createIngredientsInputList(parent, selectedIngredients, availabl
     ingredientsContainer,
     dropdownContainer: ingredientDropdownContainer
   };
-  
+
   // Variable that will eventually hold a function
   let onChangeCallback = null;
 

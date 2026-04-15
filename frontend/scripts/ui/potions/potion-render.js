@@ -73,22 +73,26 @@ export async function renderPotion(potion) {
   });
 
   // Get the ingredients for this potion and add them to the DOM, initially hidden until the button is clicked to show them
-  const ingredients = await potionActions.getIngredientsByPotionId(potion.id);
-  ingredients.forEach((ingredient) => {
-    const ingredientObject = ingredientRenderer.renderIngredient(ingredient);
-    ingredientsContainer.appendChild(ingredientObject.root);
+  try {
+    const ingredients = await potionActions.getIngredientsByPotionId(potion.id);
+    ingredients.forEach((ingredient) => {
+      const ingredientObject = ingredientRenderer.renderIngredient(ingredient);
+      ingredientsContainer.appendChild(ingredientObject.root);
 
-    // Add the ingredient quantity to the ingredient display
-    const ingredientInfo = ingredientObject.infoContainer;
-    const ingredientQuantity = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], ingredientInfo);
-    ingredientQuantity.textContent = `x${ingredient.quantity}`;
+      // Add the ingredient quantity to the ingredient display
+      const ingredientInfo = ingredientObject.infoContainer;
+      const ingredientQuantity = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], ingredientInfo);
+      ingredientQuantity.textContent = `x${ingredient.quantity}`;
 
-    // Handle showing/hiding the ingredients when the button is clicked
-    ingredientObject.root.style.display = 'none';
-    ingredientsButton.addEventListener('click', () => {
-      ingredientObject.root.style.display = ingredientObject.root.style.display !== 'none' ? 'none' : 'flex';
+      // Handle showing/hiding the ingredients when the button is clicked
+      ingredientObject.root.style.display = 'none';
+      ingredientsButton.addEventListener('click', () => {
+        ingredientObject.root.style.display = ingredientObject.root.style.display !== 'none' ? 'none' : 'flex';
+      });
     });
-  });
+  } catch (message) {
+    console.error(message);
+  }
 
   return {
     root: potionElement,

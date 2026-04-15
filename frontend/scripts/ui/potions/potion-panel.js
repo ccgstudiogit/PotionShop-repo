@@ -42,13 +42,17 @@ async function displayAllPotions(resultsSection) {
   resultsSection.innerHTML = '';
 
   // Fetch the potions from the backend via the actions layer, which calls the API layer
-  const potions = await potionActions.getAllPotions();
+  try {
+    const potions = await potionActions.getAllPotions();
 
-  if (potions) {
-    potions.forEach(async potion => {
-      const potionObject = await potionRenderer.renderPotion(potion);
-      resultsSection.appendChild(potionObject.root);
-    });
+    if (potions) {
+      potions.forEach(async potion => {
+        const potionObject = await potionRenderer.renderPotion(potion);
+        resultsSection.appendChild(potionObject.root);
+      });
+    }
+  } catch (message) {
+    console.error(message);
   }
 }
 
