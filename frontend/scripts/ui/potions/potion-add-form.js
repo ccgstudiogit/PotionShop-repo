@@ -80,7 +80,7 @@ async function submitForm(state) {
     // Recreate a blank form after the potion was successfully added
     state.root.innerHTML = '';
     createAddPotionForm(state.root, state.count);
-  } catch ({ name, message }) {
+  } catch (message) {
     const errorModal = modal.renderGlobalModal();
 
     errorModal.windowTitle.textContent = 'Alchemy error!';

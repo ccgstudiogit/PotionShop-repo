@@ -1,21 +1,21 @@
+import * as errorHandler from './api-error-handling.js';
+
 /**
  * Fetches all potions from the backend API.
  * 
  * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions
+ * @throws {Error} Throws an error with the backend message if a problem is encountered
  */
 export async function fetchAllPotions() {
-  try {
-    const response = await fetch('http://localhost:8080/potions', { method: 'GET' });
+  const response = await fetch('http://localhost:8080/potions', { method: 'GET' });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const potions = await response.json();
-    return potions;
-  } catch (error) {
-    console.error('Error fetching potions:', error);
+  if (!response.ok) {
+    const message = await errorHandler.parseError(response);
+    throw new Error(message);
   }
+
+  const potions = await response.json();
+  return potions;
 }
 
 /**
@@ -23,40 +23,36 @@ export async function fetchAllPotions() {
  * 
  * @param {Integer} potionId - The ID of the potion for which to fetch ingredients
  * @returns {Array} An array of ingredient objects, or undefined if there was an error fetching the ingredients
+ * @throws {Error} Throws an error with the backend message if a problem is encountered
  */
 export async function fetchIngredientsByPotionId(potionId) {
-  try {
-    const response = await fetch(`http://localhost:8080/potions/${potionId}/ingredients`, { method: 'GET' });
+  const response = await fetch(`http://localhost:8080/potions/${potionId}/ingredients`, { method: 'GET' });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const ingredients = await response.json();
-    return ingredients;
-  } catch (error) {
-    console.error(`Error fetching ingredients by potion ID ${potionId}:`, error);
+  if (!response.ok) {
+    const message = await errorHandler.parseError(response);
+    throw new Error(message);
   }
+
+  const ingredients = await response.json();
+  return ingredients;
 }
 
 /**
  * Fetches the types potions can be (Buff, Healing, Poison, etc.).
  * 
  * @returns {Array} An array of types, or undefined if there was an error fetching potion types
+ * @throws {Error} Throws an error with the backend message if a problem is encountered
  */
 export async function fetchPotionTypes() {
-  try {
-    const response = await fetch('http://localhost:8080/potions/types', { method: 'GET' });
+  const response = await fetch('http://localhost:8080/potions/types', { method: 'GET' });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const types = await response.json();
-    return types;
-  } catch (error) {
-    console.error('Error fetching potion types:', error);
+  if (!response.ok) {
+    const message = await errorHandler.parseError(response);
+    throw new Error(message);
   }
+
+  const types = await response.json();
+  return types;
 }
 
 /**
@@ -80,42 +76,40 @@ export async function fetchPotionTypes() {
  * @param {string} effect - Description of the potion's effect
  * @param {Object.<string, HTMLInputElement>} quantityInputs A dictionary mapping ingredient IDs to their quantity `<input>` elements
  * @returns {Promise<Object|null>} The created potion DTO from the backend, or null if an error occurs
+ * @throws {Error} Throws an error with the backend message if a problem is encountered
  */
 export async function addPotion(name, type, price, effect, quantityInputs) {
-  try {
-    // Convert the ingredients list to a list that matches a list of CreatePotionIngredientDTO for the backend
-    const ingredients = [];
-    for (const [key, value] of Object.entries(quantityInputs)) {
-      const ingredient = {
-        ingredientId: Number(key),
-        quantity: Number(value.value) // .value twice since the first is an <input>, then the 2nd .value gets the input's current value
-      }
-
-      ingredients.push(ingredient);
+  // Convert the ingredients list to a list that matches a list of CreatePotionIngredientDTO for the backend
+  const ingredients = [];
+  for (const [key, value] of Object.entries(quantityInputs)) {
+    const ingredient = {
+      ingredientId: Number(key),
+      quantity: Number(value.value) // .value twice since the first is an <input>, then the 2nd .value gets the input's current value
     }
 
-    const response = await fetch(`http://localhost:8080/potions/ingredients`, {
-      method: 'POST',
-      headers: { 
-        "Content-Type": 'application/json'
-      },
-      // MUST match the backend's CreatePotionWithIngDTO record
-      body: JSON.stringify({
-        name,
-        type,
-        effect,
-        price: Number(price),
-        ingredients
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}. ${response.statusText}`);
-    }
-
-    const addedPotion = await response.json();
-    return addedPotion;
-  } catch (error) {
-    console.error('Error creating new potion:', error);
+    ingredients.push(ingredient);
   }
+
+  const response = await fetch(`http://localhost:8080/potions/ingredients`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": 'application/json'
+    },
+    // MUST match the backend's CreatePotionWithIngDTO record
+    body: JSON.stringify({
+      name,
+      type,
+      effect,
+      price: Number(price),
+      ingredients
+    })
+  });
+
+  if (!response.ok) {
+    const message = await errorHandler.parseError(response);
+    throw new Error(message);
+  }
+
+  const addedPotion = await response.json();
+  return addedPotion;
 }
