@@ -1,6 +1,8 @@
 import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionFormUtils from './potion-form-utils.js';
+import * as ingredientActions from '../../actions/ingredient-actions.js';
+import * as potionActions from '../../actions/potion-actions.js';
 
 export async function createEditPotionForm(parentElement, potion) {
   try {
@@ -27,19 +29,14 @@ export async function createEditPotionForm(parentElement, potion) {
       const effectInput = potionFormUtils.createEffectInput(formContainer);
       effectInput.input.value = potion.effect;
 
-      /*
-      // Pick random starting ingredients
-      const initialSelectedIngredients = []; // The ingredients that are starting out in the ingredient list without any user input
+      // Get the potions' current ingredients
+      const initialSelectedIngredients = await potionActions.getIngredientsByPotionId(potion.id); // The ingredients that are starting out in the ingredient list without any user input
       const availableIngredients = await ingredientActions.getAllIngredients(); // Remaining ingredients are shown in the dropdown
-      for (let i = 0; i < startingIngredientCount; i++) {
-        const randomIndex = mathHelper.getRandomInt(0, availableIngredients.length - 1)
-        initialSelectedIngredients.push(availableIngredients[randomIndex]);
-        availableIngredients.splice(randomIndex, 1);
-      }
+      availableIngredients.filter((element) => !initialSelectedIngredients.includes(element)); // Remove the initial ingredients from the dropdown array
   
       // Render the ingredient input section using the random starting ingredients
       const ingredientUI = potionFormUtils.createIngredientsInputList(formContainer, initialSelectedIngredients, availableIngredients);
-  
+
       // "Subscribe" to be notified whenever the ingredients list state changes (i.e. whenever the user adds/removes an ingredient)
       let selectedIngredients = [];
       let quantityInputs = {};
@@ -48,7 +45,7 @@ export async function createEditPotionForm(parentElement, potion) {
         quantityInputs = { ...state.quantityInputs }
       });
       ingredientUI.state.notifyChange(); // Get initial ingredients with their default quantities
-  
+
       // Create the button to handle submitting the potion form. The current state of the form as passed
       buttonFactory.createAndAppendButton('Submit', 'add-potion-form-submit-button', formContainer, () => {
         const state = {
@@ -58,12 +55,11 @@ export async function createEditPotionForm(parentElement, potion) {
           effectInput,
           quantityInputs,
           root: parentElement,
-          count: startingIngredientCount
+          
         }
   
-        submitForm(state);
+        //submitForm(state);
       });
-      */
     } catch (message) {
       console.error(message);
     }

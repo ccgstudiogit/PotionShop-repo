@@ -36,6 +36,10 @@ export async function fetchIngredientsByPotionId(potionId) {
   }
 
   const ingredients = await response.json();
+  ingredients.forEach((ingredient) => {
+    ingredient = { ingredientId: id, name, rarity, quantity};
+  });
+  console.log(ingredients);
   return ingredients;
 }
 
