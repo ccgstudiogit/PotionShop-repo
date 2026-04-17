@@ -127,8 +127,11 @@ export function createEffectInput(parent) {
  * @param {HTMLElement} parent - The parent DOM element to render into
  * @param {Array<Object>} selectedIngredients - Initial ingredients already selected
  * @param {Array<Object>} availableIngredients - Ingredients available to add via dropdown
- * @returns {{state: Object, onChange: function(Function): void}}
- *   A UI controller with state and a subscription method
+ * @returns {{
+ *   state: Object,
+ *   onChange: function(Function): void,
+ *   ingredientDOMElements: Array
+ * }} A UI controller with state and a subscription method
  */
 export function createIngredientsInputList(parent, selectedIngredients, availableIngredients) {
   if (!Array.isArray(selectedIngredients) || !Array.isArray(availableIngredients)) {
@@ -173,14 +176,16 @@ export function createIngredientsInputList(parent, selectedIngredients, availabl
     }
   }
 
+  // Render the list. The list is continually updated via recursion as the user adds/removes ingredients
+  const ingredientDOMElements = renderIngredientList(state);
+
   // Give callers the initial state and let them "subscribe" to be notified when the state changes
   const ingredientUI = {
     state,
-    onChange(callback) { onChangeCallback = callback }
+    onChange(callback) { onChangeCallback = callback },
+    ingredientDOMElements
   };
 
-  // Render the list. The list is continually updated via recursion as the user adds/removes ingredients
-  renderIngredientList(state);
   return ingredientUI;
 }
 
@@ -197,13 +202,14 @@ export function createIngredientsInputList(parent, selectedIngredients, availabl
  * @param {Array<Object>} state.availableIngredients - Ingredients available for selection
  * @param {HTMLElement} state.ingredientsContainer - DOM container for ingredient rows
  * @param {HTMLElement} state.dropdownContainer - DOM container for the dropdown
- * @returns {void}
+ * @returns {Array} An array of ingredient DOM elements
  */
 function renderIngredientList(state) {
   const selectedIngredients = [...state.selectedIngredients];
   const ingredientsContainer = state.ingredientsContainer;
   ingredientsContainer.innerHTML = ''; // Clear the displayed ingredients
 
+  const ingredientDOMElements = [];
   state.quantityInputs = {};
   selectedIngredients.forEach(ingredientObject => {
     const ingredientDOMElement = renderIngredientRow(ingredientObject);
@@ -219,12 +225,14 @@ function renderIngredientList(state) {
     }
 
     ingredientsContainer.appendChild(ingredientDOMElement.root);
+    ingredientDOMElements.push(ingredientDOMElement);
   });
 
   renderIngredientDropdown(state);
 
   // Let "subscribers" know the state has changed (e.g. the caller functions of createIngredientsInputList())
   state.notifyChange();
+  return ingredientDOMElements;
 }
 
 /**
@@ -320,8 +328,10 @@ function renderIngredientDropdown(state) {
  *
  * @param {Object} ingredientObject - Ingredient data object
  * @returns {{
- *   root: HTMLElement,
- *   infoContainer: HTMLElement,
+ *   root: HTMLDivElement,
+ *   nameElement: HTMLParagraphElement,
+ *   rarityElement: HTMLParagraphElement,
+ *   infoContainer: HTMLDivElement,
  *   quantityInput: HTMLInputElement
  * }} DOM references for the rendered ingredient row
  */
@@ -345,6 +355,8 @@ function renderIngredientRow(ingredientObject) {
 
   return {
     root: ingredientDOMElement.root,
+    nameElement: ingredientDOMElement.nameElement,
+    rarityElement: ingredientDOMElement.rarityElement,
     infoContainer: infoContainer,
     quantityInput: quantityInput
   }

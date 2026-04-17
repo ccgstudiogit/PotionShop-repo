@@ -59,7 +59,7 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
         effectInput,
         quantityInputs,
         root: parentElement,
-        count: startingIngredientCount
+        count: startingIngredientCount // For recreating the potion form with the same starting ingredients after the form is submitted
       }
 
       submitForm(state);

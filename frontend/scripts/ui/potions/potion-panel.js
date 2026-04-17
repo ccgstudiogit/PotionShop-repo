@@ -77,6 +77,13 @@ function addPotionForm(resultsSection) {
   potionAddForm.createAddPotionForm(resultsSection, 3); // The integer is how many random ingredients there will be
 }
 
+/**
+ * Clear the results section and display the edit potion form.
+ * 
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ * @param {Object} potion The potion that's being edited by the user
+ * @returns {void}
+ */
 function editPotionForm(resultsSection, potion) {
   resultsSection.innerHTML = '';
   potionEditForm.createEditPotionForm(resultsSection, potion);
