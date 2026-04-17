@@ -48,11 +48,11 @@ async function displayAllPotions(resultsSection) {
 
   // Fetch the potions from the backend via the actions layer, which calls the API layer
   try {
-    const potions = await potionActions.getAllPotions();
+    const potions = await potionActions.getAllPotionsWithIngredients();
 
     if (potions) {
       potions.forEach(async potion => {
-        const potionObject = await potionRenderer.renderPotion(potion);
+        const potionObject = potionRenderer.renderPotion(potion);
         resultsSection.appendChild(potionObject.root);
 
         // If the edit button is pressed, open the edit potion form with that potion's information

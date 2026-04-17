@@ -20,6 +20,25 @@ export async function fetchAllPotions() {
 }
 
 /**
+ * Fetches all potions with their ingredients from the backend API.
+ * 
+ * @async 
+ * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions
+ * @throws {Error} Throws an error with the backend message if a problem is encountered
+ */
+export async function fetchAllPotionsWithIngredients() {
+  const response = await fetch('http://localhost:8080/potions/ingredients', { method: 'GET' });
+
+  if (!response.ok) {
+    const message = await errorHandler.parseError(response);
+    throw new Error(message);
+  }
+
+  const potions = await response.json();
+  return potions;
+}
+
+/**
  * Fetches ingredients for a specific potion from the backend API.
  * 
  * @async
@@ -36,10 +55,6 @@ export async function fetchIngredientsByPotionId(potionId) {
   }
 
   const ingredients = await response.json();
-  ingredients.forEach((ingredient) => {
-    ingredient = { ingredientId: id, name, rarity, quantity};
-  });
-  console.log(ingredients);
   return ingredients;
 }
 

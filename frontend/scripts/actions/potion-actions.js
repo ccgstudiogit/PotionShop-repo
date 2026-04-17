@@ -1,4 +1,5 @@
 import * as potionApi from '../api/potion-api.js';
+import * as normalizeDTO from './normalize-dto.js';
 
 /**
  * Fetches all potions from the backend via the API layer and returns them.
@@ -9,6 +10,25 @@ import * as potionApi from '../api/potion-api.js';
  */
 export async function getAllPotions() {
   const potions = await potionApi.fetchAllPotions();
+  return potions;
+}
+
+/**
+ * Fetches all potions with their ingredients from the backend via the API layer and returns them.
+ * 
+ * @async
+ * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions
+ * @throws {Error} Throws an error with the backend message if a problem is encountered
+ */
+export async function getAllPotionsWithIngredients() {
+  const potions = await potionApi.fetchAllPotionsWithIngredients();
+
+  potions.forEach((potion) => {
+    potion.ingredients = potion.ingredients.map(ingredient =>
+      normalizeDTO.normalizeIngredient(ingredient)
+    );
+  });
+
   return potions;
 }
 

@@ -20,7 +20,6 @@ const potionIcons = [
  * - effect description
  * - expandable ingredient list with quantities
  * 
- * @async
  * @param {Object} potion - The potion object to render (as JSON)
  * @returns {{
  *   root: HTMLDivElement,
@@ -35,7 +34,7 @@ const potionIcons = [
  *   ingredientsButton: HTMLButtonElement
  * }} DOM references for the rendered potion element
  */
-export async function renderPotion(potion) {
+export function renderPotion(potion) {
   const potionElement = elementFactory.createElement('div', 'potion-item');
   const displayContainer = elementFactory.createAndAppendElement('div', 'potion-display', potionElement);
 
@@ -77,27 +76,21 @@ export async function renderPotion(potion) {
     ingredientsButton.textContent = ingredientsButton.textContent.includes('Show') ? 'Hide Ingredients (-)' : 'Show Ingredients (+)';
   });
 
-  // Get the ingredients for this potion and add them to the DOM, initially hidden until the button is clicked to show them
-  try {
-    const ingredients = await potionActions.getIngredientsByPotionId(potion.id);
-    ingredients.forEach((ingredient) => {
-      const ingredientObject = ingredientRenderer.renderIngredient(ingredient);
-      ingredientsContainer.appendChild(ingredientObject.root);
+  potion.ingredients.forEach((ingredient) => {
+    const ingredientObject = ingredientRenderer.renderIngredient(ingredient);
+    ingredientsContainer.appendChild(ingredientObject.root);
 
-      // Add the ingredient quantity to the ingredient display
-      const ingredientInfo = ingredientObject.infoContainer;
-      const ingredientQuantity = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], ingredientInfo);
-      ingredientQuantity.textContent = `x${ingredient.quantity}`;
+    // Add the ingredient quantity to the ingredient display
+    const ingredientInfo = ingredientObject.infoContainer;
+    const ingredientQuantity = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], ingredientInfo);
+    ingredientQuantity.textContent = `x${ingredient.quantity}`;
 
-      // Handle showing/hiding the ingredients when the button is clicked
-      ingredientObject.root.style.display = 'none';
-      ingredientsButton.addEventListener('click', () => {
-        ingredientObject.root.style.display = ingredientObject.root.style.display !== 'none' ? 'none' : 'flex';
-      });
+    // Handle showing/hiding the ingredients when the button is clicked
+    ingredientObject.root.style.display = 'none';
+    ingredientsButton.addEventListener('click', () => {
+      ingredientObject.root.style.display = ingredientObject.root.style.display !== 'none' ? 'none' : 'flex';
     });
-  } catch (message) {
-    console.error(message);
-  }
+  });
 
   return {
     root: potionElement,

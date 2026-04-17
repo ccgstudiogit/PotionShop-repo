@@ -22,6 +22,11 @@ public class PotionController {
         return potionService.getAllPotions();
     }
 
+    @GetMapping("/ingredients")
+    public List<PotionWithIngredientsDTO> getAllPotionsWithIngredients() {
+        return potionService.getAllPotionsWithIngredients();
+    }
+
     // @PathVariable extracts values directly from the URL path
     @GetMapping("/{id}")
     public PotionWithIngredientsDTO getPotionById(@PathVariable Integer id) {

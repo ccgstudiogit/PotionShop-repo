@@ -41,6 +41,22 @@ public class PotionService {
     }
 
     /**
+     * Retrieves all potions stored in the database with their respective ingredients.
+     *
+     * @return a list of PotionWithIngredientDTOs
+     */
+    public List<PotionWithIngredientsDTO> getAllPotionsWithIngredients() {
+        List<Potion> potions = potionRepository.findAll().stream().toList();
+        List<PotionWithIngredientsDTO> potionsWithIngredients = new ArrayList<>();
+
+        for (int i = 0; i < potions.size(); i++) {
+            potionsWithIngredients.add(getPotionById(potions.get(i).getId()));
+        }
+
+        return potionsWithIngredients;
+    }
+
+    /**
      * Retrieves a potion by its id, including its list of ingredient DTOs.
      *
      * @param id the id of the potion to retrieve

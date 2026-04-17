@@ -30,7 +30,11 @@ export async function createEditPotionForm(parentElement, potion) {
       effectInput.input.value = potion.effect;
 
       // Get the potions' current ingredients
-      const initialSelectedIngredients = await potionActions.getIngredientsByPotionId(potion.id); // The ingredients that are starting out in the ingredient list without any user input
+      const initialSelectedIngredients = []; // The ingredients that are starting out in the ingredient list without any user input
+      potion.ingredients.forEach((ingredient) => {
+        initialSelectedIngredients.push(ingredient);
+      });
+
       const availableIngredients = await ingredientActions.getAllIngredients(); // Remaining ingredients are shown in the dropdown
       availableIngredients.filter((element) => !initialSelectedIngredients.includes(element)); // Remove the initial ingredients from the dropdown array
   
