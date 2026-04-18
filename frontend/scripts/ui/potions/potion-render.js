@@ -66,6 +66,11 @@ export function renderPotion(potion) {
   const potionEffect = elementFactory.createAndAppendElement('p', ['potion-effect', 'font-jersey'], infoBody);
   potionEffect.textContent = potion.effect;
 
+  // Potion remove button
+  const removeButton = buttonFactory.createAndAppendButton('Remove', 'potion-remove-button', infoBody, () => {
+    console.log('Removing!');
+  });
+
   // For displaying a potion's ingredients
   const ingredientsContainer = elementFactory.createAndAppendElement('div', 'potion-ingredients-container', potionElement);
 
