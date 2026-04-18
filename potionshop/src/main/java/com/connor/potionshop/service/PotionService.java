@@ -167,6 +167,47 @@ public class PotionService {
     }
 
     /**
+     * Updates a potion's fields based on its id as well as updating its ingredient relationships.
+     *
+     * <p>After applying updates, this method verifies that the resulting potion does not duplicate an existing
+     * name–type combination.</p>
+     *
+     * @param id the id of the potion to update
+     * @param updatedPotionWithIng the new potion values with ingredients
+     * @return the updated PotionWithIngredientsDTO
+     * @throws EntityNotFoundException if no potion exists with the given id
+     * @throws EntityExistsException if the updated potion conflicts with an existing one
+     */
+    public PotionWithIngredientsDTO updatePotionWithIngredientsById(Integer id, UpdatePotionWithIngDTO updatedPotionWithIng) {
+        Potion potion = potionRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format("Potion with id %d not found. Unable to update.", id)
+            ));
+
+        potion.setName(updatedPotionWithIng.name());
+        potion.setType(updatedPotionWithIng.type());
+        potion.setEffect(updatedPotionWithIng.effect());
+        potion.setPrice(updatedPotionWithIng.price());
+        checkAndThrowIfPotionExists(potion); // Verify the potion's updated values are not already in the database
+        potionRepository.save(potion);
+
+        List<PotionIngredientDTO> potionIngredientDTOS = new ArrayList<>(); // For returning a list of ingredients
+        List<PotionIngredient> potionIngredients = potionIngredientService.getPotionIngredientsByPotionId(id);
+        for (int i = 0; i < potionIngredients.size(); i++) {
+            UpdatePotionIngredientDTO updatedQuantity = potionIngredientMapper.toUpdateDTO(potionIngredients.get(i));
+            PotionIngredient updatedPotionIngredient = potionIngredientService.updatePotionIngredient(
+                potion.getId(),
+                potionIngredients.get(i).getIngredient().getId(),
+                updatedQuantity
+            );
+
+            potionIngredientDTOS.add(potionIngredientMapper.toDTO(updatedPotionIngredient));
+        }
+
+        return potionMapper.toWithIngredientsDTO(potion, potionIngredientDTOS);
+    }
+
+    /**
      * Checks whether a potion with the same name and type already exists.
      *
      * @param potion the potion to validate

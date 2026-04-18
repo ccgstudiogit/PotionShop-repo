@@ -66,6 +66,11 @@ public class PotionController {
         return potionService.updatePotionById(id, updatePotionDTO);
     }
 
+    @PutMapping("/{id}/ingredients")
+    public PotionWithIngredientsDTO updatePotionWithIngredientsById(@PathVariable Integer id, @RequestBody UpdatePotionWithIngDTO updatePotionWithIngDTO) {
+        return potionService.updatePotionWithIngredientsById(id, updatePotionWithIngDTO);
+    }
+
     @PatchMapping("/{potionId}/ingredients/{ingredientId}")
     public PotionWithIngredientsDTO updatePotionIngredientById(@PathVariable Integer potionId, @PathVariable Integer ingredientId, @RequestBody UpdatePotionIngredientDTO updatePotionIngredientDTO) {
         return potionService.updatePotionIngredientById(potionId, ingredientId, updatePotionIngredientDTO);

@@ -3,7 +3,31 @@ import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionFormUtils from './potion-form-utils.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
 import * as potionActions from '../../actions/potion-actions.js';
+import * as modal from '../components/modal.js';
+import * as addPotionFrom from './potion-add-form.js';
 
+/**
+ * Renders an "Edit Potion" form pre-filled with the potion's existing data.
+ *
+ * Responsibilities:
+ *  - Builds all input fields (name, type, price, effect)
+ *  - Pre-selects the potion's current type
+ *  - Loads and displays the potion's current ingredients
+ *  - Hydrates ingredient quantity inputs with existing values
+ *  - Subscribes to ingredient list state changes
+ *  - On submit, constructs a state object and triggers the update flow
+ *
+ * @async
+ * @param {HTMLElement} parentElement - The DOM element where the form will be rendered
+ * @param {Object} potion - The potion being edited
+ * @param {number} potion.id - The potion's ID
+ * @param {string} potion.name - The potion's current name
+ * @param {string} potion.type - The potion's current type (PotionType enum value)
+ * @param {number} potion.price - The potion's current price
+ * @param {string} potion.effect - The potion's current effect
+ * @param {Array<Object>} potion.ingredients - The potion's current ingredient list
+ * @returns {Promise<void>} Resolves once the form is fully rendered
+ */
 export async function createEditPotionForm(parentElement, potion) {
   try {
     const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
@@ -63,18 +87,69 @@ export async function createEditPotionForm(parentElement, potion) {
     // Create the button to handle submitting the potion form. The current state of the form as passed
     buttonFactory.createAndAppendButton('Submit', 'add-potion-form-submit-button', formContainer, () => {
       const state = {
+        potionId: potion.id,
         nameInput,
         typeInput,
         priceInput,
         effectInput,
         quantityInputs,
         root: parentElement,
-
       }
 
-      //submitForm(state);
+      submitForm(state);
     });
   } catch (message) {
     console.error(message);
+  }
+}
+
+/**
+ * Validates the potion form state and submits an edit request for the potion to the backend.
+ *
+ * Performs client-side validation for required fields (name, price, effect), then delegates to the potion API layer. If the potion
+ * is successfully edited, the form is cleared and re-rendered. If an error occurs, a global modal displays the error message.
+ *
+ * @async
+ * @param {{
+ *   potionId: number,
+ *   nameInput: { input: HTMLInputElement },
+ *   typeInput: { select: HTMLSelectElement },
+ *   priceInput: { input: HTMLInputElement },
+ *   effectInput: { input: HTMLInputElement },
+ *   quantityInputs: Object.<string, HTMLInputElement>,
+ *   root: HTMLElement
+ * }} state - The current form state and DOM references
+ * @returns {Promise<void>}
+ */
+async function submitForm(state) {
+  try {
+    const name = state.nameInput.input.value;
+    if (name === '') {
+      throw new Error('Name cannot be empty.');
+    }
+
+    // Type will always be correct since it retrieves the types from the backend, so no need for validation
+    const type = state.typeInput.select.value;
+
+    const price = state.priceInput.input.value;
+    if (price === '') {
+      throw new Error('Price cannot be empty.');
+    }
+
+    const effect = state.effectInput.input.value;
+    if (effect === '') {
+      throw new Error('Effect cannot empty.');
+    }
+
+    await potionActions.putPotion(state.potionId, name, type, price, effect, state.quantityInputs);
+
+    // Recreate a blank form after the potion was successfully added
+    state.root.innerHTML = '';
+    addPotionFrom.createAddPotionForm(state.root, 3);
+  } catch (message) {
+    const errorModal = modal.renderGlobalModal();
+
+    errorModal.windowTitle.textContent = 'Alchemy error!';
+    errorModal.windowText.textContent = message;
   }
 }

@@ -75,3 +75,21 @@ export async function addPotion(name, type, price, effect, quantityInputs) {
   const added = await potionApi.addPotion(name, type, price, effect, quantityInputs);
   return added;
 }
+
+/**
+ * Sends an update request for an existing potion to the backend. Wraps the lower-level API call and returns the updated
+ * potion object.
+ *
+ * @async
+ * @param {number} potionId - The ID of the potion being updated
+ * @param {string} name - The updated potion name
+ * @param {string} type - The updated potion type (must match backend PotionType enum)
+ * @param {number|string} price - The updated potion price
+ * @param {string} effect - The updated potion effect/description
+ * @param {Object<string, HTMLInputElement>} quantityInputs - Map of ingredientId → quantity input element
+ * @returns {Promise<Object>} The updated potion returned by the backend
+ */
+export async function putPotion(potionId, name, type, price, effect, quantityInputs) {
+  const updated = await potionApi.putPotion(potionId, name, type, price, effect, quantityInputs);
+  return updated;
+}

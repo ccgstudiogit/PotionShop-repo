@@ -136,3 +136,52 @@ export async function addPotion(name, type, price, effect, quantityInputs) {
   const addedPotion = await response.json();
   return addedPotion;
 }
+
+/**
+ * Sends a PUT request to update an existing potion and its ingredient quantities.
+ *
+ * @async
+ * @param {number} potionId - The ID of the potion being updated
+ * @param {string} name - Updated potion name
+ * @param {string} type - Updated potion type (must match backend PotionType enum)
+ * @param {number|string} price - Updated potion price
+ * @param {string} effect - Updated potion effect
+ * @param {Object<string, HTMLInputElement>} quantityInputs - Map of ingredientId → quantity input element
+ * @returns {Promise<Object>} The updated potion (PotionWithIngredientsDTO) returned by the backend.
+ * @throws {Error} If the backend responds with a non-OK status.
+ */
+export async function putPotion(potionId, name, type, price, effect, quantityInputs) {
+  // Convert the ingredients list to a list that matches a list of CreatePotionIngredientDTO for the backend
+  const ingredients = [];
+  for (const [key, value] of Object.entries(quantityInputs)) {
+    const ingredient = {
+      ingredientId: Number(key),
+      quantity: Number(value.value) // .value twice since the first is an <input>, then the 2nd .value gets the input's current value
+    }
+
+    ingredients.push(ingredient);
+  }
+
+  const response = await fetch(`http://localhost:8080/potions/${potionId}/ingredients`, {
+    method: 'PUT',
+    headers: {
+      "Content-Type": 'application/json'
+    },
+    // MUST match the backend's UpdatePotionWithIngDTO record
+    body: JSON.stringify({
+      name,
+      type,
+      effect,
+      price: Number(price),
+      ingredients
+    })
+  });
+
+  if (!response.ok) {
+    const message = await errorHandler.parseError(response);
+    throw new Error(message);
+  }
+
+  const addedPotion = await response.json();
+  return addedPotion;
+}
