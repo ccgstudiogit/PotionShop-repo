@@ -5,6 +5,7 @@ import * as potionRenderer from './potion-render.js';
 import * as potionAddForm from './potion-add-form.js';
 import * as potionEditForm from './potion-edit-form.js';
 import * as modal from '../components/modal.js';
+import * as searchBar from '../components/search-bar.js';
 
 /**
  * Clear the current panel and display the potions panel.
@@ -48,6 +49,9 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
 async function displayAllPotions(resultsSection) {
   // Clear the results section before displaying the new results
   resultsSection.innerHTML = '';
+
+  // Generate search bar up top
+  searchBar.renderSearchBar(resultsSection);
 
   // Fetch the potions from the backend via the actions layer, which calls the API layer
   try {
