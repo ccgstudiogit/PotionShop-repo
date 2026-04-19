@@ -69,10 +69,10 @@ async function displayAllPotions(resultsSection) {
           const confirmModal = modal.renderGlobalModal();
 
           confirmModal.windowTitle.textContent = 'Confirm Delete';
-          confirmModal.windowText.textContent = `Delete ${potionObject.potionName.textContent} from the shop? Press ESC to cancel.`;
+          confirmModal.windowText.textContent = `Delete ${potionObject.potionName.textContent} from the shop?`;
 
-          confirmModal.closeButton.textContent = 'Delete';
-          confirmModal.closeButton.onclick = async function () {
+          confirmModal.mainButton.textContent = 'Delete';
+          confirmModal.mainButton.onclick = async function () {
             try {
               await potionActions.deletePotion(potion.id);
             } catch (message) {
@@ -82,6 +82,11 @@ async function displayAllPotions(resultsSection) {
             // Refresh the updated list after deletion
             displayAllPotions(resultsSection);
           }
+
+          // Add the cancel button
+          const cancelButton = buttonFactory.createAndAppendButton('Cancel', 'modal-button', confirmModal.buttonContainer, () => {
+            confirmModal.root.remove();
+          });
         }
       });
     }

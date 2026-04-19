@@ -9,17 +9,19 @@ import * as buttonFactory from '../../utils/button-factory.js';
  * - a title element
  * - a divider line
  * - a text/message element
+ * - a button container so additional buttons may be added
  * - an "Okay" button that dismisses the modal
  *
  * The modal is removed when the user clicks the button or presses Escape.
  *
  * @returns {{
- *   container: HTMLDivElement,
+ *   root: HTMLDivElement,
  *   window: HTMLDivElement,
  *   windowTitle: HTMLParagraphElement,
  *   line: HTMLDivElement,
  *   windowText: HTMLParagraphElement,
- *   closeButton: HTMLButtonElement
+ *   buttonContainer: HTMLDivElement,
+ *   mainButton: HTMLButtonElement
  * }} DOM references for the rendered modal window
  */
 export function renderGlobalModal() {
@@ -36,7 +38,9 @@ export function renderGlobalModal() {
   const windowText = elementFactory.createAndAppendElement('p', ['modal-text', 'font-jersey'], window);
   windowText.textContent = 'Sample text. Fill this text with either a message or an error, letting the user know something went wrong.';
 
-  const closeButton = buttonFactory.createAndAppendButton('Okay', 'close-button', window, () => {
+  const buttonContainer = elementFactory.createAndAppendElement('div', 'modal-button-container', window);
+
+  const closeButton = buttonFactory.createAndAppendButton('Okay', 'modal-button', buttonContainer, () => {
     container.remove();
   });
 
@@ -49,11 +53,12 @@ export function renderGlobalModal() {
   });
 
   return {
-    container,
+    root: container,
     window,
     windowTitle,
     line,
     windowText,
-    closeButton
+    buttonContainer,
+    mainButton: closeButton
   }
 }
