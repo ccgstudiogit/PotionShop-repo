@@ -11,3 +11,7 @@ export async function getAllIngredients() {
   const ingredients = await ingredientApi.fetchAllIngredients();
   return ingredients;
 }
+
+export async function deleteIngredient(ingredientId) {
+  await ingredientApi.deleteIngredient(ingredientId);
+}

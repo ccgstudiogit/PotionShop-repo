@@ -63,3 +63,12 @@
 .ingredient-info .ingredient-quantity {
   font-size: 2.5rem;
 }
+
+.ingredient-info .ingredient-remove-button {
+  margin-left: auto;
+  margin-right: 10px;
+
+  align-self: center;
+
+  font-size: 1.65rem;
+}

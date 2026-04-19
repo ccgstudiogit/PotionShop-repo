@@ -18,3 +18,12 @@ export async function fetchAllIngredients() {
   const ingredients = await response.json();
   return ingredients;
 }
+
+export async function deleteIngredient(ingredientId) {
+  const response = await fetch(`http://localhost:8080/ingredients/${ingredientId}`, { method: 'DELETE' });
+
+  if (!response.ok) {
+    const message = await errorHandler.parseError(response);
+    throw new Error(message);
+  }
+}

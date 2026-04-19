@@ -2,6 +2,7 @@ import { clearAndGenerateSections } from "../shared/base-panel.js";
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
 import * as ingredientRenderer from './ingredient-render.js';
+import * as modalRenderer from '../components/modal.js';
 
 /**
  * Clear the current panel and display the ingredients panel.
@@ -48,8 +49,32 @@ async function displayAllIngredients(resultsSection) {
 
     if (ingredients) {
       ingredients.forEach(ingredient => {
-        const ingredientObject = ingredientRenderer.renderIngredient(ingredient);
-        resultsSection.appendChild(ingredientObject.root);
+        const ingredientElement = ingredientRenderer.renderIngredient(ingredient);
+        resultsSection.appendChild(ingredientElement.root);
+
+        ingredientElement.removeButton.onclick = async function () {
+          const confirmModal = modalRenderer.renderGlobalModal();
+
+          confirmModal.windowTitle.textContent = 'Confirm Delete';
+          confirmModal.windowText.textContent = `Delete ${ingredientElement.nameElement.textContent} from the shop?`;
+
+          confirmModal.mainButton.textContent = 'Delete';
+          confirmModal.mainButton.onclick = async function () {
+            try {
+              await ingredientActions.deleteIngredient(ingredient.id);
+            } catch (message) {
+              console.error(message);
+            }
+
+            // Refresh the updated list after deletion
+            displayAllIngredients(resultsSection);
+          }
+
+          // Add the cancel button
+          const cancelButton = buttonFactory.createAndAppendButton('Cancel', 'modal-button', confirmModal.buttonContainer, () => {
+            confirmModal.root.remove();
+          });
+        }
       });
     }
   } catch (message) {

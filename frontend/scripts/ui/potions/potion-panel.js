@@ -61,21 +61,21 @@ async function displayAllPotions(resultsSection) {
 
     if (potions) {
       potions.forEach(async potion => {
-        const potionObject = potionRenderer.renderPotion(potion);
-        resultsSection.appendChild(potionObject.root);
+        const potionElement = potionRenderer.renderPotion(potion);
+        resultsSection.appendChild(potionElement.root);
 
         // If the edit button is pressed, open the edit potion form with that potion's information
-        potionObject.editButton.onclick = function () {
+        potionElement.editButton.onclick = function () {
           editPotionForm(resultsSection, potion);
         };
 
         // If the remove button is pressed, prompt the user with a confirm delete request. If the user confirms,
         // delete the potion from the database (destructive)
-        potionObject.removeButton.onclick = async function () {
+        potionElement.removeButton.onclick = async function () {
           const confirmModal = modalRenderer.renderGlobalModal();
 
           confirmModal.windowTitle.textContent = 'Confirm Delete';
-          confirmModal.windowText.textContent = `Delete ${potionObject.potionName.textContent} from the shop?`;
+          confirmModal.windowText.textContent = `Delete ${potionElement.potionName.textContent} from the shop?`;
 
           confirmModal.mainButton.textContent = 'Delete';
           confirmModal.mainButton.onclick = async function () {
