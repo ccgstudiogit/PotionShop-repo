@@ -1,6 +1,6 @@
 import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
-import * as modal from '../components/modal.js';
+import * as modalRenderer from '../components/modal.js';
 import * as mathHelper from '../../utils/math-helper.js';
 import * as potionFormUtils from './potion-form-utils.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
@@ -113,7 +113,7 @@ async function submitForm(state) {
     state.root.innerHTML = '';
     createAddPotionForm(state.root, state.count);
   } catch (message) {
-    const errorModal = modal.renderGlobalModal();
+    const errorModal = modalRenderer.renderGlobalModal();
 
     errorModal.windowTitle.textContent = 'Alchemy error!';
     errorModal.windowText.textContent = message;

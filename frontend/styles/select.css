@@ -26,7 +26,7 @@
 .custom-select option {
   background-color: white;
 
-  /* Changing font does not work for custom fonts (Verdana, Arial, Times New Roman, etc. all work but 'Jersey 15' doesn't */
+  /* Changing font does not work for custom fonts (Verdana, Arial, Times New Roman, etc. all work but 'Jersey 15' doesn't) */
   font-family: Verdana;
   font-size: 1.15rem;
   color: black;

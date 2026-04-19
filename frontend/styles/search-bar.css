@@ -3,15 +3,16 @@
   align-items: center;
   justify-content: center;
 
-  margin-top: 7px;
-  margin-bottom: 17px;
+  margin-top: -2px;
+  padding: 7px 30px 17px 30px;
+
+  background-color: rgb(136, 118, 202);
 }
 
 .search-bar-container .search-bar {
   flex: 1;
 
-  margin-right: 30px;
-  margin-left: 30px;
+  margin-right: 10px;
   padding: 9px 8px 9px 8px;
 
   border-style: solid;
@@ -21,4 +22,16 @@
 
   font-size: 2rem;
   color: black;
+}
+
+.search-bar-container .search-dropdown {
+  margin-right: 10px;
+
+  height: 100%;
+}
+
+.search-bar-container .search-button {
+  font-size: 2rem;
+
+  height: 100%;
 }

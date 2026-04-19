@@ -4,8 +4,8 @@ import * as potionActions from '../../actions/potion-actions.js';
 import * as potionRenderer from './potion-render.js';
 import * as potionAddForm from './potion-add-form.js';
 import * as potionEditForm from './potion-edit-form.js';
-import * as modal from '../components/modal.js';
-import * as searchBar from '../components/search-bar.js';
+import * as modalRenderer from '../components/modal.js';
+import * as searchBarRenderer from '../components/search-bar.js';
 
 /**
  * Clear the current panel and display the potions panel.
@@ -50,8 +50,10 @@ async function displayAllPotions(resultsSection) {
   // Clear the results section before displaying the new results
   resultsSection.innerHTML = '';
 
-  // Generate search bar up top
-  searchBar.renderSearchBar(resultsSection);
+  // Generate filter bar up top
+  const filterByElement = searchBarRenderer.renderSearchBar(resultsSection);
+  filterByElement.searchBar.placeholder = 'Filter by...';
+  filterByElement.searchButton.textContent = 'Filter';
 
   // Fetch the potions from the backend via the actions layer, which calls the API layer
   try {
@@ -70,7 +72,7 @@ async function displayAllPotions(resultsSection) {
         // If the remove button is pressed, prompt the user with a confirm delete request. If the user confirms,
         // delete the potion from the database (destructive)
         potionObject.removeButton.onclick = async function () {
-          const confirmModal = modal.renderGlobalModal();
+          const confirmModal = modalRenderer.renderGlobalModal();
 
           confirmModal.windowTitle.textContent = 'Confirm Delete';
           confirmModal.windowText.textContent = `Delete ${potionObject.potionName.textContent} from the shop?`;
