@@ -93,3 +93,7 @@ export async function putPotion(potionId, name, type, price, effect, quantityInp
   const updated = await potionApi.putPotion(potionId, name, type, price, effect, quantityInputs);
   return updated;
 }
+
+export async function deletePotion(potionId) {
+  await potionApi.deletePotion(potionId);
+}

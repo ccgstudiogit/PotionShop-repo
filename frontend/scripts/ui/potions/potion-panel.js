@@ -59,6 +59,12 @@ async function displayAllPotions(resultsSection) {
         potionObject.editButton.onclick = function() {
           editPotionForm(resultsSection, potion);
         };
+
+        // If the remove button is pressed, remove the potion from the database and refresh
+        potionObject.removeButton.onclick = async function() {
+          await potionActions.deletePotion(potion.id);
+          displayAllPotions(resultsSection);
+        }
       });
     }
   } catch (message) {

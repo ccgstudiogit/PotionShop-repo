@@ -27,9 +27,10 @@ const potionIcons = [
  *   potionName: HTMLParagraphElement,
  *   potionType: HTMLParagraphElement,
  *   potionPrice: HTMLParagraphElement,
- *   editButton: HTMLButtonElement
+ *   editButton: HTMLButtonElement,
  *   infoBody: HTMLDivElement,
  *   potionEffect: HTMLParagraphElement,
+ *   removeButton: HTMLButtonElement,
  *   ingredientsContainer: HTMLDivElement,
  *   ingredientsButton: HTMLButtonElement
  * }} DOM references for the rendered potion element
@@ -66,10 +67,8 @@ export function renderPotion(potion) {
   const potionEffect = elementFactory.createAndAppendElement('p', ['potion-effect', 'font-jersey'], infoBody);
   potionEffect.textContent = potion.effect;
 
-  // Potion remove button
-  const removeButton = buttonFactory.createAndAppendButton('Remove', 'potion-remove-button', infoBody, () => {
-    console.log('Removing!');
-  });
+  // Potion remove button. The button's onClick event should be handled by the caller function
+  const removeButton = buttonFactory.createAndAppendButton('Remove', 'potion-remove-button', infoBody, null);
 
   // For displaying a potion's ingredients
   const ingredientsContainer = elementFactory.createAndAppendElement('div', 'potion-ingredients-container', potionElement);
@@ -106,6 +105,7 @@ export function renderPotion(potion) {
     editButton,
     infoBody,
     potionEffect,
+    removeButton,
     ingredientsContainer,
     ingredientsButton
   }

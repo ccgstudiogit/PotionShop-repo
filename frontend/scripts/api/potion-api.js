@@ -185,3 +185,12 @@ export async function putPotion(potionId, name, type, price, effect, quantityInp
   const addedPotion = await response.json();
   return addedPotion;
 }
+
+export async function deletePotion(potionId) {
+  const response = await fetch(`http://localhost:8080/potions/${potionId}`, { method: 'DELETE' });
+
+  if (!response.ok) {
+    const message = await errorHandler.parseError(response);
+    throw new Error(message);
+  }
+}
