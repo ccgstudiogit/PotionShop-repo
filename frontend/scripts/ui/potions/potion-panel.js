@@ -4,6 +4,7 @@ import * as potionActions from '../../actions/potion-actions.js';
 import * as potionRenderer from './potion-render.js';
 import * as potionAddForm from './potion-add-form.js';
 import * as potionEditForm from './potion-edit-form.js';
+import * as modal from '../components/modal.js';
 
 /**
  * Clear the current panel and display the potions panel.
@@ -56,14 +57,29 @@ async function displayAllPotions(resultsSection) {
         resultsSection.appendChild(potionObject.root);
 
         // If the edit button is pressed, open the edit potion form with that potion's information
-        potionObject.editButton.onclick = function() {
+        potionObject.editButton.onclick = function () {
           editPotionForm(resultsSection, potion);
         };
 
-        // If the remove button is pressed, remove the potion from the database and refresh
-        potionObject.removeButton.onclick = async function() {
-          await potionActions.deletePotion(potion.id);
-          displayAllPotions(resultsSection);
+        // If the remove button is pressed, prompt the user with a confirm delete request. If the user confirms,
+        // delete the potion from the database (destructive)
+        potionObject.removeButton.onclick = async function () {
+          const confirmModal = modal.renderGlobalModal();
+
+          confirmModal.windowTitle.textContent = 'Confirm Delete';
+          confirmModal.windowText.textContent = `Delete ${potionObject.potionName.textContent} from the shop?`;
+
+          confirmModal.closeButton.textContent = 'Delete';
+          confirmModal.closeButton.onclick = async function () {
+            try {
+              await potionActions.deletePotion(potion.id);
+            } catch (message) {
+              console.error(message);
+            }
+
+            // Refresh the updated list after deletion
+            displayAllPotions(resultsSection);
+          }
         }
       });
     }
