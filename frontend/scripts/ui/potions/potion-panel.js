@@ -27,8 +27,10 @@ export function showPotionsPanel() {
  * @returns {void}
  */
 function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
-  buttonFactory.createAndAppendButton('Get Potions', 'option-button', optionsSection, () => {
-    displayAllPotions(resultsSection);
+  const getPotionsButton = buttonFactory.createAndAppendButton('Get Potions', 'option-button', optionsSection, async function () {
+    getPotionsButton.disabled = true;
+    await displayAllPotions(resultsSection);
+    getPotionsButton.disabled = false;
   });
 
   buttonFactory.createAndAppendButton('Add Potion', 'option-button', optionsSection, () => {
@@ -67,7 +69,7 @@ async function displayAllPotions(resultsSection) {
           const confirmModal = modal.renderGlobalModal();
 
           confirmModal.windowTitle.textContent = 'Confirm Delete';
-          confirmModal.windowText.textContent = `Delete ${potionObject.potionName.textContent} from the shop?`;
+          confirmModal.windowText.textContent = `Delete ${potionObject.potionName.textContent} from the shop? Press ESC to cancel.`;
 
           confirmModal.closeButton.textContent = 'Delete';
           confirmModal.closeButton.onclick = async function () {

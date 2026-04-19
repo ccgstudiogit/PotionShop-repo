@@ -24,8 +24,10 @@ export function showIngredientsPanel() {
  * @returns {void}
  */
 function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
-  buttonFactory.createAndAppendButton('Get Ingredients', 'option-button', optionsSection, () => {
-    displayAllIngredients(resultsSection);
+  const getIngredientsButton = buttonFactory.createAndAppendButton('Get Ingredients', 'option-button', optionsSection, async function () {
+    getIngredientsButton.disabled = true;
+    await displayAllIngredients(resultsSection);
+    getIngredientsButton.disabled = false;
   });
 }
 
