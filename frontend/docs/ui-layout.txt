@@ -38,3 +38,36 @@ Adding a new potion form:
 |--------------------------------------------------|
 |              [Cancel]   [Add Potion]             |
 +--------------------------------------------------+
+
+UPDATED UI LAYOUT:
+As of 4/20/26, the previous layout is no longer working after starting to work on the filtering/search capability. This completely
+separates the search/add function so that only has to be rendered once when the user either selects Potions or Ingredients, as with
+my current system the search bars in Get Potions/Ingredients resets everytime the list is re-rendered.
+
++-------------------------------------------------------------+
+|  Welcome to:                                                |
+|  The Potion Shop                                            |
++-------------------------------------------------------------+
+
+[ Potions ]              [ Ingredients ]
+
++-------------------------------------------------------------+
+|  Search: [_____________________]                            |
+|                                                             |
+|  Type:   [ Any ▼ ]                                          |
+|                                                             |
+|  Price:  [ < ▼ ] [   value   ]                              |
+|          (If "Between" is selected → [min] – [max])         |
+|                                                             |
+|  + Add Potion                                               |
++-------------------------------------------------------------+
+
++-------------------------------------------------------------+
+|  Results                                                    |
+|  ---------------------------------------------------------- |
+|  [Potion A info]     [Edit] [Remove]                        |
+|  [Potion B info]     [Edit] [Remove]                        |
+|  [Potion C info]     [Edit] [Remove]                        |
+|  ...                                                        |
++-------------------------------------------------------------+
+
