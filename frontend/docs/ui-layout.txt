@@ -44,13 +44,12 @@ As of 4/20/26, the previous layout is no longer working after starting to work o
 separates the search/add function so that only has to be rendered once when the user either selects Potions or Ingredients, as with
 my current system the search bars in Get Potions/Ingredients resets everytime the list is re-rendered.
 
+// Site title and buttons are now on one line, reducing horizontal space used (and now should have a background panel)
 +-------------------------------------------------------------+
-|  Welcome to:                                                |
-|  The Potion Shop                                            |
+|  The Potion Shop                     Potions | Ingredients  |
 +-------------------------------------------------------------+
 
-[ Potions ]              [ Ingredients ]
-
+// Search panel is completely separate from the view panel (I will make 2 new panels: Search and View)
 +-------------------------------------------------------------+
 |  Search: [_____________________]                            |
 |                                                             |
@@ -62,6 +61,7 @@ my current system the search bars in Get Potions/Ingredients resets everytime th
 |  + Add Potion                                               |
 +-------------------------------------------------------------+
 
+// Results shows the results of whatever the user is doing with either potions or ingredients (just like my results panel right now)
 +-------------------------------------------------------------+
 |  Results                                                    |
 |  ---------------------------------------------------------- |
@@ -69,5 +69,19 @@ my current system the search bars in Get Potions/Ingredients resets everytime th
 |  [Potion B info]     [Edit] [Remove]                        |
 |  [Potion C info]     [Edit] [Remove]                        |
 |  ...                                                        |
++-------------------------------------------------------------+
+
+// Potential layout on first load up with nothing selected:
++-------------------------------------------------------------+
+|  The Potion Shop                     Potions | Ingredients  |
++-------------------------------------------------------------+
+
++-------------------------------------------------------------+
+|  (empty)                                                    |
+|  Select Potions or Ingredients to begin                     |
++-------------------------------------------------------------+
+
++-------------------------------------------------------------+
+|  (empty)                                                    |
 +-------------------------------------------------------------+
 
