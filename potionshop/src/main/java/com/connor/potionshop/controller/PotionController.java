@@ -38,6 +38,11 @@ public class PotionController {
         return potionService.getAllPotionIngredientsById(id);
     }
 
+    @GetMapping("/filter/{name}")
+    public List<PotionWithIngredientsDTO> getAllPotionsWithNameLike(@PathVariable String name) {
+        return potionService.getPotionsWithNameLike(name);
+    }
+
     @GetMapping("/types")
     public List<String> getPotionTypes() {
         return potionService.getPotionTypes();

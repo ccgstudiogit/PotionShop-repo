@@ -50,6 +50,7 @@ public class PotionService {
         List<PotionWithIngredientsDTO> potionsWithIngredients = new ArrayList<>();
 
         for (int i = 0; i < potions.size(); i++) {
+            // Take advantage of getPotionById since that gets a potion with its ingredients
             potionsWithIngredients.add(getPotionById(potions.get(i).getId()));
         }
 
@@ -71,6 +72,23 @@ public class PotionService {
 
         List<PotionIngredientDTO> ingredients = getAllPotionIngredientsById(potion.getId());
         return potionMapper.toWithIngredientsDTO(potion, ingredients);
+    }
+
+    /**
+     * Retrieves all potions stored in the database with a name containing the input, with their respective ingredients.
+     *
+     * @param name The potions whose names are like this (the SQL query uses %LIKE%)
+     * @return A list of PotionWithIngredientDTOs whose name contains the input String.
+     */
+    public List<PotionWithIngredientsDTO> getPotionsWithNameLike(String name) {
+        List<Potion> potions = potionRepository.findByNameLike(name.toLowerCase()).stream().toList();
+        List<PotionWithIngredientsDTO> potionsWithIngredients = new ArrayList<>();
+
+        for (int i = 0; i < potions.size(); i++) {
+            potionsWithIngredients.add(getPotionById(potions.get(i).getId()));
+        }
+
+        return potionsWithIngredients;
     }
 
     /**
