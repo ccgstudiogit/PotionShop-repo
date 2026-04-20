@@ -38,9 +38,14 @@ public class PotionController {
         return potionService.getAllPotionIngredientsById(id);
     }
 
-    @GetMapping("/filter/{name}")
+    @GetMapping("/filter/name/{name}")
     public List<PotionWithIngredientsDTO> getAllPotionsWithNameLike(@PathVariable String name) {
         return potionService.getPotionsWithNameLike(name);
+    }
+
+    @GetMapping("/filter/type/{type}")
+    public List<PotionWithIngredientsDTO> getAllPotionsWithType(@PathVariable PotionType type) {
+        return potionService.getPotionsWithType(type);
     }
 
     @GetMapping("/types")

@@ -78,10 +78,27 @@ public class PotionService {
      * Retrieves all potions stored in the database with a name containing the input, with their respective ingredients.
      *
      * @param name The potions whose names are like this (the SQL query uses %LIKE%)
-     * @return A list of PotionWithIngredientDTOs whose name contains the input String.
+     * @return A list of PotionWithIngredientDTOs whose name contains the input String
      */
     public List<PotionWithIngredientsDTO> getPotionsWithNameLike(String name) {
         List<Potion> potions = potionRepository.findByNameLike(name.toLowerCase()).stream().toList();
+        List<PotionWithIngredientsDTO> potionsWithIngredients = new ArrayList<>();
+
+        for (int i = 0; i < potions.size(); i++) {
+            potionsWithIngredients.add(getPotionById(potions.get(i).getId()));
+        }
+
+        return potionsWithIngredients;
+    }
+
+    /**
+     * Retrieves all potions stored in the database with the PotionType matching the input, with their respective ingredients.
+     *
+     * @param type The potions that have the same PotionType
+     * @return A list of PotionWithIngredientDTOs whose type matches the input PotionType
+     */
+    public List<PotionWithIngredientsDTO> getPotionsWithType(PotionType type) {
+        List<Potion> potions = potionRepository.findByType(type).stream().toList();
         List<PotionWithIngredientsDTO> potionsWithIngredients = new ArrayList<>();
 
         for (int i = 0; i < potions.size(); i++) {
