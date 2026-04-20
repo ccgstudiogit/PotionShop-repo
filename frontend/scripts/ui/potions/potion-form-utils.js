@@ -338,6 +338,9 @@ function renderIngredientDropdown(state) {
 function renderIngredientRow(ingredientObject) {
   const ingredientDOMElement = ingredientRenderer.renderIngredient(ingredientObject);
 
+  // Remove the remove button since an ingredient should not be able to be deleted from the database from a potion's ingredient list
+  ingredientDOMElement.removeButton.remove();
+
   // Create the quantity input field with a 'x' symbol
   const infoContainer = ingredientDOMElement.infoContainer;
   const timesElement = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], infoContainer);
