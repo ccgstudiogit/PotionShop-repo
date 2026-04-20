@@ -81,18 +81,21 @@ export function renderPotion(potion) {
   });
 
   potion.ingredients.forEach((ingredient) => {
-    const ingredientObject = ingredientRenderer.renderIngredient(ingredient);
-    ingredientsContainer.appendChild(ingredientObject.root);
+    const ingredientElement = ingredientRenderer.renderIngredient(ingredient);
+    ingredientsContainer.appendChild(ingredientElement.root);
+
+    // Remove the remove button since an ingredient should not be able to be deleted from the database from a potion's ingredient list
+    ingredientElement.removeButton.remove();
 
     // Add the ingredient quantity to the ingredient display
-    const ingredientInfo = ingredientObject.infoContainer;
+    const ingredientInfo = ingredientElement.infoContainer;
     const ingredientQuantity = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], ingredientInfo);
     ingredientQuantity.textContent = `x${ingredient.quantity}`;
 
     // Handle showing/hiding the ingredients when the button is clicked
-    ingredientObject.root.style.display = 'none';
+    ingredientElement.root.style.display = 'none';
     ingredientsButton.addEventListener('click', () => {
-      ingredientObject.root.style.display = ingredientObject.root.style.display !== 'none' ? 'none' : 'flex';
+      ingredientElement.root.style.display = ingredientElement.root.style.display !== 'none' ? 'none' : 'flex';
     });
   });
 
