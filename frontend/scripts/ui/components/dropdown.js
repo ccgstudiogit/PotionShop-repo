@@ -5,7 +5,7 @@ import * as elementFactory from '../../utils/element-factory.js';
  *
  * @param {string|string[]|null} divClasses - Classes to apply to the wrapper <div>
  * @param {string|string[]|null} selectClasses - Classes to apply to the <select> element
- * @returns {{root: HTMLElement, selection: HTMLSelectElement}}
+ * @returns {{root: HTMLDivElement, selection: HTMLSelectElement}}
  *          An object containing the wrapper element (`root`) and the <select> element (`selection`)
  */
 export function createDropdownShell(divClasses, selectClasses) {
@@ -28,7 +28,7 @@ export function createDropdownShell(divClasses, selectClasses) {
  * @param {string|string[]|null} divClasses - Classes to apply to the wrapper <div>
  * @param {string|string[]|null} selectClasses - Classes to apply to the <select> element
  * @param {HTMLElement} parent - The parent element to append the dropdown to
- * @returns {{root: HTMLElement, selection: HTMLSelectElement}}
+ * @returns {{root: HTMLDivElement, selection: HTMLSelectElement}}
  *          The same object returned by `createDropdownShell`, containing both the wrapper and the <select> element
  */
 export function createAndAppendDropdownShell(divClasses, selectClasses, parent) {
