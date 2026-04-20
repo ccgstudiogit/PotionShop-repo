@@ -9,7 +9,6 @@ export function renderSearchBar(parent) {
   searchBar.placeholder = 'Search for...';
 
   const dropdown = dropdownRenderer.createAndAppendDropdownShell(['search-dropdown', 'custom-select'], ['search-dropdown', 'font-jersey'], container);
-  const selection = dropdown.selection;
 
   const searchButton = buttonFactory.createAndAppendButton('Search', 'search-button', container, null);
 

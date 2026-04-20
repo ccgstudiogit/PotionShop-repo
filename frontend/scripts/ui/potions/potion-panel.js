@@ -1,4 +1,5 @@
 import { clearAndGenerateSections } from "../shared/base-panel.js";
+import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionActions from '../../actions/potion-actions.js';
 import * as potionRenderer from './potion-render.js';
@@ -50,57 +51,97 @@ async function displayAllPotions(resultsSection) {
   // Clear the results section before displaying the new results
   resultsSection.innerHTML = '';
 
-  // Generate filter bar up top
-  const filterByElement = searchBarRenderer.renderSearchBar(resultsSection);
-  filterByElement.searchBar.placeholder = 'Filter by...';
-  filterByElement.searchButton.textContent = 'Filter';
+  generateFilterBar(['Name', 'Type', 'Price'], resultsSection);
+  renderPotions(resultsSection);
+}
 
+/**
+ * Generate the filter bar and fill up the filter dropdown's selection options.
+ * 
+ * @param {String[]} filterOptions An array of Strings that act as the filter options. Note: backend requests will be made with the
+ *                                 exact String, so the names should be accurate to the backend's potion attributes
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ */
+function generateFilterBar(filterOptions, resultsSection) {
+  const filterByElement = searchBarRenderer.renderSearchBar(resultsSection);
+
+  filterByElement.searchBar.placeholder = 'Filter by...';
+
+  // Create the filter options. These should match potion attributes from the backend
+  const dropdownSelection = filterByElement.dropdown.selection;
+  filterOptions.forEach((filterOption) => {
+    const option = elementFactory.createAndAppendElement('option', null, dropdownSelection);
+    option.value = filterOption;
+    option.textContent = filterOption;
+  });
+
+  filterByElement.searchButton.textContent = 'Filter';
+}
+
+/**
+ * Fetch the potions from the backend, sort them by name, and render them. The potion's edit and remove buttons are also configured.
+ * 
+ * @async
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ * @returns {void}
+ */
+async function renderPotions(resultsSection) {
   // Fetch the potions from the backend via the actions layer, which calls the API layer
   try {
     const potions = await potionActions.getAllPotionsWithIngredients();
 
-    if (potions) {
-      const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
+    const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
+    sorted.forEach(async potion => {
+      const potionElement = potionRenderer.renderPotion(potion);
+      resultsSection.appendChild(potionElement.root);
 
-      sorted.forEach(async potion => {
-        const potionElement = potionRenderer.renderPotion(potion);
-        resultsSection.appendChild(potionElement.root);
+      // If the edit button is pressed, open the edit potion form with that potion's information
+      potionElement.editButton.onclick = function () {
+        editPotionForm(resultsSection, potion);
+      };
 
-        // If the edit button is pressed, open the edit potion form with that potion's information
-        potionElement.editButton.onclick = function () {
-          editPotionForm(resultsSection, potion);
-        };
-
-        // If the remove button is pressed, prompt the user with a confirm delete request. If the user confirms,
-        // delete the potion from the database (destructive)
-        potionElement.removeButton.onclick = async function () {
-          const confirmModal = modalRenderer.renderGlobalModal();
-
-          confirmModal.windowTitle.textContent = 'Confirm Delete';
-          confirmModal.windowText.textContent = `Delete ${potionElement.potionName.textContent} from the shop?`;
-
-          confirmModal.mainButton.textContent = 'Delete';
-          confirmModal.mainButton.onclick = async function () {
-            try {
-              await potionActions.deletePotion(potion.id);
-            } catch (message) {
-              console.error(message);
-            }
-
-            // Refresh the updated list after deletion
-            displayAllPotions(resultsSection);
-          }
-
-          // Add the cancel button
-          const cancelButton = buttonFactory.createAndAppendButton('Cancel', 'modal-button', confirmModal.buttonContainer, () => {
-            confirmModal.root.remove();
-          });
-        }
-      });
-    }
+      // If the remove button is pressed, prompt the user with a confirm delete request. If the user confirms,
+      // delete the potion from the database (destructive)
+      potionElement.removeButton.onclick = async function () {
+        renderConfirmDeletePotionModal(potion, resultsSection);
+      }
+    });
   } catch (message) {
     console.error(message);
   }
+}
+
+/**
+ * Render the confirm delete modal window. If the user confirms the action, a DELETE request with the potion's id is sent to the backend.
+ * Once the confirm takes place, the potion list is re-rendered by calling displayAllPotions again.
+ * 
+ * @async
+ * @param {Object} potion The potion object
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ * @returns {void}
+ */
+function renderConfirmDeletePotionModal(potion, resultsSection) {
+  const confirmModal = modalRenderer.renderGlobalModal();
+
+  confirmModal.windowTitle.textContent = 'Confirm Delete';
+  confirmModal.windowText.textContent = `Delete ${potion.name} from the shop?`;
+
+  confirmModal.mainButton.textContent = 'Delete';
+  confirmModal.mainButton.onclick = async function () {
+    try {
+      await potionActions.deletePotion(potion.id);
+    } catch (message) {
+      console.error(message);
+    }
+
+    // Refresh the updated list after deletion
+    displayAllPotions(resultsSection);
+  }
+
+  // Add the cancel button
+  const cancelButton = buttonFactory.createAndAppendButton('Cancel', 'modal-button', confirmModal.buttonContainer, () => {
+    confirmModal.root.remove();
+  });
 }
 
 /**
