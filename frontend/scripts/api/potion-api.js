@@ -186,6 +186,14 @@ export async function putPotion(potionId, name, type, price, effect, quantityInp
   return addedPotion;
 }
 
+/**
+ * Send a DELETE request to delete a potion by its id to the backend.
+ * 
+ * @async
+ * @param {Integer} potionId The potion's id that should be deleted
+ * @returns {void}
+ * @throws {Error} Throws an error with the backend message if a problem is encountered
+ */
 export async function deletePotion(potionId) {
   const response = await fetch(`http://localhost:8080/potions/${potionId}`, { method: 'DELETE' });
 
