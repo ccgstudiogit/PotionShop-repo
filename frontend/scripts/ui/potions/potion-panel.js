@@ -50,7 +50,22 @@ function displayAllPotions(resultsSection) {
   // Clear the results section before displaying the new results
   resultsSection.innerHTML = '';
 
-  searchBarRenderer.renderSearchBarWithOptions(['Name', 'Type', 'Price'], resultsSection);
+  const searchBar = searchBarRenderer.renderSearchBarWithOptions(['Name', 'Type', 'Price'], resultsSection);
+  searchBar.searchButton.onclick = async function () {
+    try {
+      const searchValue = searchBar.searchBar.value;
+      const filterBy = searchBar.selection.value;
+
+      if (searchValue === '') {
+        return;
+      }
+      
+      console.log(`Searching for ${searchValue} and filtering by ${filterBy}`);
+    } catch (message) {
+      console.error(message);
+    }
+  };
+
   renderPotions(resultsSection);
 }
 
@@ -80,7 +95,7 @@ async function renderPotions(resultsSection) {
       // delete the potion from the database (destructive)
       potionElement.removeButton.onclick = async function () {
         generateConfirmDeletePotionModal(potion, resultsSection);
-      }
+      };
     });
   } catch (message) {
     console.error(message);
@@ -111,7 +126,7 @@ function generateConfirmDeletePotionModal(potion, resultsSection) {
 
     // Refresh the updated list after deletion
     displayAllPotions(resultsSection);
-  }
+  };
 
   // Add the cancel button
   const cancelButton = buttonFactory.createAndAppendButton('Cancel', 'modal-button', confirmModal.buttonContainer, () => {

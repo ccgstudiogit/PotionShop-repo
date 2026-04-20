@@ -63,7 +63,7 @@ export function renderSearchBarWithOptions(filterOptions, parent) {
     root: filterByElement,
     searchBar: filterByElement.searchBar,
     dropdown: filterByElement.dropdown,
-    selection: filterByElement.dropdown.selection,
-    searchButton: filterByElement.searchBar
+    selection: dropdownSelection,
+    searchButton: filterByElement.searchButton
   }
 }
