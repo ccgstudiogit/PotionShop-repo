@@ -48,7 +48,9 @@ async function displayAllIngredients(resultsSection) {
     const ingredients = await ingredientActions.getAllIngredients();
 
     if (ingredients) {
-      ingredients.forEach(ingredient => {
+      const sorted = [...ingredients].sort((a, b) => a.name.localeCompare(b.name));
+
+      sorted.forEach(ingredient => {
         const ingredientElement = ingredientRenderer.renderIngredient(ingredient);
         resultsSection.appendChild(ingredientElement.root);
 

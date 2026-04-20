@@ -60,7 +60,9 @@ async function displayAllPotions(resultsSection) {
     const potions = await potionActions.getAllPotionsWithIngredients();
 
     if (potions) {
-      potions.forEach(async potion => {
+      const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
+
+      sorted.forEach(async potion => {
         const potionElement = potionRenderer.renderPotion(potion);
         resultsSection.appendChild(potionElement.root);
 
