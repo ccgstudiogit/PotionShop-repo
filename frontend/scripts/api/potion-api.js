@@ -77,6 +77,18 @@ export async function fetchPotionTypes() {
   return types;
 }
 
+export async function fetchPotionsWithFilter(filterBy, searchFor) {
+  const response = await fetch(`http://localhost:8080/potions/filter/${filterBy.toLowerCase()}/${searchFor}`, { method: 'GET' });
+
+  if (!response.ok) {
+    const message = await errorHandler.parseError(response);
+    throw new Error(message);
+  }
+
+  const potions = await response.json();
+  return potions;
+}
+
 /**
  * Sends a POST request to create a new potion with its associated ingredients. Converts the UI's quantity input dictionary into a
  * backend-ready list of CreatePotionIngredientDTO objects.

@@ -31,6 +31,7 @@ export function showPotionsPanel() {
 function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
   const getPotionsButton = buttonFactory.createAndAppendButton('Get Potions', 'option-button', optionsSection, async function () {
     getPotionsButton.disabled = true;
+    clearResultsAndCreateSearchBar(resultsSection);
     await displayAllPotions(resultsSection);
     getPotionsButton.disabled = false;
   });
@@ -46,10 +47,21 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
  * @param {HTMLElement} resultsSection The parent HTML element for the results section
  * @returns {void}
  */
-function displayAllPotions(resultsSection) {
-  // Clear the results section before displaying the new results
+async function displayAllPotions(resultsSection) {
+  // Fetch the potions from the backend via the actions layer, which calls the API layer
+  try {
+    const potions = await potionActions.getAllPotionsWithIngredients();
+    const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
+    renderPotions(sorted, resultsSection);
+  } catch (message) {
+    console.error(message);
+  }
+}
+
+function clearResultsAndCreateSearchBar(resultsSection) {
   resultsSection.innerHTML = '';
 
+  // Create and wire up the search bar that sits up top
   const searchBar = searchBarRenderer.renderSearchBarWithOptions(['Name', 'Type', 'Price'], resultsSection);
   searchBar.searchButton.onclick = async function () {
     try {
@@ -59,14 +71,15 @@ function displayAllPotions(resultsSection) {
       if (searchValue === '') {
         return;
       }
-      
-      console.log(`Searching for ${searchValue} and filtering by ${filterBy}`);
+
+      const filteredPotions = await potionActions.getPotionsWithFilter(filterBy, searchValue);
+      clearResultsAndCreateSearchBar(resultsSection);
+      const sorted = [...filteredPotions].sort((a, b) => a.name.localeCompare(b.name));
+      renderPotions(sorted, resultsSection);
     } catch (message) {
       console.error(message);
     }
   };
-
-  renderPotions(resultsSection);
 }
 
 /**
@@ -76,30 +89,22 @@ function displayAllPotions(resultsSection) {
  * @param {HTMLElement} resultsSection The parent HTML element for the results section
  * @returns {void}
  */
-async function renderPotions(resultsSection) {
-  // Fetch the potions from the backend via the actions layer, which calls the API layer
-  try {
-    const potions = await potionActions.getAllPotionsWithIngredients();
+async function renderPotions(potions, resultsSection) {
+  potions.forEach(async potion => {
+    const potionElement = potionRenderer.renderPotion(potion);
+    resultsSection.appendChild(potionElement.root);
 
-    const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
-    sorted.forEach(async potion => {
-      const potionElement = potionRenderer.renderPotion(potion);
-      resultsSection.appendChild(potionElement.root);
+    // If the edit button is pressed, open the edit potion form with that potion's information
+    potionElement.editButton.onclick = function () {
+      editPotionForm(potion, resultsSection);
+    };
 
-      // If the edit button is pressed, open the edit potion form with that potion's information
-      potionElement.editButton.onclick = function () {
-        editPotionForm(potion, resultsSection);
-      };
-
-      // If the remove button is pressed, prompt the user with a confirm delete request. If the user confirms,
-      // delete the potion from the database (destructive)
-      potionElement.removeButton.onclick = async function () {
-        generateConfirmDeletePotionModal(potion, resultsSection);
-      };
-    });
-  } catch (message) {
-    console.error(message);
-  }
+    // If the remove button is pressed, prompt the user with a confirm delete request. If the user confirms,
+    // delete the potion from the database (destructive)
+    potionElement.removeButton.onclick = async function () {
+      generateConfirmDeletePotionModal(potion, resultsSection);
+    };
+  });
 }
 
 /**

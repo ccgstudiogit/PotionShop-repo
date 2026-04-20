@@ -22,7 +22,6 @@ export async function getAllPotions() {
  */
 export async function getAllPotionsWithIngredients() {
   const potions = await potionApi.fetchAllPotionsWithIngredients();
-
   potions.forEach((potion) => {
     potion.ingredients = potion.ingredients.map(ingredient =>
       normalizeDTO.normalizeIngredient(ingredient)
@@ -55,6 +54,17 @@ export async function getIngredientsByPotionId(potionId) {
 export async function getPotionTypes() {
   const types = await potionApi.fetchPotionTypes();
   return types;
+}
+
+export async function getPotionsWithFilter(filterBy, searchFor) {
+  const potions = await potionApi.fetchPotionsWithFilter(filterBy, searchFor);
+  potions.forEach((potion) => {
+    potion.ingredients = potion.ingredients.map(ingredient =>
+      normalizeDTO.normalizeIngredient(ingredient)
+    );
+  });
+
+  return potions;
 }
 
 /**
