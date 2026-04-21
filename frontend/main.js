@@ -1,23 +1,19 @@
-import * as panel from './scripts/ui/shared/base-panel.js?v=3';
-import { showPotionsPanel } from './scripts/ui/potions/potion-panel.js';
-import { showIngredientsPanel } from './scripts/ui/ingredients/ingredient-panel.js';
+import * as potionsView from './scripts/ui/potions/potions-view.js';
+import * as ingredientsView from './scripts/ui/ingredients/ingredients-view.js';
 
 startApp();
 
 function startApp() {
-  panel.createPanelBackground();
+  const mainContent = document.getElementById('main-content')
+  potionsView.renderPotionsView(mainContent);
 
   const potionsButton = document.getElementById('potions-button');
   potionsButton.addEventListener('click', () => {
-    showPotionsPanel();
+    
   });
 
   const ingredientsButton = document.getElementById('ingredients-button');
   ingredientsButton.addEventListener('click', () => {
-    showIngredientsPanel();
+    
   });
-
-  // Generate an empty panel to start off with. Once the user clicks one of the options, the panel for that option
-  // will be generated via base-panel.js in scripts/ui/shared
-  panel.showEmptyPanel();
 }

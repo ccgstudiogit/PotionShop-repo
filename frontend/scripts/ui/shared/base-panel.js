@@ -1,28 +1,41 @@
 import * as elementFactory from '../../utils/element-factory.js';
 
 /**
- * Create the panel background. A <section> element with the class 'panel' is created with an inner <div> containing the
- * 'panel-background' class.
+ * Create an empty panel background and append it to the DOM's body.
  * 
- * @returns {void}
+ * @param {HTMLElement} parent The parent DOM element to render into
+ * @returns {{
+ *    root: HTMLSectionElement,
+ *    div: HTMLDivElement
+ * }}
  */
-export function createPanelBackground() {
-  const panelBackground = generatePanelBackgroundHTML();
-  document.body.appendChild(panelBackground);
+export function renderPanelBackground(parent) {
+  const panelBackground = generatePanelBackground();
+  parent.appendChild(panelBackground.root);
+
+  return {
+    root: panelBackground.root,
+    div: panelBackground.div
+  };
 }
 
 /**
- * Generates the panel section with 'panel' class along with a div containing the 'panel-background' class. The HTML is
- * generated via document.createElement().
+ * Generates a panel background.
  * 
- * @returns {HTMLElement} The newly created DOM element
+ * @returns {{
+ *    root: HTMLSectionElement,
+ *    div: HTMLDivElement
+ * }} The newly created DOM element
  */
-function generatePanelBackgroundHTML() {
-  const section = elementFactory.createElement('section', 'panel');
-  const background = elementFactory.createElement('div', 'panel-background');
+function generatePanelBackground() {
+  const root = elementFactory.createElement('section', 'panel');
+  const div = elementFactory.createElement('div', 'panel-background');
+  root.appendChild(div);
 
-  section.appendChild(background);
-  return section;
+  return {
+    root,
+    div: div
+  };
 }
 
 /**

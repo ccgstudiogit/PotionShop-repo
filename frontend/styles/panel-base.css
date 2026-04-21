@@ -1,0 +1,35 @@
+.panel {
+  display: flex;
+
+  margin: 15px;
+
+  min-height: 25px; /* Mainly here for debug when creating a new panel to see it's being generated */
+}
+
+.panel-background {
+  flex: 1;
+
+  border: 3px solid black;
+  background-color: rgb(182, 161, 255);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.panel-flex-row,
+.panel-flex-col {
+  flex: 1;
+
+  display: flex;
+  justify-content: safe center;
+}
+
+.panel-flex-row {
+  flex-direction: row;
+}
+
+.panel-flex-col {
+  flex-direction: column;
+}
+
+.panel-scrollable {
+  overflow-y: auto;
+}

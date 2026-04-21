@@ -17,9 +17,7 @@
   font-size: 2.8rem;
 }
 
-/* The button separator should use the '|' character */
 .title-button-container .button-separator {
-
   font-size: 5rem;
   color: black;
 }
