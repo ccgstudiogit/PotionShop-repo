@@ -5,10 +5,20 @@ body {
   min-height: 95vh;
 }
 
-h1 {
+h1, h2, h3, h4, h5, h6,
+p, div {
   margin: 0px;
 }
 
-p {
-  margin: 0px;
+.line-vertical-full,
+.line-vertical-floating {
+  border: 2px solid black;
+}
+
+.line-vertical-full {
+  height: 99.5%;
+}
+
+.line-vertical-floating {
+  height: 70%;
 }

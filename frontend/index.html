@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles/body.css">
+    <link rel="stylesheet" href="styles/generic.css">
     <link rel="stylesheet" href="styles/title-screen.css">
     <link rel="stylesheet" href="styles/button.css">
     <link rel="stylesheet" href="styles/panel.css">
@@ -21,6 +21,17 @@
   </head>
   <body>
     <main>
+      <section class="panel">
+        <div class="panel-background-flex-row">
+          <h1 class="title font-jersey">The Potion Shop</h1>
+          <div class="title-button-container">
+            <button class="title-button" id="potions-button">Potions</button>
+            <div class="line-vertical-floating"></div>
+            <button class="title-button" id="ingredients-button">Ingredients</button>
+          </div>
+        </div>
+      </section>
+    <!--
       <section class="title">
         <h1 class="title-sub-header">Welcome to:</h1>
         <h1 class="title-header">The Potion Shop</h1>
@@ -30,10 +41,11 @@
         <button class="main-button" id="potions-button">Potions</button>
         <button class="main-button" id="ingredients-button">Ingredients</button>
       </section>
+    -->
     </main>
 
     <!-- All other HTML is generated via JavaScript at runtime -->
 
-    <script type="module" src="./main.js"></script>
+    <!-- <script type="module" src="./main.js"></script> -->
   </body>
 </html>

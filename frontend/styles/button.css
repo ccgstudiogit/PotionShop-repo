@@ -22,6 +22,7 @@ button:active {
   background-color: rgb(185, 185, 185);
 }
 
+/*
 .main-button {
   font-size: clamp(1.5rem, 4.75vw, 3rem);
 }
@@ -31,3 +32,4 @@ button:active {
 
   margin: 15px;
 }
+  */
