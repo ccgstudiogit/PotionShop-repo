@@ -9,11 +9,11 @@ function startApp() {
 
   const potionsButton = document.getElementById('potions-button');
   potionsButton.addEventListener('click', () => {
-    
+    potionsView.renderPotionsView(mainContent);
   });
 
   const ingredientsButton = document.getElementById('ingredients-button');
   ingredientsButton.addEventListener('click', () => {
-    
+    ingredientsView.renderIngredientsView(mainContent);
   });
 }
