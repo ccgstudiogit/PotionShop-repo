@@ -4,6 +4,7 @@ import * as ingredientsView from './scripts/ui/ingredients/ingredients-view.js';
 startApp();
 
 function startApp() {
+  // Render the potions view by default when the app starts
   potionsView.renderPotionsView();
 
   const potionsButton = document.getElementById('potions-button');
