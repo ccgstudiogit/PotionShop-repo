@@ -20,7 +20,7 @@ export function renderAddForm() {
  * Displays all ingredients in the results section.
  * 
  * @async
- * @param {HTMLElement} parent The parent HTML element for the rendered ingredients
+ * @param {HTMLElement} parent The parent HTML element for the rendered ingredients.
  * @returns {void}
  */
 async function displayIngredients(parent) {
@@ -38,7 +38,7 @@ async function displayIngredients(parent) {
  * Fetch the ingredients from the backend, sort them by name, and render them. The ingredients' remove buttons are also added.
  * 
  * @async
- * @param {HTMLElement} parent The parent HTML element for the rendered ingredients
+ * @param {HTMLElement} parent The parent HTML element for the rendered ingredients.
  * @returns {void}
  */
 async function renderIngredients(ingredients, parent) {

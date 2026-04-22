@@ -2,8 +2,8 @@
  * Extracts a meaningful error message from a failed `fetch` response.
  *
  * @async
- * @param {Response} response - The failed `fetch` response object
- * @returns {Promise<string>} A readable error message extracted from the response
+ * @param {Response} response - The failed `fetch` response object.
+ * @returns {Promise<string>} A readable error message extracted from the response.
  */
 export async function parseError(response) {
   const raw = await response.text();

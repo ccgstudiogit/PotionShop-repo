@@ -4,8 +4,8 @@ import * as errorHandler from './api-error-handling.js';
  * Fetches all potions from the backend API.
  * 
  * @async
- * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions
- * @throws {Error} Throws an error with the backend message if a problem is encountered
+ * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions.
+ * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function fetchAllPotions() {
   const response = await fetch('http://localhost:8080/potions', { method: 'GET' });
@@ -23,8 +23,8 @@ export async function fetchAllPotions() {
  * Fetches all potions with their ingredients from the backend API.
  * 
  * @async 
- * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions
- * @throws {Error} Throws an error with the backend message if a problem is encountered
+ * @returns {Array} An array of potion objects, or undefined if there was an error fetching the potions.
+ * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function fetchAllPotionsWithIngredients() {
   const response = await fetch('http://localhost:8080/potions/ingredients', { method: 'GET' });
@@ -42,9 +42,9 @@ export async function fetchAllPotionsWithIngredients() {
  * Fetches ingredients for a specific potion from the backend API.
  * 
  * @async
- * @param {Integer} potionId - The ID of the potion for which to fetch ingredients
- * @returns {Array} An array of ingredient objects, or undefined if there was an error fetching the ingredients
- * @throws {Error} Throws an error with the backend message if a problem is encountered
+ * @param {Integer} potionId - The ID of the potion for which to fetch ingredients.
+ * @returns {Array} An array of ingredient objects, or undefined if there was an error fetching the ingredients.
+ * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function fetchIngredientsByPotionId(potionId) {
   const response = await fetch(`http://localhost:8080/potions/${potionId}/ingredients`, { method: 'GET' });
@@ -62,8 +62,8 @@ export async function fetchIngredientsByPotionId(potionId) {
  * Fetches the types potions can be (Buff, Healing, Poison, etc.).
  * 
  * @async
- * @returns {Array} An array of types, or undefined if there was an error fetching potion types
- * @throws {Error} Throws an error with the backend message if a problem is encountered
+ * @returns {Array} An array of types, or undefined if there was an error fetching potion types.
+ * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function fetchPotionTypes() {
   const response = await fetch('http://localhost:8080/potions/types', { method: 'GET' });
@@ -105,13 +105,13 @@ export async function fetchPotionsWithFilter(filterBy, searchFor) {
  * }
  *
  * @async
- * @param {string} name - The name of the potion
- * @param {string} type - The potion type (must match backend PotionType enum)
- * @param {number|string} price - The potion's price. String or integer is fine since string will be converted to a number
- * @param {string} effect - Description of the potion's effect
- * @param {Object.<string, HTMLInputElement>} quantityInputs A dictionary mapping ingredient IDs to their quantity `<input>` elements
- * @returns {Promise<Object|null>} The created potion DTO from the backend, or null if an error occurs
- * @throws {Error} Throws an error with the backend message if a problem is encountered
+ * @param {string} name - The name of the potion.
+ * @param {string} type - The potion type (must match backend PotionType enum).
+ * @param {number|string} price - The potion's price. String or integer is fine since string will be converted to a number.
+ * @param {string} effect - Description of the potion's effect.
+ * @param {Object.<string, HTMLInputElement>} quantityInputs A dictionary mapping ingredient IDs to their quantity `<input>` elements.
+ * @returns {Promise<Object|null>} The created potion DTO from the backend, or null if an error occurs.
+ * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function addPotion(name, type, price, effect, quantityInputs) {
   // Convert the ingredients list to a list that matches a list of CreatePotionIngredientDTO for the backend
@@ -153,12 +153,12 @@ export async function addPotion(name, type, price, effect, quantityInputs) {
  * Sends a PUT request to update an existing potion and its ingredient quantities.
  *
  * @async
- * @param {number} potionId - The ID of the potion being updated
- * @param {string} name - Updated potion name
- * @param {string} type - Updated potion type (must match backend PotionType enum)
- * @param {number|string} price - Updated potion price
- * @param {string} effect - Updated potion effect
- * @param {Object<string, HTMLInputElement>} quantityInputs - Map of ingredientId → quantity input element
+ * @param {number} potionId - The ID of the potion being updated.
+ * @param {string} name - Updated potion name.
+ * @param {string} type - Updated potion type (must match backend PotionType enum).
+ * @param {number|string} price - Updated potion price.
+ * @param {string} effect - Updated potion effect.
+ * @param {Object<string, HTMLInputElement>} quantityInputs - Map of ingredientId → quantity input element.
  * @returns {Promise<Object>} The updated potion (PotionWithIngredientsDTO) returned by the backend.
  * @throws {Error} If the backend responds with a non-OK status.
  */
@@ -202,9 +202,9 @@ export async function putPotion(potionId, name, type, price, effect, quantityInp
  * Send a DELETE request to delete a potion by its id to the backend.
  * 
  * @async
- * @param {Integer} potionId The potion's id that should be deleted
+ * @param {Integer} potionId The potion's id that should be deleted.
  * @returns {void}
- * @throws {Error} Throws an error with the backend message if a problem is encountered
+ * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function deletePotion(potionId) {
   const response = await fetch(`http://localhost:8080/potions/${potionId}`, { method: 'DELETE' });

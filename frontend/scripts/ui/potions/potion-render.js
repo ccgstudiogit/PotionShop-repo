@@ -20,7 +20,7 @@ const potionIcons = [
  * - effect description
  * - expandable ingredient list with quantities
  * 
- * @param {Object} potion - The potion object to render (as JSON)
+ * @param {Object} potion - The potion object to render (as JSON).
  * @returns {{
  *   root: HTMLDivElement,
  *   infoHeader: HTMLDivElement,
@@ -33,7 +33,7 @@ const potionIcons = [
  *   removeButton: HTMLButtonElement,
  *   ingredientsContainer: HTMLDivElement,
  *   ingredientsButton: HTMLButtonElement
- * }} DOM references for the rendered potion element
+ * }} DOM references for the rendered potion element.
  */
 export function renderPotion(potion) {
   const potionElement = elementFactory.createElement('div', 'potion-item');

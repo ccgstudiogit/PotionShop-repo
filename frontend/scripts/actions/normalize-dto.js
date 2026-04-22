@@ -6,13 +6,13 @@
  * - `id` is always present (mapped from either `id` or `ingredientId`)
  * - `quantity` is included only when provided by the backend
  *
- * @param {Object} dto - The raw ingredient DTO from the backend
+ * @param {Object} dto - The raw ingredient DTO from the backend.
  * @returns {{
  *   id: number,
  *   name: string,
  *   rarity: string,
  *   quantity?: number
- * }} A normalized ingredient object with consistent field names
+ * }} A normalized ingredient object with consistent field names.
  */
 export function normalizeIngredient(dto) {
   const normalized = {

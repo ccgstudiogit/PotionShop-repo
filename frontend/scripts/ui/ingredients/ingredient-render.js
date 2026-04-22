@@ -4,7 +4,7 @@ import * as buttonFactory from '../../utils/button-factory.js';
 /**
  * Renders an ingredient element in the DOM.
  * 
- * @param {Object} ingredient - The ingredient object to render (as JSON)
+ * @param {Object} ingredient - The ingredient object to render (as JSON).
  * @returns {{
  *   root: HTMLDivElement,
  *   infoContainer: HTMLDivElement,

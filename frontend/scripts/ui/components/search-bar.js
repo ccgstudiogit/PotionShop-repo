@@ -5,7 +5,7 @@ import * as dropdownRenderer from './dropdown.js';
 /**
  * Render a search bar with an empty filter dropdown and a search button.
  * 
- * @param {HTMLElement} parent The parent HTML element for the results section
+ * @param {HTMLElement} parent The parent HTML element for the results section.
  * @returns {{
  *   root: HTMLDivElement,
  *   searchBar: HTMLInputElement,
@@ -34,8 +34,8 @@ export function renderSearchBar(parent) {
 /**
  * Generate a search bar, filter dropdown, and search button. Fill up the filter dropdown's selection options.
  * 
- * @param {String[]} filterOptions An array of Strings that act as the filter options
- * @param {HTMLElement} parent The parent HTML element for the results section
+ * @param {String[]} filterOptions An array of Strings that act as the filter options.
+ * @param {HTMLElement} parent The parent HTML element for the results section.
  * @returns {{
  *   root: HTMLDivElement,
  *   searchBar: HTMLInputElement,

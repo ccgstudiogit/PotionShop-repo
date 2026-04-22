@@ -18,15 +18,15 @@ import * as addPotionFrom from './potion-add-form.js';
  *  - On submit, constructs a state object and triggers the update flow
  *
  * @async
- * @param {Object} potion - The potion being edited
- * @param {number} potion.id - The potion's ID
- * @param {string} potion.name - The potion's current name
- * @param {string} potion.type - The potion's current type (PotionType enum value)
- * @param {number} potion.price - The potion's current price
- * @param {string} potion.effect - The potion's current effect
- * @param {Array<Object>} potion.ingredients - The potion's current ingredient list
- * @param {HTMLElement} parentElement - The DOM element where the form will be rendered
- * @returns {Promise<void>} Resolves once the form is fully rendered
+ * @param {Object} potion - The potion being edited.
+ * @param {number} potion.id - The potion's ID.
+ * @param {string} potion.name - The potion's current name.
+ * @param {string} potion.type - The potion's current type (PotionType enum value).
+ * @param {number} potion.price - The potion's current price.
+ * @param {string} potion.effect - The potion's current effect.
+ * @param {Array<Object>} potion.ingredients - The potion's current ingredient list.
+ * @param {HTMLElement} parentElement - The DOM element where the form will be rendered.
+ * @returns {Promise<void>} Resolves once the form is fully rendered.
  */
 export async function createEditPotionForm(potion, parentElement) {
   try {
@@ -118,7 +118,7 @@ export async function createEditPotionForm(potion, parentElement) {
  *   effectInput: { input: HTMLInputElement },
  *   quantityInputs: Object.<string, HTMLInputElement>,
  *   root: HTMLElement
- * }} state - The current form state and DOM references
+ * }} state - The current form state and DOM references.
  * @returns {Promise<void>}
  */
 async function submitForm(state) {

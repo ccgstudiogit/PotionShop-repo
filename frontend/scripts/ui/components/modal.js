@@ -22,7 +22,7 @@ import * as buttonFactory from '../../utils/button-factory.js';
  *   windowText: HTMLParagraphElement,
  *   buttonContainer: HTMLDivElement,
  *   mainButton: HTMLButtonElement
- * }} DOM references for the rendered modal window
+ * }} DOM references for the rendered modal window.
  */
 export function renderGlobalModal() {
   const body = document.getElementsByTagName('body')[0];

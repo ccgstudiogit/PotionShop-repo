@@ -13,8 +13,8 @@ import * as potionActions from '../../actions/potion-actions.js';
  * ingredient state tracking, and attaches a Submit button that triggers form validation and potion creation.
  *
  * @async
- * @param {HTMLElement} parentElement - The DOM element where the form will be rendered
- * @param {number} startingIngredientCount - Number of random ingredients to pre-populate
+ * @param {HTMLElement} parentElement - The DOM element where the form will be rendered.
+ * @param {number} startingIngredientCount - Number of random ingredients to pre-populate.
  * @returns {void}
  */
 export async function createAddPotionForm(parentElement, startingIngredientCount) {
@@ -84,7 +84,7 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
  *   quantityInputs: Object.<string, HTMLInputElement>,
  *   root: HTMLElement,
  *   count: number
- * }} state - The current form state and DOM references
+ * }} state - The current form state and DOM references.
  * @returns {Promise<void>}
  */
 async function submitForm(state) {

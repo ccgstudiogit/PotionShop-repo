@@ -25,7 +25,7 @@ export function renderAddForm() {
 /**
  * Fetches all potions from the backend via the API layer and renders the potions under the input parent element.
  * 
- * @param {HTMLElement} parent The parent HTML element for the rendered potions
+ * @param {HTMLElement} parent The parent HTML element for the rendered potions.
  * @returns {void}
  */
 async function displayPotions(parent) {
@@ -43,7 +43,7 @@ async function displayPotions(parent) {
  * Fetch the potions from the backend, sort them by name, and render them. The potions' edit and remove buttons are also configured.
  * 
  * @async
- * @param {HTMLElement} parent The parent HTML element for the rendered potions
+ * @param {HTMLElement} parent The parent HTML element for the rendered potions.
  * @returns {void}
  */
 async function renderPotions(potions, parent) {

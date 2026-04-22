@@ -3,7 +3,7 @@ import * as elementFactory from '../../utils/element-factory.js';
 /**
  * Create an empty panel background and append it to the DOM's body.
  * 
- * @param {HTMLElement} parent The parent DOM element to render into
+ * @param {HTMLElement} parent The parent DOM element to render into.
  * @returns {{
  *    root: HTMLSectionElement,
  *    div: HTMLDivElement
@@ -25,7 +25,7 @@ export function renderPanelBackground(parent) {
  * @returns {{
  *    root: HTMLSectionElement,
  *    div: HTMLDivElement
- * }} The newly created DOM element
+ * }} The newly created DOM element.
  */
 function generatePanelBackground() {
   const root = elementFactory.createElement('section', 'panel');
@@ -41,7 +41,7 @@ function generatePanelBackground() {
 /**
  * An empty panel lets the user know to click one of the options above to view/edit data.
  * 
- * @param {string} message Can be used to override the given message that is already displayed
+ * @param {string} message Can be used to override the given message that is already displayed.
  * @returns {void}
  */
 export function showEmptyPanel(message = null) {

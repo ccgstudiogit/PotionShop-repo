@@ -27,7 +27,7 @@ public class IngredientService {
     /**
      * Returns a list of all ingredients as Data Transfer Objects.
      *
-     * @return a list of IngredientDTOs representing all ingredients in the database
+     * @return a list of IngredientDTOs representing all ingredients in the database.
      */
     public List<IngredientDTO> getAllIngredients() {
         return ingredientRepository.findAll().stream().map(ingredientMapper::toDTO).toList();
@@ -36,9 +36,9 @@ public class IngredientService {
     /**
      * Retrieves an ingredient by its id and returns it as a Data Transfer Object.
      *
-     * @param id the id of the ingredient to retrieve
-     * @return the IngredientDTO representing the requested ingredient
-     * @throws EntityNotFoundException if no ingredient exists with the given id
+     * @param id the id of the ingredient to retrieve.
+     * @return the IngredientDTO representing the requested ingredient.
+     * @throws EntityNotFoundException if no ingredient exists with the given id.
      */
     public IngredientDTO getIngredientById(Integer id) {
         Ingredient ingredient = ingredientRepository.findById(id)
@@ -54,9 +54,9 @@ public class IngredientService {
      *
      * <p>Before saving, this method checks whether an ingredient with the same name and rarity already exists.</p>
      *
-     * @param createIngredientDTO the data used to create the new ingredient
-     * @return the newly created IngredientDTO
-     * @throws EntityExistsException if an ingredient with the same name and rarity already exists
+     * @param createIngredientDTO the data used to create the new ingredient.
+     * @return the newly created IngredientDTO.
+     * @throws EntityExistsException if an ingredient with the same name and rarity already exists.
      */
     public IngredientDTO addIngredient(CreateIngredientDTO createIngredientDTO) {
         Ingredient newIngredient = ingredientMapper.fromCreateDTO(createIngredientDTO);
@@ -69,8 +69,8 @@ public class IngredientService {
     /**
      * Deletes an ingredient from the database by its id. Also deletes any associated PotionIngredient.
      *
-     * @param id the id of the ingredient to delete
-     * @throws EntityNotFoundException if no ingredient exists with the given id
+     * @param id the id of the ingredient to delete.
+     * @throws EntityNotFoundException if no ingredient exists with the given id.
      */
     public void deleteIngredientById(Integer id) {
         Ingredient ingredient = ingredientRepository.findById(id)
@@ -93,11 +93,11 @@ public class IngredientService {
      * <p>After applying updates, this method verifies that the resulting ingredient does not duplicate an existing
      * name–rarity combination.</p>
      *
-     * @param id the id of the ingredient to update
-     * @param updatedIngredient the new name and rarity values
-     * @return the updated IngredientDTO
-     * @throws EntityNotFoundException if no ingredient exists with the given id
-     * @throws EntityExistsException if the updated ingredient conflicts with an existing one
+     * @param id the id of the ingredient to update.
+     * @param updatedIngredient the new name and rarity values.
+     * @return the updated IngredientDTO.
+     * @throws EntityNotFoundException if no ingredient exists with the given id.
+     * @throws EntityExistsException if the updated ingredient conflicts with an existing one.
      */
     public IngredientDTO updateIngredientById(Integer id, UpdateIngredientDTO updatedIngredient) {
         Ingredient ingredient = ingredientRepository.findById(id)
@@ -116,8 +116,8 @@ public class IngredientService {
     /**
      * Checks whether an ingredient with the same name and rarity already exists.
      *
-     * @param ingredient the ingredient to validate
-     * @throws EntityExistsException if an ingredient with the same name and rarity already exists
+     * @param ingredient the ingredient to validate.
+     * @throws EntityExistsException if an ingredient with the same name and rarity already exists.
      */
     public void checkAndThrowIfIngredientExists(Ingredient ingredient) {
         if (ingredientRepository.existsByNameAndRarity(ingredient.getName(), ingredient.getRarity())) {

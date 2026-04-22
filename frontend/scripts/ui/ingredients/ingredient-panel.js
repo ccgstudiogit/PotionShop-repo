@@ -37,7 +37,7 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
  * Displays all ingredients in the results section.
  * 
  * @async
- * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section.
  * @returns {void}
  */
 async function displayAllIngredients(resultsSection) {
@@ -52,7 +52,7 @@ async function displayAllIngredients(resultsSection) {
  * Fetch the ingredients from the backend, sort them by name, and render them. The ingredients' remove buttons are also configured.
  * 
  * @async
- * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section.
  * @returns {void}
  */
 async function renderIngredients(resultsSection) {
@@ -78,8 +78,8 @@ async function renderIngredients(resultsSection) {
  * Render the confirm delete modal window. If the user confirms the action, a DELETE request with the ingredient's id is sent to the backend.
  * Once the confirm takes place, the ingredient list is re-rendered by calling displayAllIngredients again.
  * 
- * @param {Object} ingredient The ingredient object
- * @param {HTMLElement} resultsSection The parent HTML element for the results section
+ * @param {Object} ingredient The ingredient object.
+ * @param {HTMLElement} resultsSection The parent HTML element for the results section.
  * @returns {void}
  */
 function generateConfirmDeleteModalWindow(ingredient, resultsSection) {
