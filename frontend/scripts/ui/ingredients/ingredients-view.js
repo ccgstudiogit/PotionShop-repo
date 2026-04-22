@@ -22,6 +22,3 @@ export function renderIngredientsView() {
 export function renderAddForm() {
 
 }
-
-
-

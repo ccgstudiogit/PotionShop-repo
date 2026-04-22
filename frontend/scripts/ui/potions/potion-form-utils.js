@@ -12,16 +12,16 @@ import * as dropdownRenderer from '../components/dropdown.js';
  *   An object containing references to the root container, title label, and input element.
  */
 export function createNameInput(parent) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
+  const container = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
 
-  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], rootElement);
+  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], container);
   title.textContent = 'Name:';
 
-  const input = elementFactory.createAndAppendElement('input', ['form-input-string', 'font-jersey'], rootElement);
+  const input = elementFactory.createAndAppendElement('input', ['form-input-string', 'font-jersey'], container);
   input.placeholder = 'New potion name...';
 
   return {
-    root: rootElement,
+    root: container,
     title: title,
     input: input
   };
@@ -36,12 +36,12 @@ export function createNameInput(parent) {
  *   An object containing references to the root container, title label, the dropdown shell, and the underlying <select> element.
  */
 export async function createTypeInput(parent) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
+  const container = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
 
-  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], rootElement);
+  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], container);
   title.textContent = 'Type:';
 
-  const dropdown = dropdownRenderer.createAndAppendDropdownShell('custom-select', 'font-jersey', rootElement);
+  const dropdown = dropdownRenderer.createAndAppendDropdownShell('custom-select', 'font-jersey', container);
   const selection = dropdown.selection;
 
   // Fetch the types from the backend so they are always accurate and up-to-date
@@ -57,7 +57,7 @@ export async function createTypeInput(parent) {
   }
 
   return {
-    root: rootElement,
+    root: container,
     title: title,
     dropdown: dropdown,
     select: selection
@@ -72,12 +72,12 @@ export async function createTypeInput(parent) {
  *   An object containing references to the root container, title label, and input element.
  */
 export function createPriceInput(parent) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
+  const container = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
 
-  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], rootElement);
+  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], container);
   title.textContent = 'Price:';
 
-  const input = elementFactory.createAndAppendElement('input', ['form-input-int', 'font-jersey'], rootElement);
+  const input = elementFactory.createAndAppendElement('input', ['form-input-int', 'font-jersey'], container);
   input.placeholder = 'New price...';
   input.onchange = () => {
     const val = Number(input.value);
@@ -87,7 +87,7 @@ export function createPriceInput(parent) {
   }
 
   return {
-    root: rootElement,
+    root: container,
     title: title,
     input: input
   };
@@ -101,16 +101,16 @@ export function createPriceInput(parent) {
  *   An object containing references to the root container, title label, and input element.
  */
 export function createEffectInput(parent) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
+  const container = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
 
-  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], rootElement);
+  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], container);
   title.textContent = 'Effect:';
 
-  const input = elementFactory.createAndAppendElement('input', ['form-input-string', 'font-jersey'], rootElement);
+  const input = elementFactory.createAndAppendElement('input', ['form-input-string', 'font-jersey'], container);
   input.placeholder = 'New effect...'
 
   return {
-    root: rootElement,
+    root: container,
     title: title,
     input: input
   };

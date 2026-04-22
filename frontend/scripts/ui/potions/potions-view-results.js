@@ -39,12 +39,11 @@ async function displayPotions(contentSection) {
 /**
  * Fetch the potions from the backend, sort them by name, and render them. The potions' edit and remove buttons are also configured.
  * 
- * @async
  * @param {HTMLElement} contentSection - The parent HTML element for the rendered potions.
  * @returns {void}
  */
-async function renderPotions(potions, contentSection) {
-  potions.forEach(async potion => {
+function renderPotions(potions, contentSection) {
+  potions.forEach(potion => {
     const potionElement = potionRenderer.renderPotion(potion);
     contentSection.appendChild(potionElement.root);
 
