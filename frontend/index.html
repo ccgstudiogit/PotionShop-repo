@@ -1,44 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Potion Shop</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles/generic.css">
-    <link rel="stylesheet" href="styles/generic-view.css">
-    <link rel="stylesheet" href="styles/title-screen.css">
-    <link rel="stylesheet" href="styles/button.css">
-    <link rel="stylesheet" href="styles/panel-base.css">
-    <link rel="stylesheet" href="styles/text.css">
-    <link rel="stylesheet" href="styles/potion.css">
-    <link rel="stylesheet" href="styles/potions-view.css">
-    <link rel="stylesheet" href="styles/ingredient.css">
-    <link rel="stylesheet" href="styles/ingredients-view.css">
-    <link rel="stylesheet" href="styles/forms.css">
-    <link rel="stylesheet" href="styles/select.css">
-    <link rel="stylesheet" href="styles/modal.css">
-    <link rel="stylesheet" href="styles/search-bar.css">
-  </head>
-  <body>
-    <main>
-      <section class="panel">
-        <div class="panel-background panel-flex-row">
-          <h1 class="title font-jersey">The Potion Shop</h1>
-          <div class="title-button-container">
-            <!-- The button ids are so that main.js can locate and wire them up -->
-            <button class="title-button" id="potions-button">Potions</button>
-            <div class="line-vertical-floating"></div>
-            <button class="title-button" id="ingredients-button">Ingredients</button>
-          </div>
+<head>
+  <title>Potion Shop</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap" rel="stylesheet">
+
+  <!-- Base styles -->
+  <link rel="stylesheet" href="styles/base/generic.css">
+  <link rel="stylesheet" href="styles/base/text.css">
+  <link rel="stylesheet" href="styles/base/button.css">
+  <link rel="stylesheet" href="styles/base/forms.css">
+  <link rel="stylesheet" href="styles/base/panel-base.css">
+
+  <!-- Layout -->
+  <link rel="stylesheet" href="styles/layout/generic-view.css">
+  <link rel="stylesheet" href="styles/layout/title-screen.css">
+
+  <!-- Components -->
+  <link rel="stylesheet" href="styles/components/potion.css">
+  <link rel="stylesheet" href="styles/components/ingredient.css">
+  <link rel="stylesheet" href="styles/components/select.css">
+  <link rel="stylesheet" href="styles/components/modal.css">
+  <link rel="stylesheet" href="styles/components/search-bar.css">
+
+  <!-- Views -->
+  <link rel="stylesheet" href="styles/views/potions-view.css">
+  <link rel="stylesheet" href="styles/views/ingredients-view.css">
+</head>
+
+<body>
+  <main>
+    <section class="panel">
+      <div class="panel-background panel-flex-row">
+        <h1 class="title font-jersey">The Potion Shop</h1>
+        <div class="title-button-container">
+          <!-- The button ids are so that main.js can locate and wire them up -->
+          <button class="title-button" id="potions-button">Potions</button>
+          <div class="line-vertical-floating"></div>
+          <button class="title-button" id="ingredients-button">Ingredients</button>
         </div>
-      </section>
-      <section id="main-content">
-        <!-- All other HTML is generated here via JavaScript at runtime -->
-      </section>
-    </main>
-    <script type="module" src="./main.js"></script>
-  </body>
+      </div>
+    </section>
+    <section id="main-content">
+      <!-- All other HTML is generated here via JavaScript at runtime -->
+    </section>
+  </main>
+  <script type="module" src="./main.js"></script>
+</body>
+
 </html>
