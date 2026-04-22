@@ -6,11 +6,10 @@ import * as potionEditForm from './potion-edit-form.js';
 import * as potionActions from '../../actions/potion-actions.js';
 import * as modalRenderer from '../components/modal.js';
 
-export async function renderResultsPanel() {
+export function renderResultsPanel() {
   const mainContent = baseView.getMainContent();
   const resultsPanel = baseView.renderFixedPanel(mainContent);
-  await displayPotions(resultsPanel.content);
-  return resultsPanel;
+  displayPotions(resultsPanel.content);
 }
 
 /**
@@ -24,10 +23,10 @@ async function displayPotions(contentSection) {
   try {
     const potions = await potionActions.getAllPotionsWithIngredients();
     if (potions.length === 0) {
-      const messageContainer = elementFactory.createAndAppendElement('div', 'text-centered', contentSection);
-      const message = elementFactory.createAndAppendElement('p', ['text-big-static', 'font-jersey'], messageContainer);
-      message.textContent = 'Whoops, no potions! Add some using the add form.';
-      return;
+      elementFactory.applyClasses(contentSection, 'panel-center-items');
+      const message = elementFactory.createAndAppendElement('p', ['text-big-static', 'font-jersey'], contentSection);
+      message.textContent = 'Whoops, no potions here!';
+      // Since the add button is generated via renderPotions, still call that function even though there are no potions to display
     }
 
     const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
@@ -59,6 +58,9 @@ function renderPotions(potions, contentSection) {
       showConfirmDeleteModal(potion, contentSection);
     };
   });
+
+  // Add the add potion button at the end of the list of rendered potions
+  buttonFactory.createAndAppendButton('Add Potion', 'add-item-button', contentSection, () => renderAddForm());
 }
 
 /**
@@ -106,4 +108,12 @@ function showConfirmDeleteModal(potion, contentSection) {
   const cancelButton = buttonFactory.createAndAppendButton('Cancel', 'modal-button', confirmModal.buttonContainer, () => {
     confirmModal.root.remove();
   });
+}
+
+function renderAddForm() {
+  baseView.refresh();
+  const mainContent = baseView.getMainContent();
+  const panel = baseView.renderDynamicPanel(mainContent);
+
+  potionAddForm.createAddPotionForm(panel.content, 3);
 }

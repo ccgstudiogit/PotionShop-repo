@@ -16,10 +16,5 @@ import * as ingredientsResults from './ingredients-view-results.js';
 export async function renderIngredientsView() {
   baseView.refresh();
   ingredientsSearch.renderSearchPanel();
-  const resultsPanel = await ingredientsResults.renderResultsPanel();
-  const addIngredientButton = buttonFactory.createAndAppendButton('Add Ingredient', 'add-item-button', resultsPanel.content, null);
-}
-
-export function renderAddForm() {
-
+  ingredientsResults.renderResultsPanel();
 }

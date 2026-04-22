@@ -14,14 +14,7 @@ import * as potionsResults from './potions-view-results.js';
 export async function renderPotionsView() {
   baseView.refresh();
   potionSearch.renderSearchPanel();
-  const resultsPanel = await potionsResults.renderResultsPanel();
-  const addPotionButton = buttonFactory.createAndAppendButton('Add Potion', 'add-item-button', resultsPanel.content, () => renderAddForm());
+  potionsResults.renderResultsPanel();
 }
 
-export function renderAddForm() {
-  baseView.refresh();
-  const mainContent = baseView.getMainContent();
-  const panel = baseView.renderDynamicPanel(mainContent);
 
-  potionAddForm.createAddPotionForm(panel.content, 3);
-}

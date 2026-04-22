@@ -19,7 +19,6 @@
   flex: 1;
 
   display: flex;
-  justify-content: safe center;
 }
 
 .panel-flex-row {
@@ -28,6 +27,11 @@
 
 .panel-flex-col {
   flex-direction: column;
+}
+
+.panel-center-items {
+  justify-content: center;
+  align-items: center
 }
 
 .panel-scrollable {

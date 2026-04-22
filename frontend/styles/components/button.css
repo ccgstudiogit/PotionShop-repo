@@ -1,5 +1,5 @@
 .add-item-button {
-  margin-bottom: 8px;
+  margin: 16px;
 
   max-width: 60ch; /* Matches the width of ~60 characters */
 

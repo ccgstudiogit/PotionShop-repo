@@ -47,3 +47,8 @@ button:active {
 .line-vertical-floating {
   height: 70%;
 }
+
+.center-self {
+  justify-self: safe center;
+  align-self: safe center;
+}

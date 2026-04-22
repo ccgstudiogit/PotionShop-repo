@@ -5,11 +5,10 @@ import * as ingredientRenderer from '../../ui/ingredients/ingredient-render.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
 import * as modalRenderer from '../components/modal.js';
 
-export async function renderResultsPanel() {
+export function renderResultsPanel() {
   const mainContent = baseView.getMainContent();
   const resultsPanel = baseView.renderFixedPanel(mainContent);
-  await displayIngredients(resultsPanel.content);
-  return resultsPanel;
+  displayIngredients(resultsPanel.content);
 }
 
 /**
@@ -24,10 +23,10 @@ async function displayIngredients(contentSection) {
   try {
     const ingredients = await ingredientActions.getAllIngredients();
     if (ingredients.length === 0) {
-      const messageContainer = elementFactory.createAndAppendElement('div', 'text-centered', contentSection);
-      const message = elementFactory.createAndAppendElement('p', ['text-big-static', 'font-jersey'], messageContainer);
-      message.textContent = 'Whoops, no ingredients! Add some using the add form.';
-      return;
+      elementFactory.applyClasses(contentSection, 'panel-center-items');
+      const message = elementFactory.createAndAppendElement('p', ['text-big-static', 'font-jersey'], contentSection);
+      message.textContent = 'Whoops, no ingredients here!';
+      // Since the add button is generated via renderIngredients, still call that function even though there are no ingredients to display
     }
 
     const sorted = [...ingredients].sort((a, b) => a.name.localeCompare(b.name));
@@ -40,18 +39,20 @@ async function displayIngredients(contentSection) {
 /**
  * Fetch the ingredients from the backend, sort them by name, and render them. The ingredients' remove buttons are also added.
  * 
- * @async
  * @param {HTMLElement} contentSection - The parent HTML element for the rendered ingredients.
  * @returns {void}
  */
-async function renderIngredients(ingredients, contentSection) {
-  ingredients.forEach(async ingredient => {
+function renderIngredients(ingredients, contentSection) {
+  ingredients.forEach(ingredient => {
     const ingredientElement = ingredientRenderer.renderIngredient(ingredient);
     contentSection.appendChild(ingredientElement.root);
     ingredientElement.removeButton.onclick = async function () {
       showConfirmDeleteModal(ingredient, contentSection);
     };
   });
+
+  // Add the add ingredient button at the end of the list of rendered ingredients
+  buttonFactory.createAndAppendButton('Add Ingredient', 'add-item-button', contentSection, null);
 }
 
 /**
