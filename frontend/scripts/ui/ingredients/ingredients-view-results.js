@@ -5,10 +5,11 @@ import * as ingredientRenderer from '../../ui/ingredients/ingredient-render.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
 import * as modalRenderer from '../components/modal.js';
 
-export function renderResultsPanel() {
+export async function renderResultsPanel() {
   const mainContent = baseView.getMainContent();
   const resultsPanel = baseView.renderFixedPanel(mainContent);
-  displayIngredients(resultsPanel.content);
+  await displayIngredients(resultsPanel.content);
+  return resultsPanel;
 }
 
 /**

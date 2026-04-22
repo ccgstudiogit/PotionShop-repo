@@ -6,10 +6,11 @@ import * as potionEditForm from './potion-edit-form.js';
 import * as potionActions from '../../actions/potion-actions.js';
 import * as modalRenderer from '../components/modal.js';
 
-export function renderResultsPanel() {
+export async function renderResultsPanel() {
   const mainContent = baseView.getMainContent();
   const resultsPanel = baseView.renderFixedPanel(mainContent);
-  displayPotions(resultsPanel.content);
+  await displayPotions(resultsPanel.content);
+  return resultsPanel;
 }
 
 /**

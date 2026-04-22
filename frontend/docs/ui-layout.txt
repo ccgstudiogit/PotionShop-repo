@@ -60,14 +60,14 @@ my current system the search bars in Get Potions/Ingredients resets everytime th
 |                                                             |
 |  + Add Potion                                               |
 +-------------------------------------------------------------+
-OR 
+OR (with add button at the bottom of results)
 +-------------------------------------------------------------+-----------------+
 |  Search: [_____________________]                            |                 |
-|                                                             |  [Add potion]   |
-|  Type:   [ Any ▼ ]                                          |                 |
 |                                                             | [Clear filters] |
+|  Type:   [ Any ▼ ]                                          |                 |
+|                                                             |   [Sort A-Z]    |
 |  Price:  [ < ▼ ] [   value   ]                              |                 |
-|          (If "Between" is selected → [min] – [max])         |   [Sort A-Z]    |
+|          (If "Between" is selected → [min] – [max])         |                 |
 |                                                             |                 |
 +-------------------------------------------------------------+-----------------+
 

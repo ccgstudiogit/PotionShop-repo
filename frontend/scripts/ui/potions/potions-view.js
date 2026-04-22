@@ -11,13 +11,13 @@ import * as potionsResults from './potions-view-results.js';
  *
  * @returns {void}
  */
-export function renderPotionsView() {
+export async function renderPotionsView() {
   baseView.refresh();
   potionSearch.renderSearchPanel();
-  potionsResults.renderResultsPanel();
+  const resultsPanel = await potionsResults.renderResultsPanel();
+  const addPotionButton = buttonFactory.createAndAppendButton('Add Potion', 'add-item-button', resultsPanel.content, () => renderAddForm());
 }
 
-/*
 export function renderAddForm() {
   baseView.refresh();
   const mainContent = baseView.getMainContent();
@@ -25,4 +25,3 @@ export function renderAddForm() {
 
   potionAddForm.createAddPotionForm(panel.content, 3);
 }
-*/

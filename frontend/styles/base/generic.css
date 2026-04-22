@@ -11,6 +11,30 @@ div {
   margin: 0px;
 }
 
+button {
+  font-family: "Jersey 15";
+  font-size: 2.8rem;
+
+  cursor: pointer;
+
+  border-style: solid;
+  border-color: black;
+  border-radius: 5px;
+  background-color: white;
+
+  padding: 5px 17px;
+
+  transition: background-color 0.15s;
+}
+
+button:hover {
+  background-color: rgb(211, 211, 211);
+}
+
+button:active {
+  background-color: rgb(185, 185, 185);
+}
+
 .line-vertical-full,
 .line-vertical-floating {
   border: 2px solid black;

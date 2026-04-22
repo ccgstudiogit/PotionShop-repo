@@ -1,0 +1,7 @@
+.add-item-button {
+  margin-bottom: 8px;
+
+  max-width: 60ch; /* Matches the width of ~60 characters */
+
+  align-self: safe center;
+}
