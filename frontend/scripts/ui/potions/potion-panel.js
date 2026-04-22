@@ -24,8 +24,8 @@ export function showPotionsPanel() {
 /**
  * Generates the options buttons for the potions panel and links them to their respective functions so the output is displayed in results.
  * 
- * @param {HTMLElement} optionsSection The parent HTML element for the options section.
- * @param {HTMLElement} resultsSection The parent HTML element for the results section.
+ * @param {HTMLElement} optionsSection - The parent HTML element for the options section.
+ * @param {HTMLElement} resultsSection - The parent HTML element for the results section.
  * @returns {void}
  */
 function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
@@ -44,7 +44,7 @@ function generateAndLinkOptionsButtons(optionsSection, resultsSection) {
 /**
  * Displays all potions in the results section.
  * 
- * @param {HTMLElement} resultsSection The parent HTML element for the results section.
+ * @param {HTMLElement} resultsSection - The parent HTML element for the results section.
  * @returns {void}
  */
 async function displayAllPotions(resultsSection) {
@@ -93,7 +93,7 @@ function clearResultsAndCreateSearchBar(resultsSection) {
  * Fetch the potions from the backend, sort them by name, and render them. The potions' edit and remove buttons are also configured.
  * 
  * @async
- * @param {HTMLElement} resultsSection The parent HTML element for the results section.
+ * @param {HTMLElement} resultsSection - The parent HTML element for the results section.
  * @returns {void}
  */
 async function renderPotions(potions, resultsSection) {
@@ -118,8 +118,8 @@ async function renderPotions(potions, resultsSection) {
  * Render the confirm delete modal window. If the user confirms the action, a DELETE request with the potion's id is sent to the backend.
  * Once the confirm takes place, the potion list is re-rendered by calling displayAllPotions again.
  * 
- * @param {Object} potion The potion object.
- * @param {HTMLElement} resultsSection The parent HTML element for the results section.
+ * @param {Object} potion - The potion object.
+ * @param {HTMLElement} resultsSection - The parent HTML element for the results section.
  * @returns {void}
  */
 function generateConfirmDeletePotionModal(potion, resultsSection) {
@@ -149,7 +149,7 @@ function generateConfirmDeletePotionModal(potion, resultsSection) {
 /**
  * Clear the results section and display an add potion form.
  * 
- * @param {HTMLElement} resultsSection The parent HTML element for the results section.
+ * @param {HTMLElement} resultsSection - The parent HTML element for the results section.
  * @returns {void}
  */
 function addPotionForm(resultsSection) {
@@ -160,8 +160,8 @@ function addPotionForm(resultsSection) {
 /**
  * Clear the results section and display the edit potion form.
  * 
- * @param {Object} potion The potion that's being edited by the user.
- * @param {HTMLElement} resultsSection The parent HTML element for the results section.
+ * @param {Object} potion - The potion that's being edited by the user.
+ * @param {HTMLElement} resultsSection - The parent HTML element for the results section.
  * @returns {void}
  */
 function editPotionForm(potion, resultsSection) {

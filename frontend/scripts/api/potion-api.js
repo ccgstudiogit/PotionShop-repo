@@ -109,7 +109,7 @@ export async function fetchPotionsWithFilter(filterBy, searchFor) {
  * @param {string} type - The potion type (must match backend PotionType enum).
  * @param {number|string} price - The potion's price. String or integer is fine since string will be converted to a number.
  * @param {string} effect - Description of the potion's effect.
- * @param {Object.<string, HTMLInputElement>} quantityInputs A dictionary mapping ingredient IDs to their quantity `<input>` elements.
+ * @param {Object.<string, HTMLInputElement>} quantityInputs - A dictionary mapping ingredient IDs to their quantity `<input>` elements.
  * @returns {Promise<Object|null>} The created potion DTO from the backend, or null if an error occurs.
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
@@ -202,7 +202,7 @@ export async function putPotion(potionId, name, type, price, effect, quantityInp
  * Send a DELETE request to delete a potion by its id to the backend.
  * 
  * @async
- * @param {Integer} potionId The potion's id that should be deleted.
+ * @param {Integer} potionId - The potion's id that should be deleted.
  * @returns {void}
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */

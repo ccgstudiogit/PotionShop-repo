@@ -7,6 +7,12 @@ import * as potionEditForm from './potion-edit-form.js';
 import * as potionActions from '../../actions/potion-actions.js';
 import * as modalRenderer from '../components/modal.js';
 
+/**
+ * Renders the Potions view by clearing the main content area, creating a dynamic search panel and a fixed scrollable results panel,
+ * and then populating the results panel with all potions.
+ *
+ * @returns {void}
+ */
 export function renderPotionsView() {
   baseView.refresh();
   const mainContent = baseView.getMainContent();
@@ -27,7 +33,7 @@ export function renderAddForm() {
 /**
  * Fetches all potions from the backend via the API layer and renders the potions under the input parent element.
  * 
- * @param {HTMLElement} contentSection The parent HTML element for the rendered potions.
+ * @param {HTMLElement} contentSection - The parent HTML element for the rendered potions.
  * @returns {void}
  */
 async function displayPotions(contentSection) {
@@ -52,7 +58,7 @@ async function displayPotions(contentSection) {
  * Fetch the potions from the backend, sort them by name, and render them. The potions' edit and remove buttons are also configured.
  * 
  * @async
- * @param {HTMLElement} contentSection The parent HTML element for the rendered potions.
+ * @param {HTMLElement} contentSection - The parent HTML element for the rendered potions.
  * @returns {void}
  */
 async function renderPotions(potions, contentSection) {
@@ -73,6 +79,13 @@ async function renderPotions(potions, contentSection) {
   });
 }
 
+/**
+ * Renders the edit potion form by clearing the main content area, creating a dynamic panel, and injecting the edit form for the
+ * specified potion into that panel.
+ *
+ * @param {Object} potion - The potion object to edit.
+ * @returns {void}
+ */
 async function renderEditForm(potion) {
   baseView.refresh();
   const panel = baseView.renderDynamicPanel(baseView.getMainContent());
@@ -81,11 +94,11 @@ async function renderEditForm(potion) {
 }
 
 /**
- * Render the confirm delete modal window. If the user confirms the action, a DELETE request with the potion's id is sent to the backend.
- * Once the confirm takes place, the potion list is re-rendered by calling displayAllPotions again.
+ * Render the confirm delete modal window. If the user confirms the action, a DELETE request with the potion's id is sent to the
+ * backend. Once the confirm takes place, the potion list is re-rendered by calling displayAllPotions again.
  * 
- * @param {Object} potion The potion object.
- * @param {HTMLElement} contentSection The parent HTML element for the results section.
+ * @param {Object} potion - The potion object.
+ * @param {HTMLElement} contentSection - The parent HTML element for the results section.
  * @returns {void}
  */
 function showConfirmDeleteModal(potion, contentSection) {

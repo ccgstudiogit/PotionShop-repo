@@ -5,6 +5,12 @@ import * as ingredientRenderer from '../../ui/ingredients/ingredient-render.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
 import * as modalRenderer from '../components/modal.js';
 
+/**
+ * Renders the Ingredients view by clearing the main content area, creating a dynamic search panel and a fixed scrollable results
+ * panel, and then populating the results panel with all ingredients.
+ *
+ * @returns {void}
+ */
 export function renderIngredientsView() {
   baseView.refresh();
   const mainContent = baseView.getMainContent();
@@ -22,7 +28,7 @@ export function renderAddForm() {
  * Displays all ingredients in the results section.
  * 
  * @async
- * @param {HTMLElement} contentSection The parent HTML element for the rendered ingredients.
+ * @param {HTMLElement} contentSection - The parent HTML element for the rendered ingredients.
  * @returns {void}
  */
 async function displayIngredients(contentSection) {
@@ -33,7 +39,6 @@ async function displayIngredients(contentSection) {
       const messageContainer = elementFactory.createAndAppendElement('div', 'text-centered', contentSection);
       const message = elementFactory.createAndAppendElement('p', ['text-big-static', 'font-jersey'], messageContainer);
       message.textContent = 'Whoops, no ingredients! Add some using the add form.';
-      console.log('meow');
       return;
     }
 
@@ -48,7 +53,7 @@ async function displayIngredients(contentSection) {
  * Fetch the ingredients from the backend, sort them by name, and render them. The ingredients' remove buttons are also added.
  * 
  * @async
- * @param {HTMLElement} contentSection The parent HTML element for the rendered ingredients.
+ * @param {HTMLElement} contentSection - The parent HTML element for the rendered ingredients.
  * @returns {void}
  */
 async function renderIngredients(ingredients, contentSection) {
@@ -65,8 +70,8 @@ async function renderIngredients(ingredients, contentSection) {
  * Render the confirm delete modal window. If the user confirms the action, a DELETE request with the ingredient's id is sent to the backend.
  * Once the confirm takes place, the ingredient list is re-rendered by calling displayAllIngredients again.
  * 
- * @param {Object} ingredient The ingredient object.
- * @param {HTMLElement} contentSection The parent HTML element for the results section.
+ * @param {Object} ingredient - The ingredient object.
+ * @param {HTMLElement} contentSection - The parent HTML element for the results section.
  * @returns {void}
  */
 function showConfirmDeleteModal(ingredient, contentSection) {

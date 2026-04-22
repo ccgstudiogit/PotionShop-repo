@@ -108,7 +108,7 @@ export async function putPotion(potionId, name, type, price, effect, quantityInp
  * Send a DELETE request to delete a potion by its id to the backend.
  * 
  * @async
- * @param {Integer} potionId The potion's id that should be deleted.
+ * @param {Integer} potionId - The potion's id that should be deleted.
  * @returns {void}
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
