@@ -34,6 +34,13 @@ async function displayPotions(contentSection) {
   // Fetch the potions from the backend via the actions layer, which calls the API layer
   try {
     const potions = await potionActions.getAllPotionsWithIngredients();
+    if (potions.length === 0) {
+      const messageContainer = elementFactory.createAndAppendElement('div', 'text-centered', contentSection);
+      const message = elementFactory.createAndAppendElement('p', ['text-big-static', 'font-jersey'], messageContainer);
+      message.textContent = 'Whoops, no potions! Add some using the add form.';
+      return;
+    }
+
     const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
     renderPotions(sorted, contentSection);
   } catch (message) {
@@ -69,7 +76,7 @@ async function renderPotions(potions, contentSection) {
 async function renderEditForm(potion) {
   baseView.refresh();
   const panel = baseView.renderDynamicPanel(baseView.getMainContent());
-  
+
   potionEditForm.createEditPotionForm(potion, panel.content);
 }
 

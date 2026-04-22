@@ -29,6 +29,14 @@ async function displayIngredients(contentSection) {
   // Fetch the ingredients from the backend via the actions layer, which calls the API layer
   try {
     const ingredients = await ingredientActions.getAllIngredients();
+    if (ingredients.length === 0) {
+      const messageContainer = elementFactory.createAndAppendElement('div', 'text-centered', contentSection);
+      const message = elementFactory.createAndAppendElement('p', ['text-big-static', 'font-jersey'], messageContainer);
+      message.textContent = 'Whoops, no ingredients! Add some using the add form.';
+      console.log('meow');
+      return;
+    }
+
     const sorted = [...ingredients].sort((a, b) => a.name.localeCompare(b.name));
     renderIngredients(sorted, contentSection);
   } catch (message) {
