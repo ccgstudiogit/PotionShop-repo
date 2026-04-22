@@ -12,12 +12,12 @@ import * as dropdownRenderer from '../components/dropdown.js';
  *   An object containing references to the root container, title label, and input element.
  */
 export function createNameInput(parent) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', parent);
+  const rootElement = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
 
-  const title = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], rootElement);
+  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], rootElement);
   title.textContent = 'Name:';
 
-  const input = elementFactory.createAndAppendElement('input', ['add-form-input-string', 'font-jersey'], rootElement);
+  const input = elementFactory.createAndAppendElement('input', ['form-input-string', 'font-jersey'], rootElement);
   input.placeholder = 'New potion name...';
 
   return {
@@ -36,9 +36,9 @@ export function createNameInput(parent) {
  *   An object containing references to the root container, title label, the dropdown shell, and the underlying <select> element
  */
 export async function createTypeInput(parent) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', parent);
+  const rootElement = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
 
-  const title = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], rootElement);
+  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], rootElement);
   title.textContent = 'Type:';
 
   const dropdown = dropdownRenderer.createAndAppendDropdownShell('custom-select', 'font-jersey', rootElement);
@@ -72,12 +72,12 @@ export async function createTypeInput(parent) {
  *   An object containing references to the root container, title label, and input element
  */
 export function createPriceInput(parent) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', parent);
+  const rootElement = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
 
-  const title = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], rootElement);
+  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], rootElement);
   title.textContent = 'Price:';
 
-  const input = elementFactory.createAndAppendElement('input', ['add-form-input-int', 'font-jersey'], rootElement);
+  const input = elementFactory.createAndAppendElement('input', ['form-input-int', 'font-jersey'], rootElement);
   input.placeholder = 'New price...';
   input.onchange = () => {
     const val = Number(input.value);
@@ -101,12 +101,12 @@ export function createPriceInput(parent) {
  *   An object containing references to the root container, title label, and input element
  */
 export function createEffectInput(parent) {
-  const rootElement = elementFactory.createAndAppendElement('div', 'add-form-input-container', parent);
+  const rootElement = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
 
-  const title = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], rootElement);
+  const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], rootElement);
   title.textContent = 'Effect:';
 
-  const input = elementFactory.createAndAppendElement('input', ['add-form-input-string', 'font-jersey'], rootElement);
+  const input = elementFactory.createAndAppendElement('input', ['form-input-string', 'font-jersey'], rootElement);
   input.placeholder = 'New effect...'
 
   return {
@@ -140,20 +140,20 @@ export function createIngredientsInputList(parent, selectedIngredients, availabl
   }
 
   // Create the title
-  const ingredientsTitleContainer = elementFactory.createAndAppendElement('div', 'add-form-input-container', parent);
+  const ingredientsTitleContainer = elementFactory.createAndAppendElement('div', 'form-input-container', parent);
   ingredientsTitleContainer.id = 'ingredientsTitleContainer';
-  const ingredientsTitle = elementFactory.createAndAppendElement('p', ['add-form-input-title', 'font-jersey'], ingredientsTitleContainer);
+  const ingredientsTitle = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], ingredientsTitleContainer);
   ingredientsTitle.textContent = 'Selected Ingredients:';
 
   // Create the container that holds the ingredient list and dropdown. This is here so that when the ingredients list is cleared and remade, the
   // ingredient dropdown stays below this div
-  const ingredientsListContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-ingredients-container', parent);
+  const ingredientsListContainer = elementFactory.createAndAppendElement('div', 'potion-form-ingredients-container', parent);
 
   // Create the container for the ingredient list (this holds the actual ingredient elements)
   const ingredientsContainer = elementFactory.createAndAppendElement('div', null, ingredientsListContainer);
 
   // Create the ingredient dropdown container. The actual dropdown element is created in refreshAddIngredientDropdown()
-  const ingredientDropdownContainer = elementFactory.createAndAppendElement('div', 'add-potion-form-ingredient-dropdown-container', ingredientsListContainer);
+  const ingredientDropdownContainer = elementFactory.createAndAppendElement('div', 'potion-form-ingredient-dropdown-container', ingredientsListContainer);
 
   // The internal state of the ingredients list
   const state = {
@@ -217,7 +217,7 @@ function renderIngredientList(state) {
 
     // Only add a remove button if there are 2 or more ingredients. Prevents the user from having no ingredients selected
     if (selectedIngredients.length > 1) {
-      buttonFactory.createAndAppendButton('Remove', 'add-potion-form-remove-ingredient-button', ingredientDOMElement.infoContainer, () => {
+      buttonFactory.createAndAppendButton('Remove', 'potion-form-remove-ingredient-button', ingredientDOMElement.infoContainer, () => {
         // The state gets mutated after removing the ingredient
         removeIngredient(ingredientObject, state);
         renderIngredientList(state);
@@ -345,7 +345,7 @@ function renderIngredientRow(ingredientObject) {
   const infoContainer = ingredientDOMElement.infoContainer;
   const timesElement = elementFactory.createAndAppendElement('p', ['ingredient-quantity', 'font-jersey'], infoContainer);
   timesElement.textContent = 'x';
-  const quantityInput = elementFactory.createAndAppendElement('input', ['add-potion-form-input-ingredient-quantity', 'font-jersey'], infoContainer);
+  const quantityInput = elementFactory.createAndAppendElement('input', ['potion-form-input-ingredient-quantity', 'font-jersey'], infoContainer);
 
   // Default the quantity to 1 and make sure it doesn't go below 1
   quantityInput.value = 1;

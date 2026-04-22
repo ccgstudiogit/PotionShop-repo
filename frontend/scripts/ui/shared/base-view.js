@@ -1,13 +1,18 @@
-import * as panelBase from './base-panel.js';
+import * as basePanel from './base-panel.js';
 import * as elementFactory from '../../utils/element-factory.js';
 
-export function refresh(contentRoot) {
-  contentRoot.innerHTML = '';
+export function getMainContent() {
+  return document.getElementById('main-content');
 }
 
-export function renderSearchPanel(parent) {
-  const panel = panelBase.renderPanelBackground(parent);
-  const content = elementFactory.createAndAppendElement('div', ['search-content', 'panel-flex-col'], panel.div);
+export function refresh() {
+  const mainContent = getMainContent();
+  mainContent.innerHTML = '';
+}
+
+export function renderDynamicPanel(parent) {
+  const panel = basePanel.renderPanelBackground(parent);
+  const content = elementFactory.createAndAppendElement('div', ['dynamic-content', 'panel-flex-col'], panel.div);
 
   return {
     panel,
@@ -15,9 +20,9 @@ export function renderSearchPanel(parent) {
   };
 }
 
-export function renderResultsPanel(parent) {
-  const panel = panelBase.renderPanelBackground(parent);
-  const content = elementFactory.createAndAppendElement('div', ['results-content', 'panel-flex-col', 'panel-scrollable'], panel.div);
+export function renderFixedPanel(parent) {
+  const panel = basePanel.renderPanelBackground(parent);
+  const content = elementFactory.createAndAppendElement('div', ['fixed-content', 'panel-flex-col', 'panel-scrollable'], panel.div);
 
   return {
     panel,

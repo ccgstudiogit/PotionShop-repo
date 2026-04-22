@@ -1,33 +1,34 @@
-.add-form-container {
+.form-container {
   flex: 1;
 
   display: flex;
   flex-direction: column;
+  align-self: safe center;
 
-  margin: 12px 60px 12px 60px;
+  margin: 13px;
+  max-width: 1350px;
+  width: 100%;
 
   border-style: solid;
   border-width: 2px;
   border-color: black;
-
   background-color: rgb(155, 172, 230);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
-.add-form-container .add-form-title {
+.form-container .form-title {
   font-size: 2.25rem;
   font-weight: bold;
 
   border-style: solid;
   border-width: 0px 0px 2px 0px;
   border-color: black;
-
   background-color: rgb(124, 139, 194);
 
   text-align: center;
 }
 
-.add-form-container .add-form-input-container {
+.form-container .form-input-container {
   display: flex;
 
   margin-top: 6px;
@@ -35,16 +36,16 @@
 }
 
 /* The name/title of the input (e.g. for potion: Name, Type, Price, etc.) */
-.add-form-input-container .add-form-input-title {
+.form-input-container .form-input-title {
   margin-left: 14px;
   margin-right: 20px;
 
   font-size: 2rem;
 }
 
-.add-form-input-container .add-form-input-string,
-.add-form-input-container .add-form-input-int,
-.add-form-input-container .add-potion-form-input-ing-quantity {
+.form-input-container .form-input-string,
+.form-input-container .form-input-int,
+.form-input-container .potion-form-input-ing-quantity {
   margin: 0px 20px 0px 0px;
   padding: 0px 8px 0px 8px;
 
@@ -58,16 +59,16 @@
 }
 
 /* Longform input (e.g. for potion: Name, Effect) */
-.add-form-input-container .add-form-input-string {
+.form-input-container .form-input-string {
   flex: 1;
 }
 
 /* Shorter input bar (e.g. for potion: Price) */
-.add-form-input-container .add-form-input-int {
+.form-input-container .form-input-int {
   max-width: 100px;
 }
 
-.add-form-input-container .add-form-input-dropdown-select {
+.form-input-container .form-input-dropdown-select {
   border-style: solid;
   border-width: 1px;
   border-color: black;
@@ -80,7 +81,7 @@
 }
 
 /* Specific to the add potion form */
-.add-potion-form-ingredients-container {
+.potion-form-ingredients-container {
   flex: 1;
 
   display: flex;
@@ -89,7 +90,7 @@
   margin: -6px 12px 6px 12px;
 }
 
-.add-potion-form-input-ingredient-quantity {
+.potion-form-input-ingredient-quantity {
   margin-left: 6px;
   padding: 0px 3px 0px 3px;
 
@@ -98,20 +99,20 @@
   font-size: 1.85rem;
 }
 
-.add-potion-form-ingredient-dropdown-container {
+.potion-form-ingredient-dropdown-container {
   max-width: 350px;
 
   align-self: center;
 }
 
-.add-potion-form-remove-ingredient-button {
+.potion-form-remove-ingredient-button {
   margin-left: auto; /* Pushes all the way to the right */
   margin-right: 11px;
 
   font-size: 1.5rem;
 }
 
-.add-potion-form-submit-button {
+.potion-form-submit-button {
   margin-top: 15px;
   margin-bottom: 15px;
 

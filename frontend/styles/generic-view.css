@@ -1,7 +1,7 @@
-.search-content {
+.dynamic-content {
   min-height: 210px;
 }
 
-.results-content {
+.fixed-content {
   max-height: 540px;
 }

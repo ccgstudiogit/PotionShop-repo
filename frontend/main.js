@@ -4,16 +4,15 @@ import * as ingredientsView from './scripts/ui/ingredients/ingredients-view.js';
 startApp();
 
 function startApp() {
-  const mainContent = document.getElementById('main-content')
-  potionsView.renderPotionsView(mainContent);
+  potionsView.renderPotionsView();
 
   const potionsButton = document.getElementById('potions-button');
   potionsButton.addEventListener('click', () => {
-    potionsView.renderPotionsView(mainContent);
+    potionsView.renderPotionsView();
   });
 
   const ingredientsButton = document.getElementById('ingredients-button');
   ingredientsButton.addEventListener('click', () => {
-    ingredientsView.renderIngredientsView(mainContent);
+    ingredientsView.renderIngredientsView();
   });
 }

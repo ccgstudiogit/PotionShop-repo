@@ -18,7 +18,6 @@ import * as addPotionFrom from './potion-add-form.js';
  *  - On submit, constructs a state object and triggers the update flow
  *
  * @async
- * @param {HTMLElement} parentElement - The DOM element where the form will be rendered
  * @param {Object} potion - The potion being edited
  * @param {number} potion.id - The potion's ID
  * @param {string} potion.name - The potion's current name
@@ -26,13 +25,14 @@ import * as addPotionFrom from './potion-add-form.js';
  * @param {number} potion.price - The potion's current price
  * @param {string} potion.effect - The potion's current effect
  * @param {Array<Object>} potion.ingredients - The potion's current ingredient list
+ * @param {HTMLElement} parentElement - The DOM element where the form will be rendered
  * @returns {Promise<void>} Resolves once the form is fully rendered
  */
-export async function createEditPotionForm(parentElement, potion) {
+export async function createEditPotionForm(potion, parentElement) {
   try {
-    const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
+    const formContainer = elementFactory.createAndAppendElement('div', 'form-container', parentElement);
 
-    const formTitle = elementFactory.createAndAppendElement('p', ['add-form-title', 'font-jersey'], formContainer);
+    const formTitle = elementFactory.createAndAppendElement('p', ['form-title', 'font-jersey'], formContainer);
     formTitle.textContent = 'Edit Potion';
 
     // Create the inputs and fill the inputs with the potion's existing information
@@ -85,7 +85,7 @@ export async function createEditPotionForm(parentElement, potion) {
     });
 
     // Create the button to handle submitting the potion form. The current state of the form as passed
-    buttonFactory.createAndAppendButton('Submit', 'add-potion-form-submit-button', formContainer, () => {
+    buttonFactory.createAndAppendButton('Submit', 'potion-form-submit-button', formContainer, () => {
       const state = {
         potionId: potion.id,
         nameInput,
@@ -95,7 +95,7 @@ export async function createEditPotionForm(parentElement, potion) {
         quantityInputs,
         root: parentElement,
       }
-
+      
       submitForm(state);
     });
   } catch (message) {

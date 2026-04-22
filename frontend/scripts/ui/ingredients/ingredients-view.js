@@ -1,17 +1,18 @@
-import * as viewBase from '../shared/base-view.js';
+import * as baseView from '../shared/base-view.js';
 import * as elementFactory from '../../utils/element-factory.js';
 import * as ingredientRenderer from '../../ui/ingredients/ingredient-render.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
 
-export function renderIngredientsView(parent) {
-  viewBase.refresh(parent);
-    const searchPanel = viewBase.renderSearchPanel(parent);
-    const resultsPanel = viewBase.renderResultsPanel(parent);
-  
-    displayIngredients(resultsPanel.content);
+export function renderIngredientsView() {
+  baseView.refresh();
+  const mainContent = baseView.getMainContent();
+  const searchPanel = baseView.renderDynamicPanel(mainContent);
+  const resultsPanel = baseView.renderFixedPanel(mainContent);
+
+  displayIngredients(resultsPanel.content);
 }
 
-export function renderAddForm(parent) {
+export function renderAddForm() {
 
 }
 
@@ -24,13 +25,13 @@ export function renderAddForm(parent) {
  */
 async function displayIngredients(parent) {
   // Fetch the ingredients from the backend via the actions layer, which calls the API layer
-    try {
-      const ingredients = await ingredientActions.getAllIngredients();
-      const sorted = [...ingredients].sort((a, b) => a.name.localeCompare(b.name));
-      renderIngredients(sorted, parent);
-    } catch (message) {
-      console.error(message);
-    }
+  try {
+    const ingredients = await ingredientActions.getAllIngredients();
+    const sorted = [...ingredients].sort((a, b) => a.name.localeCompare(b.name));
+    renderIngredients(sorted, parent);
+  } catch (message) {
+    console.error(message);
+  }
 }
 
 /**
@@ -45,7 +46,7 @@ async function renderIngredients(ingredients, parent) {
     const ingredientElement = ingredientRenderer.renderIngredient(ingredient);
     parent.appendChild(ingredientElement.root);
     ingredientElement.removeButton.onclick = async function () {
-      generateConfirmDeletePotionModal(ingredient, parent);
+      //generateConfirmDeletePotionModal(ingredient, parent);
     };
   });
 }

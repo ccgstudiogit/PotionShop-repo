@@ -19,9 +19,9 @@ import * as potionActions from '../../actions/potion-actions.js';
  */
 export async function createAddPotionForm(parentElement, startingIngredientCount) {
   try {
-    const formContainer = elementFactory.createAndAppendElement('div', 'add-form-container', parentElement);
+    const formContainer = elementFactory.createAndAppendElement('div', 'form-container', parentElement);
 
-    const formTitle = elementFactory.createAndAppendElement('p', ['add-form-title', 'font-jersey'], formContainer);
+    const formTitle = elementFactory.createAndAppendElement('p', ['form-title', 'font-jersey'], formContainer);
     formTitle.textContent = 'Add New Potion';
 
     const nameInput = potionFormUtils.createNameInput(formContainer);
@@ -51,7 +51,7 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
     ingredientUI.state.notifyChange(); // Get initial ingredients with their default quantities
 
     // Create the button to handle submitting the potion form. The current state of the form as passed
-    buttonFactory.createAndAppendButton('Submit', 'add-potion-form-submit-button', formContainer, () => {
+    buttonFactory.createAndAppendButton('Submit', 'potion-form-submit-button', formContainer, () => {
       const state = {
         nameInput,
         typeInput,

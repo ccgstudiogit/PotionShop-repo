@@ -1,18 +1,25 @@
-import * as viewBase from '../shared/base-view.js';
+import * as baseView from '../shared/base-view.js';
 import * as elementFactory from '../../utils/element-factory.js';
-import * as potionRenderer from '../../ui/potions/potion-render.js';
+import * as potionRenderer from './potion-render.js';
+import * as potionAddForm from './potion-add-form.js';
+import * as potionEditForm from './potion-edit-form.js';
 import * as potionActions from '../../actions/potion-actions.js';
 
-export function renderPotionsView(parent) {
-  viewBase.refresh(parent);
-  const searchPanel = viewBase.renderSearchPanel(parent);
-  const resultsPanel = viewBase.renderResultsPanel(parent);
+export function renderPotionsView() {
+  baseView.refresh();
+  const mainContent = baseView.getMainContent();
+  const searchPanel = baseView.renderDynamicPanel(mainContent);
+  const resultsPanel = baseView.renderFixedPanel(mainContent);
 
   displayPotions(resultsPanel.content);
 }
 
-export function renderAddForm(parent) {
-  //TODO: ADD THIS FUNCTION
+export function renderAddForm() {
+  baseView.refresh();
+  const mainContent = baseView.getMainContent();
+  const panel = baseView.renderDynamicPanel(mainContent);
+
+  potionAddForm.createAddPotionForm(panel.content, 3);
 }
 
 /**
@@ -46,7 +53,7 @@ async function renderPotions(potions, parent) {
 
     // If the edit button is pressed, open the edit potion form with that potion's information
     potionElement.editButton.onclick = function () {
-      //editPotionForm(potion, parent);
+      renderEditForm(potion);
     };
 
     // If the remove button is pressed, prompt the user with a confirm delete request. If the user confirms,
@@ -55,4 +62,11 @@ async function renderPotions(potions, parent) {
       //generateConfirmDeletePotionModal(potion, parent);
     };
   });
+}
+
+async function renderEditForm(potion) {
+  baseView.refresh();
+  const panel = baseView.renderDynamicPanel(baseView.getMainContent());
+  
+  potionEditForm.createEditPotionForm(potion, panel.content);
 }
