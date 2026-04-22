@@ -41,11 +41,11 @@ button:active {
 }
 
 .line-vertical-full {
-  height: 99.5%;
+  align-self: stretch;
 }
 
 .line-vertical-floating {
-  height: 70%;
+  height: 70%; /* height only works if the parent has a defined height */
 }
 
 .center-self {

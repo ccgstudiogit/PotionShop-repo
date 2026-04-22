@@ -5,11 +5,11 @@ import * as buttonFactory from '../../utils/button-factory.js';
 
 export function renderSearchPanel() {
   const mainContent = baseView.getMainContent();
-  const searchPanel = baseView.renderDynamicPanel(mainContent);
+  const searchPanel = baseView.renderBaseSearchPanel(mainContent);
 
-  renderOptions(searchPanel.content);
+  renderSearchFields(searchPanel.searchFieldsContainer);
 }
 
-function renderOptions(searchPanel) {
+function renderSearchFields(searchPanel) {
   const searchByNameInput = searchViewUtils.createSearchBar('Search potions by name...', searchPanel);
 }

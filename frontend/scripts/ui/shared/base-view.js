@@ -65,3 +65,18 @@ export function renderFixedPanel(parent) {
     content
   };
 }
+
+export function renderBaseSearchPanel(parent) {
+  const panel = basePanel.renderPanelBackground(parent);
+  const content = elementFactory.createAndAppendElement('div', ['dynamic-content', 'search-panel'], panel.div);
+
+  const searchFieldsContainer = elementFactory.createAndAppendElement('div', 'search-panel-fields', content);
+  const separatorLine = elementFactory.createAndAppendElement('div', 'line-vertical-full', content);
+  const searchOptionsContainer = elementFactory.createAndAppendElement('div', 'search-panel-options', content);
+
+  return {
+    content,
+    searchFieldsContainer,
+    searchOptionsContainer
+  }
+}

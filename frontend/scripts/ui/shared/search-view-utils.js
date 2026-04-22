@@ -1,9 +1,12 @@
 import * as elementFactory from '../../utils/element-factory.js';
 
 export function createSearchBar(placeholderText, parent) {
-  const container = elementFactory.createAndAppendElement('div', 'searchbar-container', parent);
+  const container = elementFactory.createAndAppendElement('div', 'search-panel-field-container', parent);
 
-  const input = elementFactory.createAndAppendElement('input', ['searchbar-flex', 'font-jersey'], container);
+  const title = elementFactory.createAndAppendElement('p', ['search-panel-field-title', 'font-jersey'], container);
+  title.textContent = 'Search:';
+
+  const input = elementFactory.createAndAppendElement('input', ['search-panel-searchbar', 'search-panel-searchbar-flex', 'font-jersey'], container);
   input.placeholder = placeholderText;
 
   return {

@@ -4,6 +4,7 @@ import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionRenderer from './potion-render.js';
 import * as potionEditForm from './potion-edit-form.js';
 import * as potionActions from '../../actions/potion-actions.js';
+import * as potionAddForm from './potion-add-form.js';
 import * as modalRenderer from '../components/modal.js';
 
 export function renderResultsPanel() {

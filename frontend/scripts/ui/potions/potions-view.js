@@ -1,7 +1,6 @@
 import * as baseView from '../shared/base-view.js';
 import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
-import * as potionAddForm from './potion-add-form.js';
 import * as potionSearch from './potions-view-search.js';
 import * as potionsResults from './potions-view-results.js';
 
