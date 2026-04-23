@@ -1,10 +1,12 @@
-.custom-select {
+.custom-select,
+.custom-select-no-arrows {
   min-width: 100px;
 
   position: relative;
 }
 
-.custom-select select {
+.custom-select select,
+.custom-select-no-arrows select {
   appearance: none;
 
   padding: 0.125em 2.75em 0.125em 0.5em;
@@ -23,7 +25,8 @@
   cursor: pointer;
 }
 
-.custom-select option {
+.custom-select option,
+.custom-select-no-arrows option {
   background-color: white;
 
   /* Changing font does not work for custom fonts (Verdana, Arial, Times New Roman, etc. all work but 'Jersey 15' doesn't) */

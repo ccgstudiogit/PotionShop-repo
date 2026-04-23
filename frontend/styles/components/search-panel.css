@@ -30,6 +30,9 @@
 
   display: flex;
   align-items: center;
+
+  margin-top: 15px;
+  margin-bottom: 0px;
 }
 
 /* Title for a specific field */
@@ -67,4 +70,12 @@
 
 .search-panel-searchbar-short {
   max-width: 100px;
+}
+
+.search-panel-search-button {
+  margin: 7px;
+
+  font-size: 2.4rem;
+
+  align-self: center;
 }

@@ -34,4 +34,9 @@ async function renderSearchFields(searchPanel) {
   } catch (message) {
     console.error(message);
   }
+
+  const searchButton = searchViewUtils.createSearchButton(searchPanel);
+  searchButton.addEventListener('click', () => {
+    console.log('searching!');
+  });
 }

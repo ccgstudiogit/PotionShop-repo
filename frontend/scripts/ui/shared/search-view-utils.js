@@ -1,4 +1,5 @@
 import * as elementFactory from '../../utils/element-factory.js';
+import * as buttonFactory from '../../utils/button-factory.js';
 import * as dropdownRenderer from '../components/dropdown.js';
 
 export function createSearchBar(placeholderText, parent) {
@@ -23,7 +24,7 @@ export function createEmptyDropdownFilter(parent) {
   const title = elementFactory.createAndAppendElement('p', ['search-panel-field-title', 'font-jersey'], container);
   title.textContent = 'Filter:';
 
-  const dropdown = dropdownRenderer.createAndAppendDropdownShell('custom-select', 'font-jersey', container);
+  const dropdown = dropdownRenderer.createAndAppendDropdownShell('custom-select-no-arrows', 'font-jersey', container);
 
   return {
     root: container,
@@ -31,4 +32,9 @@ export function createEmptyDropdownFilter(parent) {
     dropdownRoot: dropdown.root,
     dropdownSelection: dropdown.selection
   };
+}
+
+export function createSearchButton(parent) {
+  const button = buttonFactory.createAndAppendButton('Search', 'search-panel-search-button', parent, null);
+  return button;
 }
