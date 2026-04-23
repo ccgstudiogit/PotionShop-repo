@@ -1,4 +1,5 @@
 import * as elementFactory from '../../utils/element-factory.js';
+import * as dropdownRenderer from '../components/dropdown.js';
 
 export function createSearchBar(placeholderText, parent) {
   const container = elementFactory.createAndAppendElement('div', 'search-panel-field-container', parent);
@@ -11,6 +12,23 @@ export function createSearchBar(placeholderText, parent) {
 
   return {
     root: container,
-    input: input
+    title,
+    input
+  };
+}
+
+export function createEmptyDropdownFilter(parent) {
+  const container = elementFactory.createAndAppendElement('div', 'search-panel-field-container', parent);
+
+  const title = elementFactory.createAndAppendElement('p', ['search-panel-field-title', 'font-jersey'], container);
+  title.textContent = 'Filter:';
+
+  const dropdown = dropdownRenderer.createAndAppendDropdownShell('custom-select', 'font-jersey', container);
+
+  return {
+    root: container,
+    title,
+    dropdownRoot: dropdown.root,
+    dropdownSelection: dropdown.selection
   };
 }

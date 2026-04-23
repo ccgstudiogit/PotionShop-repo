@@ -3,6 +3,5 @@
 }
 
 .fixed-content {
-  min-height: 210px;
-  max-height: 540px;
+  height: 540px;
 }
