@@ -8,6 +8,7 @@ import com.connor.potionshop.model.potioningredient.*;
 import com.connor.potionshop.mapper.*;
 import com.connor.potionshop.repository.*;
 import jakarta.persistence.*;
+import org.springframework.data.jpa.domain.*;
 import org.springframework.stereotype.Service;
 
 // Service makes this class available as a service to be used within other classes. Services handle the business logic
@@ -75,33 +76,36 @@ public class PotionService {
     }
 
     /**
-     * Retrieves all potions stored in the database with a name containing the input, with their respective ingredients.
+     * Retrieves all potions that match the provided search filters. Supports partial name matching and multi-select
+     * type filtering. All filter categories are combined using AND logic, while multiple types within the type filter
+     * are combined using OR.
      *
-     * @param name The potions whose names are like this (the SQL query uses %LIKE%).
-     * @return A list of PotionWithIngredientDTOs whose name contains the input String.
+     * <p>Example:
+     *   /search?name=E&type=Buff&type=Healing
+     *   -> Returns potions whose name contains "E" AND whose type is Buff OR Healing.</p>
+     *
+     * @param name Optional substring to match against potion names.
+     * @param types Optional list of PotionType values. Acts as an OR filter.
+     * @return A list of PotionWithIngredientsDTO objects matching the filters.
      */
-    public List<PotionWithIngredientsDTO> getPotionsWithNameLike(String name) {
-        List<Potion> potions = potionRepository.findByNameLike(name.toLowerCase()).stream().toList();
-        List<PotionWithIngredientsDTO> potionsWithIngredients = new ArrayList<>();
+    public List<PotionWithIngredientsDTO> findAllFiltered(String name, List<PotionType> types) {
+        // In case there are no filters applied by the user
+        Specification<Potion> spec = Specification.anyOf();
 
-        for (int i = 0; i < potions.size(); i++) {
-            potionsWithIngredients.add(getPotionById(potions.get(i).getId()));
+        if (name != null) {
+            spec = spec.and(PotionSpecification.hasName(name));
         }
 
-        return potionsWithIngredients;
-    }
+        if (types != null) {
+            // NOTE: inType acts as an OR for all types, so if the user includes the types 'Healing', 'Buff, etc., then
+            // these are included as an OR before being AND-ed with the other filters. URL example in documentation
+            spec = spec.and(PotionSpecification.inType(types));
+        }
 
-    /**
-     * Retrieves all potions stored in the database with the PotionType matching the input, with their respective ingredients.
-     *
-     * @param type The potions that have the same PotionType.
-     * @return A list of PotionWithIngredientDTOs whose type matches the input PotionType.
-     */
-    public List<PotionWithIngredientsDTO> getPotionsWithType(PotionType type) {
-        List<Potion> potions = potionRepository.findByType(type).stream().toList();
+        List<Potion> potions = potionRepository.findAll(spec).stream().toList();
         List<PotionWithIngredientsDTO> potionsWithIngredients = new ArrayList<>();
-
         for (int i = 0; i < potions.size(); i++) {
+            // Take advantage of getPotionById since that gets a potion with its ingredients
             potionsWithIngredients.add(getPotionById(potions.get(i).getId()));
         }
 

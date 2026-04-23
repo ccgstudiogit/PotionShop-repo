@@ -20,6 +20,9 @@ async function renderSearchFields(searchPanel) {
     typeDropdown.dropdownSelection.multiple = true; // Users must use 'CTRL' + click to select multiple options
     typeDropdown.dropdownSelection.size = 4;
 
+    const multiSelectTip = elementFactory.createAndAppendElement('p', ['search-panel-tip-text', 'font-jersey'], typeDropdown.root);
+    multiSelectTip.textContent = '(hold CTRL to select multiple)';
+
     // Default option
     const anyOption = elementFactory.createAndAppendElement('option', null, typeDropdown.dropdownSelection);
     anyOption.value = 'Any';

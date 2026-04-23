@@ -79,3 +79,9 @@
 
   align-self: center;
 }
+
+.search-panel-tip-text {
+  margin-left: 11px;
+
+  font-size: 1.65rem;
+}

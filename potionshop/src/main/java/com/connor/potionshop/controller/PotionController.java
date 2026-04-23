@@ -38,14 +38,12 @@ public class PotionController {
         return potionService.getAllPotionIngredientsById(id);
     }
 
-    @GetMapping("/filter/name/{name}")
-    public List<PotionWithIngredientsDTO> getAllPotionsWithNameLike(@PathVariable String name) {
-        return potionService.getPotionsWithNameLike(name);
-    }
-
-    @GetMapping("/filter/type/{type}")
-    public List<PotionWithIngredientsDTO> getAllPotionsWithType(@PathVariable PotionType type) {
-        return potionService.getPotionsWithType(type);
+    @GetMapping("/search")
+    public List<PotionWithIngredientsDTO> getPotionsFiltered(
+        @RequestParam(required = false) String name,
+        @RequestParam(required = false) List<PotionType> type
+    ) {
+        return potionService.findAllFiltered(name, type);
     }
 
     @GetMapping("/types")
