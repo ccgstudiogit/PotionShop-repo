@@ -7,31 +7,41 @@ import * as potionActions from '../../actions/potion-actions.js';
 import * as potionAddForm from './potion-add-form.js';
 import * as modalRenderer from '../components/modal.js';
 
+let contentSection;
+
+export function getContentSection() {
+  return contentSection;
+}
+
+export function setContentSection(section) {
+  contentSection = section;
+}
+
 export function renderResultsPanel() {
   const mainContent = baseView.getMainContent();
   const resultsPanel = baseView.renderFixedPanel(mainContent);
-  displayPotions(resultsPanel.content);
+  setContentSection(resultsPanel.content);
+  displayPotions();
 }
 
 /**
  * Fetches all potions from the backend via the API layer and renders the potions under the input parent element.
  * 
- * @param {HTMLElement} contentSection - The parent HTML element for the rendered potions.
  * @returns {void}
  */
-async function displayPotions(contentSection) {
+async function displayPotions() {
   // Fetch the potions from the backend via the actions layer, which calls the API layer
   try {
     const potions = await potionActions.getAllPotionsWithIngredients();
     if (potions.length === 0) {
-      elementFactory.applyClasses(contentSection, 'panel-center-items');
-      const message = elementFactory.createAndAppendElement('p', ['text-big-static', 'font-jersey'], contentSection);
+      elementFactory.applyClasses(getContentSection(), 'panel-center-items');
+      const message = elementFactory.createAndAppendElement('p', ['text-big-static', 'font-jersey'], getContentSection());
       message.textContent = 'Whoops, no potions here!';
       // Since the add button is generated via renderPotions, still call that function even though there are no potions to display
     }
 
     const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
-    renderPotions(sorted, contentSection);
+    renderPotions(sorted, getContentSection());
   } catch (message) {
     console.error(message);
   }
@@ -40,13 +50,15 @@ async function displayPotions(contentSection) {
 /**
  * Fetch the potions from the backend, sort them by name, and render them. The potions' edit and remove buttons are also configured.
  * 
- * @param {HTMLElement} contentSection - The parent HTML element for the rendered potions.
  * @returns {void}
  */
-function renderPotions(potions, contentSection) {
+export function renderPotions(potions) {
+  // Make sure the list is always refreshed when rendering potions
+  getContentSection().innerHTML = '';
+
   potions.forEach(potion => {
     const potionElement = potionRenderer.renderPotion(potion);
-    contentSection.appendChild(potionElement.root);
+    getContentSection().appendChild(potionElement.root);
 
     // If the edit button is pressed, open the edit potion form with that potion's information
     potionElement.editButton.onclick = function () {
@@ -56,12 +68,12 @@ function renderPotions(potions, contentSection) {
     // If the remove button is pressed, prompt the user with a confirm delete request. If the user confirms,
     // delete the potion from the database (destructive)
     potionElement.removeButton.onclick = async function () {
-      showConfirmDeleteModal(potion, contentSection);
+      showConfirmDeleteModal(potion, getContentSection());
     };
   });
 
   // Add the add potion button at the end of the list of rendered potions
-  buttonFactory.createAndAppendButton('Add Potion', 'add-item-button', contentSection, () => renderAddForm());
+  buttonFactory.createAndAppendButton('Add Potion', 'add-item-button', getContentSection(), () => renderAddForm());
 }
 
 /**
@@ -83,10 +95,9 @@ async function renderEditForm(potion) {
  * backend. Once the confirm takes place, the potion list is re-rendered by calling displayAllPotions again.
  * 
  * @param {Object} potion - The potion object.
- * @param {HTMLElement} contentSection - The parent HTML element for the results section.
  * @returns {void}
  */
-function showConfirmDeleteModal(potion, contentSection) {
+function showConfirmDeleteModal(potion) {
   const confirmModal = modalRenderer.renderGlobalModal();
 
   confirmModal.windowTitle.textContent = 'Confirm Delete';
@@ -100,9 +111,7 @@ function showConfirmDeleteModal(potion, contentSection) {
       console.error(message);
     }
 
-    // Refresh the updated list after deletion
-    contentSection.innerHTML = '';
-    displayPotions(contentSection);
+    displayPotions(getContentSection());
   };
 
   // Add the cancel button

@@ -3,6 +3,7 @@ import * as searchViewUtils from '../shared/search-view-utils.js';
 import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionActions from '../../actions/potion-actions.js';
+import * as resultsView from './potions-view-results.js';
 
 export function renderSearchPanel() {
   const mainContent = baseView.getMainContent();
@@ -33,8 +34,10 @@ async function renderSearchFields(searchPanel) {
     });
 
     const searchButton = searchViewUtils.createSearchButton(searchPanel);
-    searchButton.addEventListener('click', () => {
-      search(nameInput, typeDropdown);
+    searchButton.addEventListener('click', async () => {
+      searchButton.disabled = true;
+      await search(nameInput, typeDropdown);
+      searchButton.disabled = false;
     });
   } catch (message) {
     console.error(message);
@@ -42,12 +45,7 @@ async function renderSearchFields(searchPanel) {
 }
 
 async function search(nameInput, typeDropdown) {
-  console.log('searching with filters:');
-
   const name = nameInput.input.value;
-  if (name !== '') {
-    console.log('searching by name: ' + name);
-  }
 
   const types = [];
   for (let i = 0; i < typeDropdown.dropdownSelection.options.length; i++) {
@@ -57,11 +55,11 @@ async function search(nameInput, typeDropdown) {
     }
   }
 
-  if (types.length > 0) {
-    console.log('searching by types: ' + types);
+  try {
+    const potions = await potionActions.getPotionsWithFilters(name, types);
+    const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
+    resultsView.renderPotions(sorted);
+  } catch (message) {
+    console.error(message);
   }
-
-  console.log('submitting');
-  const potions = await potionActions.getPotionsWithFilters(name, types);
-  console.log(potions);
 }
