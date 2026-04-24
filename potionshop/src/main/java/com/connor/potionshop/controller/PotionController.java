@@ -41,9 +41,11 @@ public class PotionController {
     @GetMapping("/search")
     public List<PotionWithIngredientsDTO> getPotionsFiltered(
         @RequestParam(required = false) String name,
-        @RequestParam(required = false) List<PotionType> type
+        @RequestParam(required = false) List<PotionType> type,
+        @RequestParam(required = false) String inequalitySign,
+        @RequestParam(required = false) Integer price
     ) {
-        return potionService.findAllFiltered(name, type);
+        return potionService.findAllFiltered(name, type, inequalitySign ,price);
     }
 
     @GetMapping("/types")

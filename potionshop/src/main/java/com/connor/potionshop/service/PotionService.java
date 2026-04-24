@@ -86,9 +86,12 @@ public class PotionService {
      *
      * @param name Optional substring to match against potion names.
      * @param types Optional list of PotionType values. Acts as an OR filter.
+     * @param inequalitySign Used for price filtering.
+     * @param price Optional Integer for filtering by price.
      * @return A list of PotionWithIngredientsDTO objects matching the filters.
+     * @throws IllegalArgumentException If the inequality sign is not valid (i.e. not <, <=, >, >=).
      */
-    public List<PotionWithIngredientsDTO> findAllFiltered(String name, List<PotionType> types) {
+    public List<PotionWithIngredientsDTO> findAllFiltered(String name, List<PotionType> types, String inequalitySign, Integer price) {
         // In case there are no filters applied by the user
         Specification<Potion> spec = Specification.anyOf();
 
@@ -100,6 +103,20 @@ public class PotionService {
             // NOTE: inType acts as an OR for all types, so if the user includes the types 'Healing', 'Buff, etc., then
             // these are included as an OR before being AND-ed with the other filters. URL example in documentation
             spec = spec.and(PotionSpecification.inType(types));
+        }
+
+        if (inequalitySign != null && price != null) {
+            if (inequalitySign.equals("<")) {
+                spec = spec.and(PotionSpecification.hasPriceLessThan(price));
+            } else if (inequalitySign.equals("<=")) {
+                spec = spec.and(PotionSpecification.hasPriceGreaterThanOrEqualTo(price));
+            } else if (inequalitySign.equals(">")) {
+                spec = spec.and(PotionSpecification.hasPriceGreaterThan(price));
+            } else if (inequalitySign.equals(">=")) {
+                spec = spec.and(PotionSpecification.hasPriceGreaterThanOrEqualTo(price));
+            } else {
+                throw new IllegalArgumentException("Invalid inequality sign: " + inequalitySign);
+            }
         }
 
         List<Potion> potions = potionRepository.findAll(spec).stream().toList();

@@ -56,8 +56,8 @@ export async function getPotionTypes() {
   return types;
 }
 
-export async function getPotionsWithFilters(name, types) {
-  const potions = await potionApi.fetchPotionsWithFilters(name, types);
+export async function getPotionsWithFilters(name, types, inequalitySign, price) {
+  const potions = await potionApi.fetchPotionsWithFilters(name, types, inequalitySign, price);
   potions.forEach((potion) => {
     potion.ingredients = potion.ingredients.map(ingredient =>
       normalizeDTO.normalizeIngredient(ingredient)

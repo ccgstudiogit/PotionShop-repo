@@ -33,6 +33,16 @@ async function renderSearchFields(searchPanel) {
       option.textContent = type;
     });
 
+    // Searching by price
+    const priceInput = searchViewUtils.createSmallSearchBar('Price...', searchPanel);
+    priceInput.title.textContent = 'Price:';
+    priceInput.input.onchange = () => {
+      const val = Number(priceInput.input.value);
+      if (Number.isNaN(val) || !Number.isInteger(val)) {
+        priceInput.input.value = '';
+      }
+    }
+
     const searchButton = searchViewUtils.createSearchButton(searchPanel);
     searchButton.addEventListener('click', async () => {
       searchButton.disabled = true;

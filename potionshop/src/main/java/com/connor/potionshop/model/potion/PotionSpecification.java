@@ -36,8 +36,23 @@ public class PotionSpecification {
         };
     }
 
+    public static Specification<Potion> hasPriceLessThan(Integer price) {
+        return (root, query, criteriaBuilder) ->
+            criteriaBuilder.lessThan(root.get("price"), price);
+    }
+
     public static Specification<Potion> hasPriceLessThanOrEqualTo(Integer price) {
         return (root, query, criteriaBuilder) ->
             criteriaBuilder.lessThanOrEqualTo(root.get("price"), price);
+    }
+
+    public static Specification<Potion> hasPriceGreaterThan(Integer price) {
+        return (root, query, criteriaBuilder) ->
+            criteriaBuilder.greaterThan(root.get("price"), price);
+    }
+
+    public static Specification<Potion> hasPriceGreaterThanOrEqualTo(Integer price) {
+        return (root, query, criteriaBuilder) ->
+            criteriaBuilder.greaterThanOrEqualTo(root.get("price"), price);
     }
 }

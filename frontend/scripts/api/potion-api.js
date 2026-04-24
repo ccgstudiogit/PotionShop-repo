@@ -77,7 +77,7 @@ export async function fetchPotionTypes() {
   return types;
 }
 
-export async function fetchPotionsWithFilters(name, types) {
+export async function fetchPotionsWithFilters(name, types, inequalitySign, price) {
   const baseUrl = 'http://localhost:8080/potions/search';
   const url = new URL(baseUrl);
 
@@ -89,6 +89,11 @@ export async function fetchPotionsWithFilters(name, types) {
     types.forEach(type => {
       url.searchParams.append('type', type);
     });
+  }
+
+  if (inequalitySign && price) {
+    url.searchParams.set('inequalitySign', inequalitySign);
+    url.searchParams.set('price', price);
   }
 
   const response = await fetch(url, { method: 'GET' });
