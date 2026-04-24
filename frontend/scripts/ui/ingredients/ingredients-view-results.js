@@ -5,32 +5,42 @@ import * as ingredientRenderer from '../../ui/ingredients/ingredient-render.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
 import * as modalRenderer from '../components/modal.js';
 
+let contentSection;
+
+export function getContentSection() {
+  return contentSection;
+}
+
+export function setContentSection(section) {
+  contentSection = section;
+}
+
 export function renderResultsPanel() {
   const mainContent = baseView.getMainContent();
   const resultsPanel = baseView.renderFixedPanel(mainContent);
-  displayIngredients(resultsPanel.content);
+  setContentSection(resultsPanel.content);
+  displayIngredients();
 }
 
 /**
  * Displays all ingredients in the results section.
  * 
  * @async
- * @param {HTMLElement} contentSection - The parent HTML element for the rendered ingredients.
  * @returns {void}
  */
-async function displayIngredients(contentSection) {
+async function displayIngredients() {
   // Fetch the ingredients from the backend via the actions layer, which calls the API layer
   try {
     const ingredients = await ingredientActions.getAllIngredients();
     if (ingredients.length === 0) {
-      elementFactory.applyClasses(contentSection, 'panel-center-items');
-      const message = elementFactory.createAndAppendElement('p', ['text-big-static', 'font-jersey'], contentSection);
+      elementFactory.applyClasses(getContentSection(), 'panel-center-items');
+      const message = elementFactory.createAndAppendElement('p', ['text-big-static', 'font-jersey'], getContentSection());
       message.textContent = 'Whoops, no ingredients here!';
       // Since the add button is generated via renderIngredients, still call that function even though there are no ingredients to display
     }
 
     const sorted = [...ingredients].sort((a, b) => a.name.localeCompare(b.name));
-    renderIngredients(sorted, contentSection);
+    renderIngredients(sorted, getContentSection());
   } catch (message) {
     console.error(message);
   }
@@ -39,20 +49,22 @@ async function displayIngredients(contentSection) {
 /**
  * Fetch the ingredients from the backend, sort them by name, and render them. The ingredients' remove buttons are also added.
  * 
- * @param {HTMLElement} contentSection - The parent HTML element for the rendered ingredients.
  * @returns {void}
  */
-function renderIngredients(ingredients, contentSection) {
+function renderIngredients(ingredients) {
+  // Make sure the list is always refreshed when rendering ingredients
+  getContentSection().innerHTML = '';
+
   ingredients.forEach(ingredient => {
     const ingredientElement = ingredientRenderer.renderIngredient(ingredient);
-    contentSection.appendChild(ingredientElement.root);
+    getContentSection().appendChild(ingredientElement.root);
     ingredientElement.removeButton.onclick = async function () {
-      showConfirmDeleteModal(ingredient, contentSection);
+      showConfirmDeleteModal(ingredient, getContentSection());
     };
   });
 
   // Add the add ingredient button at the end of the list of rendered ingredients
-  buttonFactory.createAndAppendButton('Add Ingredient', 'add-item-button', contentSection, null);
+  buttonFactory.createAndAppendButton('Add Ingredient', 'add-item-button', getContentSection(), null);
 }
 
 /**
@@ -60,10 +72,9 @@ function renderIngredients(ingredients, contentSection) {
  * Once the confirm takes place, the ingredient list is re-rendered by calling displayAllIngredients again.
  * 
  * @param {Object} ingredient - The ingredient object.
- * @param {HTMLElement} contentSection - The parent HTML element for the results section.
  * @returns {void}
  */
-function showConfirmDeleteModal(ingredient, contentSection) {
+function showConfirmDeleteModal(ingredient) {
   const confirmModal = modalRenderer.renderGlobalModal();
 
   confirmModal.windowTitle.textContent = 'Confirm Delete';
@@ -77,9 +88,7 @@ function showConfirmDeleteModal(ingredient, contentSection) {
       console.error(message);
     }
 
-    // Refresh the updated list after deletion
-    contentSection.innerHTML = '';
-    displayIngredients(contentSection);
+    displayIngredients();
   }
 
   // Add the cancel button
