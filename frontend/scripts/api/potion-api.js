@@ -77,8 +77,8 @@ export async function fetchPotionTypes() {
   return types;
 }
 
-export async function fetchPotionsWithFilter(filterBy, searchFor) {
-  const response = await fetch(`http://localhost:8080/potions/filter/${filterBy.toLowerCase()}/${searchFor}`, { method: 'GET' });
+export async function fetchPotionsWithFilters() {
+  const response = await fetch('http://localhost:8080/potions/search', { method: 'GET' });
 
   if (!response.ok) {
     const message = await errorHandler.parseError(response);
