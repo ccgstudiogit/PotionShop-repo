@@ -56,8 +56,15 @@ export async function getPotionTypes() {
   return types;
 }
 
-export async function getPotionsWithFilters() {
+export async function getPotionsWithFilters(name, types) {
+  const potions = await potionApi.fetchPotionsWithFilters(name, types);
+  potions.forEach((potion) => {
+    potion.ingredients = potion.ingredients.map(ingredient =>
+      normalizeDTO.normalizeIngredient(ingredient)
+    );
+  });
   
+  return potions;
 }
 
 /**

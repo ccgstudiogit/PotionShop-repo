@@ -77,8 +77,21 @@ export async function fetchPotionTypes() {
   return types;
 }
 
-export async function fetchPotionsWithFilters() {
-  const response = await fetch('http://localhost:8080/potions/search', { method: 'GET' });
+export async function fetchPotionsWithFilters(name, types) {
+  const baseUrl = 'http://localhost:8080/potions/search';
+  const url = new URL(baseUrl);
+
+  if (name) {
+    url.searchParams.set('name', name);
+  }
+
+  if (types && types.length > 0) {
+    types.forEach(type => {
+      url.searchParams.append('type', type);
+    });
+  }
+
+  const response = await fetch(url, { method: 'GET' });
 
   if (!response.ok) {
     const message = await errorHandler.parseError(response);

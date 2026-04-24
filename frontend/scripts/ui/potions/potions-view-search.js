@@ -52,7 +52,7 @@ async function search(nameInput, typeDropdown) {
   const types = [];
   for (let i = 0; i < typeDropdown.dropdownSelection.options.length; i++) {
     const type = typeDropdown.dropdownSelection.options[i];
-    if (type.selected && type.value !== 'Any') {
+    if (type.selected) {
       types.push(type.value);
     }
   }
@@ -62,4 +62,6 @@ async function search(nameInput, typeDropdown) {
   }
 
   console.log('submitting');
+  const potions = await potionActions.getPotionsWithFilters(name, types);
+  console.log(potions);
 }
