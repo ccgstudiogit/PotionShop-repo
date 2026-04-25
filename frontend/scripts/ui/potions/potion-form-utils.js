@@ -41,7 +41,7 @@ export async function createTypeInput(parent) {
   const title = elementFactory.createAndAppendElement('p', ['form-input-title', 'font-jersey'], container);
   title.textContent = 'Type:';
 
-  const dropdown = dropdownRenderer.createAndAppendDropdownShell('custom-select', 'font-jersey', container);
+  const dropdown = dropdownRenderer.createAndAppendDropdownShell(['custom-select', 'custom-select-wide-padding'], 'font-jersey', container);
   const selection = dropdown.selection;
 
   // Fetch the types from the backend so they are always accurate and up-to-date

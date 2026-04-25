@@ -4,6 +4,7 @@ import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as potionActions from '../../actions/potion-actions.js';
 import * as resultsView from './potions-view-results.js';
+import * as dropdown from '../components/dropdown.js';
 
 export function renderSearchPanel() {
   const mainContent = baseView.getMainContent();
@@ -15,7 +16,7 @@ export function renderSearchPanel() {
 async function renderSearchFields(searchPanel) {
   try {
     // Searching by name field
-    const nameInput = searchViewUtils.createSearchBar('Search potions by name...', searchPanel);
+    const nameInput = searchViewUtils.createSearchBarWithTitle('Search potions by name...', searchPanel);
 
     // Selecting by types
     const typeDropdown = searchViewUtils.createEmptyDropdownFilter(searchPanel);
@@ -34,12 +35,35 @@ async function renderSearchFields(searchPanel) {
     });
 
     // Searching by price
-    const priceInput = searchViewUtils.createSmallSearchBar('Price...', searchPanel);
-    priceInput.title.textContent = 'Price:';
-    priceInput.input.onchange = () => {
-      const val = Number(priceInput.input.value);
+    const priceInputContainer = elementFactory.createAndAppendElement('div', 'search-panel-field-container', searchPanel);
+    const priceTitle = elementFactory.createAndAppendElement('p', ['search-panel-field-title', 'font-jersey'], priceInputContainer);
+    priceTitle.textContent = 'Price:';
+
+    // Create and configure the dropdown for selecting the inequality sign for price filtering
+    const inequalitySignDropdown = dropdown.createAndAppendDropdownShell(
+      ['custom-select', 'custom-select-thin-padding', 'search-panel-inequality-dropdown'], 
+      'font-jersey', 
+      priceInputContainer
+    );
+    const lessThanOption = elementFactory.createAndAppendElement('option', null, inequalitySignDropdown.selection);
+    lessThanOption.value = '<';
+    lessThanOption.textContent = '<';
+    const greaterThanOption = elementFactory.createAndAppendElement('option', null, inequalitySignDropdown.selection);
+    greaterThanOption.value = '>';
+    greaterThanOption.textContent = '>';
+    const lessThanOrEqualOption = elementFactory.createAndAppendElement('option', null, inequalitySignDropdown.selection);
+    lessThanOrEqualOption.value = '<=';
+    lessThanOrEqualOption.textContent = '<=';
+    const greaterThanOrEqualOption = elementFactory.createAndAppendElement('option', null, inequalitySignDropdown.selection);
+    greaterThanOrEqualOption.value = '>=';
+    greaterThanOrEqualOption.textContent = '>=';
+
+    // Create the price input field and add validation to ensure only integers can be entered
+    const priceInput = searchViewUtils.createSmallSearchBar('Price...', priceInputContainer);
+    priceInput.onchange = () => {
+      const val = Number(priceInput.value);
       if (Number.isNaN(val) || !Number.isInteger(val)) {
-        priceInput.input.value = '';
+        priceInput.value = '';
       }
     }
 

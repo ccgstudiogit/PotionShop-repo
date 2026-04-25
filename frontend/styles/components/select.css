@@ -1,15 +1,22 @@
 .custom-select,
 .custom-select-no-arrows {
-  min-width: 100px;
+  min-width: 55px;
 
   position: relative;
+}
+
+.custom-select-wide-padding select {
+  padding: 0.125em 2.75em 0.125em 0.5em;
+}
+
+.custom-select-thin-padding select {
+  padding: 0.125em 0.5em 0.125em 0.5em;
 }
 
 .custom-select select,
 .custom-select-no-arrows select {
   appearance: none;
 
-  padding: 0.125em 2.75em 0.125em 0.5em;
   width: 100%;
 
   border-style: solid;

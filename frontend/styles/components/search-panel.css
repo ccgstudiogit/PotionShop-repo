@@ -31,7 +31,7 @@
   display: flex;
   align-items: center;
 
-  margin-top: 15px;
+  margin-top: 8px;
   margin-bottom: 0px;
 }
 
@@ -84,4 +84,8 @@
   margin-left: 11px;
 
   font-size: 1.65rem;
+}
+
+.search-panel-inequality-dropdown {
+  margin-right: 11px;
 }
