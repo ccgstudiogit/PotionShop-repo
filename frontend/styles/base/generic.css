@@ -1,3 +1,6 @@
+/*
+  GLOBAL BASE STYLES
+*/
 body {
   background-color: rgb(178, 120, 255);
 
@@ -11,15 +14,16 @@ div {
   margin: 0px;
 }
 
+/*
+  BUTTONS
+*/
 button {
   font-family: "Jersey 15";
   font-size: 2.8rem;
 
   cursor: pointer;
 
-  border-style: solid;
-  border-color: black;
-  border-radius: 5px;
+  border: 1px solid black;
   background-color: white;
 
   padding: 5px 17px;
@@ -35,19 +39,27 @@ button:active {
   background-color: rgb(185, 185, 185);
 }
 
+/*
+  VERTICAL LINES (used as separators in panels)
+*/
 .line-vertical-full,
 .line-vertical-floating {
   border: 2px solid black;
 }
 
+/* Full-height vertical line (stretches to parent height) */
 .line-vertical-full {
   align-self: stretch;
 }
 
+/* Floating vertical line */
 .line-vertical-floating {
   height: 70%; /* height only works if the parent has a defined height */
 }
 
+/*
+  UTILITY
+*/
 .center-self {
   justify-self: safe center;
   align-self: safe center;

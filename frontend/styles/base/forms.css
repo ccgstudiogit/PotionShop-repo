@@ -1,7 +1,6 @@
 /*
   FORM CONTAINER
 */
-
 /* Root wrapper for all form layouts (add/edit potion forms and add ingredient forms) */
 .form-container {
   flex: 1;
@@ -35,7 +34,6 @@
 /*
   INPUT ROWS
 */
-
 /* Each row contains a title + input element(s), so the container makes sure they are properly aligned */
 .form-input-container {
   display: flex;
@@ -90,7 +88,6 @@
 /*
   INGREDIENTS SECTION (for the add/edit potion forms)
 */
-
 /* Container for the ingredients input */
 .potion-form-ingredients-container {
   flex: 1;

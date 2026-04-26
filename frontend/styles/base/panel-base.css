@@ -1,3 +1,6 @@
+/*
+  PANEL ROOTS
+*/
 .panel {
   display: flex;
 
@@ -6,6 +9,7 @@
   min-height: 25px; /* Mainly here for debug when creating a new panel to see it's being generated */
 }
 
+/* Background container for all panels */
 .panel-background {
   flex: 1;
 
@@ -14,6 +18,9 @@
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
+/*
+  FLEX HELPERS
+*/
 .panel-flex-row,
 .panel-flex-col {
   flex: 1;
@@ -34,6 +41,10 @@
   align-items: center;
 }
 
+/*
+  SCROLLING
+*/
+/* overflow-x is hidden to prevent horizontal scrolling */
 .panel-scrollable {
   overflow-y: auto;
   overflow-x: hidden;
