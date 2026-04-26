@@ -22,7 +22,7 @@
 }
 
 .search-panel-fields-header,
-.search-panel-options-header {
+.search-panel-actions-header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,7 +33,7 @@
   flex: 3.5;
 }
 
-.search-panel-options-header {
+.search-panel-actions-header {
   flex: 1;
 }
 
@@ -62,8 +62,8 @@
   gap: 3px;
 }
 
-/* Right side: options */
-.search-panel-options {
+/* Right side: actions */
+.search-panel-actions {
   flex: 1;
   display: flex;
   flex-direction: column;

@@ -12,13 +12,13 @@ let searchPanel;
  *
  * @returns {{
  *   searchFieldsContainer: HTMLDivElement,
- *   searchOptionsContainer: HTMLDivElement
+ *   searchActionsContainer: HTMLDivElement
  * }} The search panel container element.
  */
 export function getSearchPanel() {
   return {
     searchFieldsContainer: searchPanel.searchFieldsContainer,
-    searchOptionsContainer: searchPanel.searchOptionsContainer
+    searchActionsContainer: searchPanel.searchActionsContainer
   };
 }
 
@@ -34,36 +34,32 @@ function setSearchPanel(panel) {
 }
 
 /**
- * Renders the full search panel UI, including the name field, type filter, price filter, and search button. This function initializes the panel and
- * delegates rendering of each individual search field.
- *
- * @returns {void}
- */
-export function renderSearchPanel() {
-  const mainContent = baseView.getMainContent();
-  const searchPanel = baseView.renderBaseSearchPanel(mainContent);
-  setSearchPanel(searchPanel);
-
-  renderSearchFields();
-  renderSearchOptions();
-}
-
-/**
- * Renders all search fields inside the search panel:
- * - Name search input
- * - Type multi-select dropdown
- * - Price inequality + value input
- * - Search button
+ * Renders the full search panel UI, including the name field, type filter, price filter, and search button.
  *
  * @async
  * @returns {void}
  */
-async function renderSearchFields() {
+export async function renderSearchPanel() {
+  const mainContent = baseView.getMainContent();
+  const searchPanel = baseView.renderBaseSearchPanel(mainContent);
+  setSearchPanel(searchPanel);
+
   try {
+    // Render the search fields and search button
     const nameInput = renderNameSearchField();
     const typeDropdown = await renderTypeSearchField();
     const priceInput = renderPriceSearchField();
     renderSearchButton(nameInput.input, typeDropdown, priceInput.inequalitySignDropdown, priceInput.input);
+
+    // Keep references so the the actions buttons can access them
+    const inputs = {
+      nameInput,
+      typeDropdown,
+      priceInput
+    };
+
+    // Render the actions buttons (e.g. Clear Filters, etc.)
+    renderClearFiltersButton(inputs);
   } catch (message) {
     console.error(message);
   }
@@ -240,10 +236,27 @@ async function search(nameInput, typeDropdown, inequalitySignDropdown, priceInpu
   }
 }
 
-function renderSearchOptions() {
-  renderClearFiltersButton();
-}
+/**
+ * Renders the "Clear Filters" button inside the search panel's actions area. When clicked, it resets all search filter inputs to their default states,
+ * including:
+ * - Clearing the name text field
+ * - Deselecting all potion type options
+ * - Resetting the price inequality dropdown to its default option
+ * - Clearing the price input field
+ *
+ * @param {Object} inputs - A collection of references to all search filter inputs.
+ * @param {Object} inputs.nameInput - The name search field component.
+ * @param {Object} inputs.typeDropdown - The potion type dropdown component.
+ * @param {Object} inputs.priceInput - The price filter component.
+ * @returns {HTMLButtonElement} The rendered "Clear Filters" button element.
+ */
+function renderClearFiltersButton(inputs) {
+  const clearFiltersButton = buttonFactory.createAndAppendButton('Clear Filters', 'search-panel-button', getSearchPanel().searchActionsContainer, () => {
+    inputs.nameInput.input.value = '';
+    inputs.typeDropdown.dropdownSelection.selectedIndex = -1; // Deselect all options
+    inputs.priceInput.inequalitySignDropdown.selection.selectedIndex = 0;
+    inputs.priceInput.input.value = '';
+  });
 
-function renderClearFiltersButton() {
-  const clearFiltersButton = buttonFactory.createAndAppendButton('Clear Filters', 'search-panel-button', getSearchPanel().searchOptionsContainer, null);
+  return clearFiltersButton;
 }

@@ -99,23 +99,23 @@ export function renderBaseSearchPanel(parent) {
 
   const headerSeparatorLine = elementFactory.createAndAppendElement('div', 'line-vertical-full', header);
 
-  const searchOptionsTitleContainer = elementFactory.createAndAppendElement('div', 'search-panel-options-header', header);
-  const searchOptionsTitle = elementFactory.createAndAppendElement('p', ['search-panel-header-title', 'font-jersey'], searchOptionsTitleContainer);
-  searchOptionsTitle.textContent = 'Actions';
+  const searchActionsTitleContainer = elementFactory.createAndAppendElement('div', 'search-panel-actions-header', header);
+  const searchActionsTitle = elementFactory.createAndAppendElement('p', ['search-panel-header-title', 'font-jersey'], searchActionsTitleContainer);
+  searchActionsTitle.textContent = 'Actions';
 
   // Content
   const content = elementFactory.createAndAppendElement('div', 'search-panel-content', container);
   const searchFieldsContainer = elementFactory.createAndAppendElement('div', 'search-panel-fields', content);
   const separatorLine = elementFactory.createAndAppendElement('div', 'line-vertical-full', content);
-  const searchOptionsContainer = elementFactory.createAndAppendElement('div', 'search-panel-options', content);
+  const searchActionsContainer = elementFactory.createAndAppendElement('div', 'search-panel-actions', content);
 
   return {
     root: container,
     header,
     searchFieldsTitle,
-    searchOptionsTitle,
+    searchActionsTitle,
     content,
     searchFieldsContainer,
-    searchOptionsContainer
+    searchActionsContainer
   }
 }
