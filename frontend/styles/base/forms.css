@@ -1,3 +1,8 @@
+/*
+  FORM CONTAINER
+*/
+
+/* Root wrapper for all form layouts (add/edit potion forms and add ingredient forms) */
 .form-container {
   flex: 1;
 
@@ -9,14 +14,13 @@
   max-width: 1350px;
   width: 100%;
 
-  border-style: solid;
-  border-width: 2px;
-  border-color: black;
+  border: 2px solid black;
   background-color: rgb(155, 172, 230);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
-.form-container .form-title {
+/* Title bar at the top of the form */
+.form-title {
   font-size: 2.25rem;
   font-weight: bold;
 
@@ -28,7 +32,12 @@
   text-align: center;
 }
 
-.form-container .form-input-container {
+/*
+  INPUT ROWS
+*/
+
+/* Each row contains a title + input element(s), so the container makes sure they are properly aligned */
+.form-input-container {
   display: flex;
 
   margin-top: 6px;
@@ -36,22 +45,21 @@
 }
 
 /* The name/title of the input (e.g. for potion: Name, Type, Price, etc.) */
-.form-input-container .form-input-title {
+.form-input-title {
   margin-left: 14px;
   margin-right: 20px;
 
   font-size: 2rem;
 }
 
-.form-input-container .form-input-string,
-.form-input-container .form-input-int,
-.form-input-container .potion-form-input-ing-quantity {
+/* Base styles shared by all input types */
+.form-input-string,
+.form-input-int,
+.potion-form-input-ing-quantity {
   margin: 0px 20px 0px 0px;
-  padding: 0px 8px 0px 8px;
+  padding: 0px 8px;
 
-  border-style: solid;
-  border-width: 1px;
-  border-color: black;
+  border: 1px solid black;
   border-radius: 6px;
 
   font-size: 1.35rem;
@@ -59,19 +67,18 @@
 }
 
 /* Longform input (e.g. for potion: Name, Effect) */
-.form-input-container .form-input-string {
+.form-input-string {
   flex: 1;
 }
 
 /* Shorter input bar (e.g. for potion: Price) */
-.form-input-container .form-input-int {
+.form-input-int {
   max-width: 100px;
 }
 
-.form-input-container .form-input-dropdown-select {
-  border-style: solid;
-  border-width: 1px;
-  border-color: black;
+/* Dropdown select styling */
+.form-input-dropdown-select {
+  border: 1px solid black;
   border-radius: 6px;
 
   font-size: 1.35rem;
@@ -80,7 +87,11 @@
   cursor: pointer;
 }
 
-/* Specific to the add potion form */
+/*
+  INGREDIENTS SECTION (for the add/edit potion forms)
+*/
+
+/* Container for the ingredients input */
 .potion-form-ingredients-container {
   flex: 1;
 
@@ -90,21 +101,23 @@
   margin: -6px 12px 6px 12px;
 }
 
+/* Quantity input for each ingredient */
 .potion-form-input-ingredient-quantity {
   margin-left: 6px;
-  padding: 0px 3px 0px 3px;
+  padding: 0px 3px;
 
   max-width: 25px;
 
   font-size: 1.85rem;
 }
 
+/* Dropdown container for selecting an ingredient */
 .potion-form-ingredient-dropdown-container {
   max-width: 350px;
-
   align-self: center;
 }
 
+/* Remove ingredient button */
 .potion-form-remove-ingredient-button {
   margin-left: auto; /* Pushes all the way to the right */
   margin-right: 11px;
@@ -112,6 +125,7 @@
   font-size: 1.5rem;
 }
 
+/* Submit button at the bottom of the form */
 .potion-form-submit-button {
   margin-top: 15px;
   margin-bottom: 15px;
