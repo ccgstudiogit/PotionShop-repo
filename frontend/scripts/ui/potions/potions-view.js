@@ -15,5 +15,3 @@ export async function renderPotionsView() {
   potionSearch.renderSearchPanel();
   potionsResults.renderResultsPanel();
 }
-
-

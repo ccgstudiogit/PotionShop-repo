@@ -7,14 +7,32 @@ import * as dropdownRenderer from '../components/dropdown.js';
 
 let searchPanel;
 
+/**
+ * Returns the current search panel DOM element. Used by other modules to access the container where search fields are rendered.
+ *
+ * @returns {HTMLElement} The search panel container element.
+ */
 export function getSearchPanel() {
   return searchPanel;
 }
 
+/**
+ * Sets the internal reference to the search panel container. This is called when the search panel is first rendered and allows other functions in
+ * this module to access the panel without passing it around.
+ *
+ * @param {HTMLElement} panel - The search panel container element.
+ * @returns {void}
+ */
 function setSearchPanel(panel) {
   searchPanel = panel;
 }
 
+/**
+ * Renders the full search panel UI, including the name field, type filter, price filter, and search button. This function initializes the panel and
+ * delegates rendering of each individual search field.
+ *
+ * @returns {void}
+ */
 export function renderSearchPanel() {
   const mainContent = baseView.getMainContent();
   const searchPanel = baseView.renderBaseSearchPanel(mainContent);
@@ -23,6 +41,16 @@ export function renderSearchPanel() {
   renderSearchFields(getSearchPanel());
 }
 
+/**
+ * Renders all search fields inside the search panel:
+ * - Name search input
+ * - Type multi-select dropdown
+ * - Price inequality + value input
+ * - Search button
+ *
+ * @async
+ * @returns {void}
+ */
 async function renderSearchFields() {
   try {
     const nameInput = renderNameSearchField();
@@ -34,6 +62,15 @@ async function renderSearchFields() {
   }
 }
 
+/**
+ * Renders the name search field, including its title and input box.
+ *
+ * @returns {{
+ *   root: HTMLDivElement,
+ *   title: HTMLParagraphElement,
+ *   input: HTMLInputElement
+ * }} An object containing references to the container, title, and input element.
+ */
 function renderNameSearchField() {
   const nameInputContainer = elementFactory.createAndAppendElement('div', 'search-panel-field-container', getSearchPanel());
   const nameInputTitle = elementFactory.createAndAppendElement('p', ['search-panel-field-title', 'font-jersey'], nameInputContainer);
@@ -48,6 +85,18 @@ function renderNameSearchField() {
   };
 }
 
+/**
+ * Renders the type filter field, including a multi-select dropdown populated with potion types fetched from the backend. Also displays a tip explaining
+ * how to select multiple values.
+ *
+ * @async
+ * @returns {{
+ *   root: HTMLDivElement,
+ *   title: HTMLParagraphElement,
+ *   dropdownRoot: HTMLDivElement,
+ *   dropdownSelection: HTMLSelectElement
+ * }} A promise resolving to an object containing references to the container, title, dropdown root, and selection element.
+ */
 async function renderTypeSearchField() {
   const typeDropdownContainer = elementFactory.createAndAppendElement('div', 'search-panel-field-container', getSearchPanel());
   const typeDropdownTitle = elementFactory.createAndAppendElement('p', ['search-panel-field-title', 'font-jersey'], typeDropdownContainer);
@@ -74,6 +123,19 @@ async function renderTypeSearchField() {
   };
 }
 
+/**
+ * Renders the price filter field, including:
+ * - A dropdown for selecting an inequality sign (<, >, <=, >=)
+ * - A numeric input for entering the price value
+ * Includes validation to ensure only integer values are accepted.
+ *
+ * @returns {{
+ *   root: HTMLDivElement,
+ *   title: HTMLParagraphElement,
+ *   inequalitySignDropdown: Object,
+ *   input: HTMLInputElement
+ * }} An object containing references to the container, title, inequality dropdown, and price input element.
+ */
 function renderPriceSearchField() {
   const priceInputContainer = elementFactory.createAndAppendElement('div', 'search-panel-field-container', getSearchPanel());
   const priceTitle = elementFactory.createAndAppendElement('p', ['search-panel-field-title', 'font-jersey'], priceInputContainer);
@@ -117,6 +179,15 @@ function renderPriceSearchField() {
   };
 }
 
+/**
+ * Renders the search button and wires it to trigger the search operation. Disables the button while the search is running to prevent duplicate requests.
+ *
+ * @param {HTMLInputElement} nameInput - The name search input element.
+ * @param {Object} typeDropdown - The type dropdown object returned from renderTypeSearchField().
+ * @param {Object} inequalitySignDropdown - The dropdown for selecting the price inequality sign.
+ * @param {HTMLInputElement} priceInput - The price input element.
+ * @returns {HTMLButtonElement} The rendered search button.
+ */
 function renderSearchButton(nameInput, typeDropdown, inequalitySignDropdown, priceInput) {
   const searchButton = buttonFactory.createAndAppendButton('Search', 'search-panel-search-button', getSearchPanel(), null);
   searchButton.addEventListener('click', async () => {
@@ -128,6 +199,17 @@ function renderSearchButton(nameInput, typeDropdown, inequalitySignDropdown, pri
   return searchButton;
 }
 
+/**
+ * Executes the search operation by collecting all filter values, sending them to the backend via the actions layer, sorting the results, and rendering them
+ * in the results panel.
+ *
+ * @async
+ * @param {HTMLInputElement} nameInput - The name search input element.
+ * @param {Object} typeDropdown - The type dropdown object containing selected types.
+ * @param {Object} inequalitySignDropdown - The dropdown containing the selected inequality sign.
+ * @param {HTMLInputElement} priceInput - The price input element.
+ * @returns {Promise<void>}
+ */
 async function search(nameInput, typeDropdown, inequalitySignDropdown, priceInput) {
   const name = nameInput.value;
 

@@ -9,14 +9,33 @@ import * as modalRenderer from '../components/modal.js';
 
 let contentSection;
 
+/**
+ * Returns the current content section where potion results are rendered. This allows other modules (such as the search panel) to access
+ * and update the results area without passing the DOM node around manually.
+ *
+ * @returns {HTMLElement} The DOM element representing the results content section.
+ */
 export function getContentSection() {
   return contentSection;
 }
 
-export function setContentSection(section) {
+/**
+ * Sets the internal reference to the content section used for rendering potion results. This is called when the results panel is first
+ * created and ensures that all rendering functions operate on the correct DOM container.
+ *
+ * @param {HTMLElement} section - The DOM element to use as the results content section.
+ * @returns {void}
+ */
+function setContentSection(section) {
   contentSection = section;
 }
 
+/**
+ * Renders the fixed results panel and initializes the content section where potion results will be displayed. After setting the content
+ * section, this function triggers the initial rendering of all potions.
+ *
+ * @returns {void}
+ */
 export function renderResultsPanel() {
   const mainContent = baseView.getMainContent();
   const resultsPanel = baseView.renderFixedPanel(mainContent);
@@ -27,6 +46,7 @@ export function renderResultsPanel() {
 /**
  * Fetches all potions from the backend via the API layer and renders the potions under the input parent element.
  * 
+ * @async
  * @returns {void}
  */
 async function displayPotions() {
@@ -80,6 +100,7 @@ export function renderPotions(potions) {
  * Renders the edit potion form by clearing the main content area, creating a dynamic panel, and injecting the edit form for the
  * specified potion into that panel.
  *
+ * @async
  * @param {Object} potion - The potion object to edit.
  * @returns {void}
  */
@@ -120,10 +141,16 @@ function showConfirmDeleteModal(potion) {
   });
 }
 
+/**
+ * Renders the "Add Potion" form by clearing the main content area and creating a new dynamic panel. The add potion form is then injected into
+ * this panel.
+ *
+ * @returns {void}
+ */
 function renderAddForm() {
   baseView.refresh();
   const mainContent = baseView.getMainContent();
   const panel = baseView.renderDynamicPanel(mainContent);
 
-  potionAddForm.createAddPotionForm(panel.content, 3);
+  potionAddForm.createAddPotionForm(panel.content, 3); // 3 random starting ingredients
 }
