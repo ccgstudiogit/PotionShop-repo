@@ -1,7 +1,9 @@
+/*
+  SPECIFIC BUTTON STYLES
+*/
+/* This button is used to add potions/ingredients. This is found at the bottom of the results panel, underneath all items */
 .add-item-button {
   margin: 16px;
-
   max-width: 60ch; /* Matches the width of ~60 characters */
-
   align-self: safe center;
 }

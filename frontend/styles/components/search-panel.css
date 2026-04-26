@@ -1,10 +1,15 @@
+/*
+  SEARCH PANEL ROOT
+*/
 /* Root layout */
 .search-panel {
   display: flex;
   flex-direction: column;
 }
 
-/* Header */
+/*
+  HEADER
+*/
 .search-panel-header {
   display: flex;
   align-items: center;
@@ -23,6 +28,7 @@
   align-items: center;
 }
 
+/* The flexes for the header must match the search-panel-content/fields */
 .search-panel-fields-header {
   flex: 3.5;
 }
@@ -35,6 +41,9 @@
   font-size: 1.5rem;
 }
 
+/*
+  CONTENT (fields + options)
+*/
 /* Content row */
 .search-panel-content {
   flex: 1;
@@ -58,9 +67,13 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 3px;
 }
 
+/*
+  COMPONENTS
+*/
 /* Field container */
 .search-panel-field-container {
   display: flex;

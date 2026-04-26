@@ -1,3 +1,7 @@
+/*
+  BASE SELECT WRAPPERS
+*/
+/* These wrap the native <select> element and allow styling */
 .custom-select,
 .custom-select-no-arrows {
   min-width: 65px;
@@ -5,6 +9,9 @@
   position: relative;
 }
 
+/*
+  PADDING VARIANTS
+*/
 .custom-select-wide-padding select {
   padding: 0.125em 2.75em 0.125em 0.5em;
 }
@@ -13,6 +20,9 @@
   padding: 0.125em 0.5em 0.125em 0.5em;
 }
 
+/*
+  BASE <select> STYLING (shared by both arrowed and arrowless versions)
+*/
 .custom-select select,
 .custom-select-no-arrows select {
   appearance: none;
@@ -32,6 +42,7 @@
   cursor: pointer;
 }
 
+/* Option styling inside the dropdown */
 .custom-select option,
 .custom-select-no-arrows option {
   background-color: white;
@@ -55,6 +66,7 @@
   pointer-events: none;
 }
 
+/* Upward arrow */
 .custom-select::before {
   border-left: var(--size) solid transparent;
   border-right: var(--size) solid transparent;
@@ -63,6 +75,7 @@
   top: 35%;
 }
 
+/* Downward arrow */
 .custom-select::after {
   border-left: var(--size) solid transparent;
   border-right: var(--size) solid transparent;

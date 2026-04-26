@@ -1,3 +1,6 @@
+/*
+  INGREDIENT ITEM (outer card)
+*/
 /* Overall container that acts as the outer card */
 .ingredient-item {
   flex: 1;
@@ -9,23 +12,21 @@
   min-height: 60px;
   max-height: 64px;
 
-  border-style: solid;
-  border-color: black;
-  border-width: 2px;
+  border: 2px solid black;
 }
 
-/* 
+/*
+  DISPLAY AREA (image + info):
     Container for the display area within each ingredient (for the image and info). This is kept separate from
     .ingredient-item so future UI changes (like adding controls or extra fields) don’t affect the visual block styling.
  */
-.ingredient-item .ingredient-display {
+.ingredient-display {
   flex: 1;
-
   display: flex;
-
   background-color: rgb(187, 153, 226);
 }
 
+/* Pixelated style, this rendering is needed to make sure the icons are not blurry */
 .ingredient-display .ingredient-icon {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
@@ -37,14 +38,17 @@
   margin-left: -1px;
 }
 
-.ingredient-display .ingredient-info {
+/* Container for ingredient name, rarity, quantity, etc. */
+.ingredient-info {
   /* Flex is shared with .ingredient-icon */
   flex: 1;
-
   display: flex;
   align-items: center;
 }
 
+/*
+  TEXT FIELDS (name, rarity, quantity)
+*/
 .ingredient-info .ingredient-name {
   padding-left: 8px;
   margin-right: 30px;
@@ -55,7 +59,6 @@
 
 .ingredient-info .ingredient-rarity {
   margin-right: 30px;
-  
   font-style: italic;
   font-size: 2.5rem;
 }
@@ -64,6 +67,9 @@
   font-size: 2.5rem;
 }
 
+/*
+  REMOVE BUTTON
+*/
 .ingredient-info .ingredient-remove-button {
   margin-left: auto;
   margin-right: 10px;

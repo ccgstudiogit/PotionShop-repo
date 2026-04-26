@@ -1,4 +1,7 @@
-/* The overall container for */
+/*
+  MODAL OVERLAY (fullscreen darkened background + centering container)
+*/
+/* Overall container for the modal */
 .modal-container {
   position: fixed;
   z-index: 9999; /* Make sure this appears above everything else */
@@ -15,6 +18,9 @@
   background-color: rgba(85, 85, 85, 0.685);
 }
 
+/*
+  MODAL WINDOW (the actual box)
+*/
 .modal-container .modal-window {
   display: flex;
   flex-direction: column;
@@ -23,16 +29,16 @@
 
   box-sizing: border-box;
 
-  border-style: solid;
-  border-width: 2px;
+  border: 2px solid black;
   border-radius: 8px;
-  border-color: black;
-
   background-color: rgb(208, 199, 241);
 
   overflow: hidden; /* Prevents the .modal-title width: 100% from clipping the border-radius */
 }
 
+/*
+  TITLE
+*/
 .modal-window .modal-title {
   width: 100%;
 
@@ -48,11 +54,13 @@
 
 /* The line between the title and text */
 .modal-window .modal-line {
-  border: 1px solid black;
-  
   width: 100%;
+  border: 1px solid black;
 }
 
+/*
+  TEXT CONTENT
+*/
 .modal-window .modal-text {
   margin: 15px;
 
@@ -64,13 +72,17 @@
   font-size: 2.75rem;
 }
 
+/*
+  BUTTONS
+*/
+/* Container for the buttons. Gives the ability for scripts to add more buttons within the container */
 .modal-window .modal-button-container {
   display: flex;
   gap: 45px;
 }
 
+/* The actual button styling */
 .modal-button-container .modal-button {
   margin-bottom: 15px;
-
   font-size: 2.75rem;
 }

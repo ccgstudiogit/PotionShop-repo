@@ -1,3 +1,6 @@
+/*
+   POTION ITEM (outer card)
+*/
 /* Overall container that acts as the outer card */
 .potion-item {
   display: flex;
@@ -5,12 +8,14 @@
 
   margin: -5px 0px 8px 0px;
 
+  border-width: 3px 0px;
   border-style: solid;
-  border-width: 3px 0px 3px 0px;
 }
 
-/* Container for the display area within each potion (for the image and info) */
- .potion-item .potion-display {
+/*
+   DISPLAY AREA (image + info)
+*/
+.potion-item .potion-display {
   flex: 1;
 
   display: flex;
@@ -20,6 +25,7 @@
   background-color: rgb(155, 172, 230);
 }
 
+/* Potion icon (pixelated style) */
 .potion-display .potion-icon {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
@@ -27,21 +33,24 @@
   height: 150px;
   width: 150px;
 
-  border-style: solid;
   border-width: 0px 3px 3px 0px;
+  border-style: solid;
 }
 
+/* Container for potion name, type, price, effect, etc. */
 .potion-display .potion-info {
-  /* Flex is shared with .potion-icon */
   flex: 1;
 
   display: flex;
   flex-direction: column;
 
-  border-style: solid;
   border-width: 0px 0px 3px 0px;
+  border-style: solid;
 }
 
+/*
+   HEADER (name, type, price, edit button)
+*/
 /* Header can contain additional information (for potions, it's name and type) */
 .potion-info .potion-info-header {
   flex: 1;
@@ -51,19 +60,9 @@
 
   margin-top: 0px;
 
+  border-width: 0px 0px 3px 0px;
   border-style: solid;
   border-color: black;
-  border-width: 0px 0px 3px 0px;
-}
-
-.potion-info .potion-info-body {
-  flex: 1;
-
-  display: flex;
-}
-
-.potion-item .potion-ingredients-container {
-  background-color: rgb(119, 134, 182);
 }
 
 .potion-info-header .potion-name {
@@ -84,20 +83,18 @@
   font-size: 3rem;
 }
 
-/* Container for the price icon and price value */
+/* Price container (icon + value) */
 .potion-info-header .potion-price-container {
   display: flex;
-
   align-items: center;
 }
 
 .potion-price-container .potion-price-icon {
   margin: 0px;
-  
+
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 
-  /* NOTE: I couldn't figure out a way to scale this with the parent containers so for now I'm setting fixed dimensions */
   height: 55px;
   width: 55px;
 }
@@ -106,8 +103,9 @@
   font-size: 2rem;
 }
 
+/* Edit button (top-right) */
 .potion-info-header .potion-edit-button {
-  margin-left: auto; /* Pushes all the way to the right */
+  margin-left: auto;
   margin-right: 10px;
 
   align-self: center;
@@ -115,10 +113,17 @@
   font-size: 1.65rem;
 }
 
-.potion-info-body .potion-effect {
-  font-size: 2rem;
+/*
+  BODY (effect text + remove button)
+*/
+.potion-info .potion-info-body {
+  flex: 1;
+  display: flex;
+}
 
+.potion-info-body .potion-effect {
   padding-left: 8px;
+  font-size: 2rem;
 }
 
 .potion-info-body .potion-remove-button {
@@ -130,6 +135,14 @@
   font-size: 1.65rem;
 }
 
+/*
+  INGREDIENTS SECTION
+*/
+.potion-item .potion-ingredients-container {
+  background-color: rgb(119, 134, 182);
+}
+
+/* Expand/collapse ingredients button */
 .potion-item .potion-ingredients-button-container {
   display: flex;
 }
@@ -138,16 +151,14 @@
   margin: -2px 0px 2px 10px;
   padding: 0px;
 
-  background-color: rgba(0, 0, 0, 0);
-  border-style: none;
+  background-color: transparent;
+  border: none;
 
   font-size: 1.25rem;
 }
 
-.potion-ingredients-button:hover {
-  background-color: rgba(0, 0, 0, 0);
-}
-
+/* Prevent hover/active from adding background */
+.potion-ingredients-button:hover,
 .potion-ingredients-button:active {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
 }
