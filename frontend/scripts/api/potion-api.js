@@ -194,7 +194,7 @@ export async function addPotion(name, type, price, effect, quantityInputs) {
  * @param {string} type - Updated potion type (must match backend PotionType enum).
  * @param {number|string} price - Updated potion price.
  * @param {string} effect - Updated potion effect.
- * @param {Object<string, HTMLInputElement>} quantityInputs - Map of ingredientId → quantity input element.
+ * @param {Object<string, HTMLInputElement>} quantityInputs - Map of ingredientId -> quantity input element.
  * @returns {Promise<Object>} The updated potion (PotionWithIngredientsDTO) returned by the backend.
  * @throws {Error} If the backend responds with a non-OK status.
  */

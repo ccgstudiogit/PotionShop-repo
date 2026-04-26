@@ -223,10 +223,28 @@ public class PotionService {
     }
 
     /**
-     * Updates a potion's fields based on its id as well as updating its ingredient relationships.
+     * Updates a potion's core fields and fully replaces its ingredient relationships.
      *
-     * <p>After applying updates, this method verifies that the resulting potion does not duplicate an existing
-     * name–type combination.</p>
+     * <p>This method performs a complete update of a potion, including:</p>
+     * <ul>
+     *   <li>Updating the potion's name, type, effect, and price</li>
+     *   <li>Removing all existing potion–ingredient relationships</li>
+     *   <li>Recreating the ingredient list based on the provided update DTO</li>
+     * </ul>
+     *
+     * <p><strong>Uniqueness rule:</strong> A potion's name–type combination must be unique. This method only performs a
+     * duplicate check if the user actually changes the name or type. If those fields remain unchanged, the existing
+     * potion is allowed to update in place.</p>
+     *
+     * <p><strong>Ingredient update strategy:</strong> Instead of attempting to diff, merge, or partially update ingredient
+     * relationships, this method deletes all existing relationships and recreates them from the incoming DTO. This
+     * guarantees correct handling of:</p>
+     * <ul>
+     *   <li>Added ingredients</li>
+     *   <li>Removed ingredients</li>
+     *   <li>Changed ingredient quantities</li>
+     *   <li>Reordered ingredient lists</li>
+     * </ul>
      *
      * @param id the id of the potion to update.
      * @param updatedPotionWithIng the new potion values with ingredients.
@@ -234,30 +252,44 @@ public class PotionService {
      * @throws EntityNotFoundException if no potion exists with the given id.
      * @throws EntityExistsException if the updated potion conflicts with an existing one.
      */
+    // This documentation is longer so I can reference it and my decisions for future use
     public PotionWithIngredientsDTO updatePotionWithIngredientsById(Integer id, UpdatePotionWithIngDTO updatedPotionWithIng) {
         Potion potion = potionRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException(
                 String.format("Potion with id %d not found. Unable to update.", id)
             ));
 
+        // Only check for duplicates if the user changes the name or type
+        if (!potion.getName().equals(updatedPotionWithIng.name()) || !potion.getType().equals(updatedPotionWithIng.type())) {
+            checkAndThrowIfPotionExists(potion); // Verify the potion's updated values are not already in the database
+        }
+
         potion.setName(updatedPotionWithIng.name());
         potion.setType(updatedPotionWithIng.type());
         potion.setEffect(updatedPotionWithIng.effect());
         potion.setPrice(updatedPotionWithIng.price());
-        checkAndThrowIfPotionExists(potion); // Verify the potion's updated values are not already in the database
         potionRepository.save(potion);
 
-        List<PotionIngredientDTO> potionIngredientDTOS = new ArrayList<>(); // For returning a list of ingredients
+        // Delete the previous potion ingredient relationships
         List<PotionIngredient> potionIngredients = potionIngredientService.getPotionIngredientsByPotionId(id);
         for (int i = 0; i < potionIngredients.size(); i++) {
-            UpdatePotionIngredientDTO updatedQuantity = potionIngredientMapper.toUpdateDTO(potionIngredients.get(i));
-            PotionIngredient updatedPotionIngredient = potionIngredientService.updatePotionIngredient(
-                potion.getId(),
-                potionIngredients.get(i).getIngredient().getId(),
-                updatedQuantity
+            potionIngredientService.deletePotionIngredient(
+                potionIngredients.get(i).getPotion().getId(),
+                potionIngredients.get(i).getIngredient().getId()
+            );
+        }
+
+        // Update the potion's ingredient list by creating new potion ingredient relationships
+        List<PotionIngredientDTO> potionIngredientDTOS = new ArrayList<>(); // For returning a list of ingredients
+        for (int i = 0; i < updatedPotionWithIng.ingredients().size(); i++) {
+            PotionIngredient newPotionIngredient = new PotionIngredient(
+                potion,
+                potionIngredientService.getIngredientById(updatedPotionWithIng.ingredients().get(i).ingredientId()),
+                updatedPotionWithIng.ingredients().get(i).quantity()
             );
 
-            potionIngredientDTOS.add(potionIngredientMapper.toDTO(updatedPotionIngredient));
+            potionIngredientService.addPotionIngredient(newPotionIngredient);
+            potionIngredientDTOS.add(potionIngredientMapper.toDTO(newPotionIngredient));
         }
 
         return potionMapper.toWithIngredientsDTO(potion, potionIngredientDTOS);
