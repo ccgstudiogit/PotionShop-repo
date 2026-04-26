@@ -1,9 +1,13 @@
+/*
+  TITLE
+*/
+/* Main title text */
 .title {
   margin: 15px auto 15px 15px;
-
   font-size: 3.8rem;
 }
 
+/* Container for the title screen buttons */
 .title-button-container {
   display: flex;
   align-items: center;
@@ -13,10 +17,12 @@
   margin-right: 15px;
 }
 
+/* Individual title screen buttons */
 .title-button-container .title-button {
   font-size: 2.8rem;
 }
 
+/* Separator symbol between buttons */
 .title-button-container .button-separator {
   font-size: 5rem;
   color: black;

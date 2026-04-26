@@ -1,3 +1,6 @@
+/*
+  GENERIC VIEW HELPERS (used by panels and dynamic sections across the UI)
+*/
 .dynamic-content {
   min-height: 210px;
 }
