@@ -73,6 +73,12 @@ public class Potion extends BaseEntity {
         this.price = price;
     }
 
+    /**
+     * A potion is considered equal to another if they share the same id, name, type, effect, and price.
+     *
+     * @param o The reference object with which to compare.
+     * @return True if they share the listed attributes, false if otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {

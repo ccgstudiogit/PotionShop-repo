@@ -94,7 +94,6 @@ export async function fetchPotionsWithFilters(name, types, inequalitySign, price
   if (inequalitySign !== null && price !== null) {
     url.searchParams.set('inequalitySign', inequalitySign);
     url.searchParams.set('price', price);
-    console.log('set');
   }
 
   const response = await fetch(url, { method: 'GET' });

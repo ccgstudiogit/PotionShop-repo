@@ -36,21 +36,45 @@ public class PotionSpecification {
         };
     }
 
+    /**
+     * Creates a Specification that filters potions whose price is less than the input price.
+     *
+     * @param price The price to compare to.
+     * @return A Specification matching potions whose price is strictly less than the input price.
+     */
     public static Specification<Potion> hasPriceLessThan(Integer price) {
         return (root, query, criteriaBuilder) ->
             criteriaBuilder.lessThan(root.get("price"), price);
     }
 
+    /**
+     * Creates a Specification that filters potions whose price is less than or equal to the input price.
+     *
+     * @param price The price to compare to.
+     * @return A Specification matching potions whose price is less than or equal to the input price.
+     */
     public static Specification<Potion> hasPriceLessThanOrEqualTo(Integer price) {
         return (root, query, criteriaBuilder) ->
             criteriaBuilder.lessThanOrEqualTo(root.get("price"), price);
     }
 
+    /**
+     * Creates a Specification that filters potions whose price is greater than the input price.
+     *
+     * @param price The price to compare to.
+     * @return A Specification matching potions whose price is strictly greater than the input price.
+     */
     public static Specification<Potion> hasPriceGreaterThan(Integer price) {
         return (root, query, criteriaBuilder) ->
             criteriaBuilder.greaterThan(root.get("price"), price);
     }
 
+    /**
+     * Creates a Specification that filters potions whose price is greater than or equal to the input price.
+     *
+     * @param price The price to compare to.
+     * @return A Specification matching potions whose price is greater than or equal to the input price.
+     */
     public static Specification<Potion> hasPriceGreaterThanOrEqualTo(Integer price) {
         return (root, query, criteriaBuilder) ->
             criteriaBuilder.greaterThanOrEqualTo(root.get("price"), price);

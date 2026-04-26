@@ -40,6 +40,12 @@ public class Ingredient extends BaseEntity {
         this.rarity = rarity;
     }
 
+    /**
+     * An ingredient is considered equal to another if they share the same id, name, and rarity.
+     *
+     * @param o The reference object with which to compare.
+     * @return True if they share the same listed attributes, false if otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {
