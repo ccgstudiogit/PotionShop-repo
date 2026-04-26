@@ -5,6 +5,8 @@ import * as ingredientRenderer from './ingredient-render.js';
 import * as modalRenderer from '../components/modal.js';
 import * as searchBarRenderer from '../components/search-bar.js';
 
+/* DEPRACTED: REMOVE FROM PROJECT */
+
 /**
  * Clear the current panel and display the ingredients panel.
  * 

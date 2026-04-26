@@ -10,7 +10,7 @@ import * as potionsResults from './potions-view-results.js';
  *
  * @returns {void}
  */
-export async function renderPotionsView() {
+export function renderPotionsView() {
   baseView.refresh();
   potionSearch.renderSearchPanel();
   potionsResults.renderResultsPanel();

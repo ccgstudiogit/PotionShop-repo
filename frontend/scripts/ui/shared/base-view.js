@@ -66,6 +66,21 @@ export function renderFixedPanel(parent) {
   };
 }
 
+/**
+ * Renders the base layout structure for a search panel. This includes:
+ * - A background panel container
+ * - A content wrapper with search panel styling
+ * - A left-side container for search fields
+ * - A vertical separator line
+ * - A right-side container for search options or additional controls
+ *
+ * @param {HTMLElement} parent - The parent element to render the search panel into.
+ * @returns {{
+ *   content: HTMLDivElement,
+ *   searchFieldsContainer: HTMLDivElement,
+ *   searchOptionsContainer: HTMLDivElement
+ * }} An object containing references to the main content wrapper, the search fields container, and the search options container.
+ */
 export function renderBaseSearchPanel(parent) {
   const panel = basePanel.renderPanelBackground(parent);
   const content = elementFactory.createAndAppendElement('div', ['dynamic-content', 'search-panel'], panel.div);

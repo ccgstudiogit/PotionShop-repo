@@ -77,6 +77,24 @@ export async function fetchPotionTypes() {
   return types;
 }
 
+/**
+ * Fetches potions from the backend using the provided filter parameters.
+ * Builds a dynamic query string based on which filters are supplied:
+ *
+ * - name: optional substring match for potion names
+ * - types: optional array of potion types (sent as repeated `type` params)
+ * - inequalitySign + price: optional price filter (e.g., >= 50)
+ *
+ * Only filters that contain valid values are included in the request.
+ *
+ * @async
+ * @param {string|null} name - The name substring to filter by, or null to omit.
+ * @param {string[]|null} types - An array of potion types to include, or null/empty to omit.
+ * @param {string|null} inequalitySign - One of "<", ">", "<=", ">=", or null to omit.
+ * @param {string|number|null} price - The price value to compare against, or null to omit.
+ * @returns {Promise<Object[]>} A promise resolving to an array of potion objects returned by the backend.
+ * @throws {Error} If the backend responds with a non-OK status.
+ */
 export async function fetchPotionsWithFilters(name, types, inequalitySign, price) {
   const baseUrl = 'http://localhost:8080/potions/search';
   const url = new URL(baseUrl);

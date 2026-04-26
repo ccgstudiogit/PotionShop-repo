@@ -56,6 +56,18 @@ export async function getPotionTypes() {
   return types;
 }
 
+/**
+ * Fetches potions from the backend using the provided filter parameters and normalizes each potion's ingredient DTOs.
+ * This function acts as the bridge between the API layer and the UI layer by ensuring all potion data is in a consistent,
+ * frontend-friendly format before being rendered.
+ *
+ * @async
+ * @param {string|null} name - Optional substring to filter potion names.
+ * @param {string[]|null} types - Optional array of potion types to filter by.
+ * @param {string|null} inequalitySign - Optional price comparison operator ("<", ">", "<=", ">=").
+ * @param {string|number|null} price - Optional price value to compare against.
+ * @returns {Promise<Object[]>} A promise resolving to an array of normalized potion objects.
+ */
 export async function getPotionsWithFilters(name, types, inequalitySign, price) {
   const potions = await potionApi.fetchPotionsWithFilters(name, types, inequalitySign, price);
   potions.forEach((potion) => {

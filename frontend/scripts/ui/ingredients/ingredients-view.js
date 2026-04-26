@@ -13,7 +13,7 @@ import * as ingredientsResults from './ingredients-view-results.js';
  *
  * @returns {void}
  */
-export async function renderIngredientsView() {
+export function renderIngredientsView() {
   baseView.refresh();
   ingredientsSearch.renderSearchPanel();
   ingredientsResults.renderResultsPanel();
