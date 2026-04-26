@@ -3,5 +3,5 @@
 }
 
 .fixed-content {
-  height: 540px;
+  max-height: 900px;
 }

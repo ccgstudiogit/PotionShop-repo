@@ -10,10 +10,16 @@ let searchPanel;
 /**
  * Returns the current search panel DOM element. Used by other modules to access the container where search fields are rendered.
  *
- * @returns {HTMLElement} The search panel container element.
+ * @returns {{
+ *   searchFieldsContainer: HTMLDivElement,
+ *   searchOptionsContainer: HTMLDivElement
+ * }} The search panel container element.
  */
 export function getSearchPanel() {
-  return searchPanel;
+  return {
+    searchFieldsContainer: searchPanel.searchFieldsContainer,
+    searchOptionsContainer: searchPanel.searchOptionsContainer
+  };
 }
 
 /**
@@ -36,9 +42,10 @@ function setSearchPanel(panel) {
 export function renderSearchPanel() {
   const mainContent = baseView.getMainContent();
   const searchPanel = baseView.renderBaseSearchPanel(mainContent);
-  setSearchPanel(searchPanel.searchFieldsContainer);
+  setSearchPanel(searchPanel);
 
-  renderSearchFields(getSearchPanel());
+  renderSearchFields();
+  renderSearchOptions();
 }
 
 /**
@@ -72,7 +79,7 @@ async function renderSearchFields() {
  * }} An object containing references to the container, title, and input element.
  */
 function renderNameSearchField() {
-  const nameInputContainer = elementFactory.createAndAppendElement('div', 'search-panel-field-container', getSearchPanel());
+  const nameInputContainer = elementFactory.createAndAppendElement('div', 'search-panel-field-container', getSearchPanel().searchFieldsContainer);
   const nameInputTitle = elementFactory.createAndAppendElement('p', ['search-panel-field-title', 'font-jersey'], nameInputContainer);
   nameInputTitle.textContent = 'Name:';
   const nameInput = elementFactory.createAndAppendElement('input', ['search-panel-searchbar', 'search-panel-searchbar-flex', 'font-jersey'], nameInputContainer);
@@ -98,7 +105,7 @@ function renderNameSearchField() {
  * }} A promise resolving to an object containing references to the container, title, dropdown root, and selection element.
  */
 async function renderTypeSearchField() {
-  const typeDropdownContainer = elementFactory.createAndAppendElement('div', 'search-panel-field-container', getSearchPanel());
+  const typeDropdownContainer = elementFactory.createAndAppendElement('div', 'search-panel-field-container', getSearchPanel().searchFieldsContainer);
   const typeDropdownTitle = elementFactory.createAndAppendElement('p', ['search-panel-field-title', 'font-jersey'], typeDropdownContainer);
   typeDropdownTitle.textContent = 'Type(s):';
   const typeDropdown = dropdownRenderer.createAndAppendDropdownShell(['custom-select-no-arrows', 'custom-select-wide-padding'], 'font-jersey', typeDropdownContainer);
@@ -137,7 +144,7 @@ async function renderTypeSearchField() {
  * }} An object containing references to the container, title, inequality dropdown, and price input element.
  */
 function renderPriceSearchField() {
-  const priceInputContainer = elementFactory.createAndAppendElement('div', 'search-panel-field-container', getSearchPanel());
+  const priceInputContainer = elementFactory.createAndAppendElement('div', 'search-panel-field-container', getSearchPanel().searchFieldsContainer);
   const priceTitle = elementFactory.createAndAppendElement('p', ['search-panel-field-title', 'font-jersey'], priceInputContainer);
   priceTitle.textContent = 'Price:';
 
@@ -189,7 +196,7 @@ function renderPriceSearchField() {
  * @returns {HTMLButtonElement} The rendered search button.
  */
 function renderSearchButton(nameInput, typeDropdown, inequalitySignDropdown, priceInput) {
-  const searchButton = buttonFactory.createAndAppendButton('Search', 'search-panel-search-button', getSearchPanel(), null);
+  const searchButton = buttonFactory.createAndAppendButton('Search', 'search-panel-button', getSearchPanel().searchFieldsContainer, null);
   searchButton.addEventListener('click', async () => {
     searchButton.disabled = true;
     await search(nameInput, typeDropdown, inequalitySignDropdown, priceInput);
@@ -231,4 +238,12 @@ async function search(nameInput, typeDropdown, inequalitySignDropdown, priceInpu
   } catch (message) {
     console.error(message);
   }
+}
+
+function renderSearchOptions() {
+  renderClearFiltersButton();
+}
+
+function renderClearFiltersButton() {
+  const clearFiltersButton = buttonFactory.createAndAppendButton('Clear Filters', 'search-panel-button', getSearchPanel().searchOptionsContainer, null);
 }

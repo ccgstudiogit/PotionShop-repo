@@ -1,56 +1,80 @@
 /* Root layout */
 .search-panel {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+/* Header */
+.search-panel-header {
+  display: flex;
+  align-items: center;
+
+  min-height: 30px;
+  width: 100%;
+
+  background-color: rgb(111, 97, 201);
+  border-bottom: 3px solid black;
+}
+
+.search-panel-fields-header,
+.search-panel-options-header {
+  display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.search-panel-fields-header {
+  flex: 3.5;
+}
+
+.search-panel-options-header {
+  flex: 1;
+}
+
+.search-panel-header-title {
+  font-size: 1.5rem;
+}
+
+/* Content row */
+.search-panel-content {
+  flex: 1;
+
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
 }
 
 /* Left side: fields */
 .search-panel-fields {
   flex: 3.5;
-
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 3px;
 }
 
 /* Right side: options */
 .search-panel-options {
   flex: 1;
-
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 3px;
 }
 
-/* Container for an input field. Holds both the title and the input */
+/* Field container */
 .search-panel-field-container {
-  flex: 1;
-
   display: flex;
   align-items: center;
-
   margin-top: 8px;
-  margin-bottom: 0px;
 }
 
-/* Title for a specific field */
+/* Field title */
 .search-panel-field-title {
   margin: 0px 15px;
-
   font-size: 2rem;
 }
 
-/* Searchbar container */
-.search-panel-searchbar-container {
-  margin: 6px;
-
-  display: flex;
-  align-self: flex-start;
-}
-
-/* Base searchbar styles */
+/* Searchbar base */
 .search-panel-searchbar {
   padding: 10px 8px;
 
@@ -61,10 +85,9 @@
   color: black;
 }
 
-/* Size modifiers */
+/* Searchbar sizes */
 .search-panel-searchbar-flex {
   flex: 1;
-
   max-width: 600px;
 }
 
@@ -72,20 +95,20 @@
   max-width: 100px;
 }
 
-.search-panel-search-button {
+/* Button */
+.search-panel-button {
   margin: 7px;
-
   font-size: 2.4rem;
-
   align-self: center;
 }
 
+/* Tip text */
 .search-panel-tip-text {
   margin-left: 11px;
-
   font-size: 1.65rem;
 }
 
+/* Inequality dropdown */
 .search-panel-inequality-dropdown {
   margin-right: 11px;
 }

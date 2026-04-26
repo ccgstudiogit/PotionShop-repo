@@ -67,29 +67,53 @@ export function renderFixedPanel(parent) {
 }
 
 /**
- * Renders the base layout structure for a search panel. This includes:
- * - A background panel container
- * - A content wrapper with search panel styling
- * - A left-side container for search fields
- * - A vertical separator line
- * - A right-side container for search options or additional controls
+ * Renders the full structural layout for a search panel, including:
+ * - A header row with section titles ("Search Filters" and "Actions")
+ * - A content row containing:
+ *    - A left-side container for search fields
+ *    - A vertical separator
+ *    - A right-side container for action buttons or additional controls
+ *
+ * This function provides the foundational UI structure that feature-specific search panels (such as the Potions search panel) build upon.
  *
  * @param {HTMLElement} parent - The parent element to render the search panel into.
  * @returns {{
+ *   root: HTMLDivElement,
+ *   header: HTMLDivElement,
+ *   searchFieldsTitle: HTMLParagraphElement,
+ *   searchOptionsTitle: HTMLParagraphElement,
  *   content: HTMLDivElement,
  *   searchFieldsContainer: HTMLDivElement,
  *   searchOptionsContainer: HTMLDivElement
- * }} An object containing references to the main content wrapper, the search fields container, and the search options container.
+ * }} An object containing references to all major structural elements of the panel.
  */
 export function renderBaseSearchPanel(parent) {
   const panel = basePanel.renderPanelBackground(parent);
-  const content = elementFactory.createAndAppendElement('div', ['dynamic-content', 'search-panel'], panel.div);
+  const container = elementFactory.createAndAppendElement('div', ['dynamic-content', 'search-panel'], panel.div);
 
+  // Header
+  const header = elementFactory.createAndAppendElement('div', 'search-panel-header', container);
+  const searchFieldsTitleContainer = elementFactory.createAndAppendElement('div', 'search-panel-fields-header', header);
+  const searchFieldsTitle = elementFactory.createAndAppendElement('p', ['search-panel-header-title', 'font-jersey'], searchFieldsTitleContainer);
+  searchFieldsTitle.textContent = 'Search Filters';
+
+  const headerSeparatorLine = elementFactory.createAndAppendElement('div', 'line-vertical-full', header);
+
+  const searchOptionsTitleContainer = elementFactory.createAndAppendElement('div', 'search-panel-options-header', header);
+  const searchOptionsTitle = elementFactory.createAndAppendElement('p', ['search-panel-header-title', 'font-jersey'], searchOptionsTitleContainer);
+  searchOptionsTitle.textContent = 'Actions';
+
+  // Content
+  const content = elementFactory.createAndAppendElement('div', 'search-panel-content', container);
   const searchFieldsContainer = elementFactory.createAndAppendElement('div', 'search-panel-fields', content);
   const separatorLine = elementFactory.createAndAppendElement('div', 'line-vertical-full', content);
   const searchOptionsContainer = elementFactory.createAndAppendElement('div', 'search-panel-options', content);
 
   return {
+    root: container,
+    header,
+    searchFieldsTitle,
+    searchOptionsTitle,
     content,
     searchFieldsContainer,
     searchOptionsContainer
