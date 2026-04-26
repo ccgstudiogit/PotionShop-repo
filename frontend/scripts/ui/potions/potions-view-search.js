@@ -70,16 +70,17 @@ async function renderSearchFields(searchPanel) {
     const searchButton = searchViewUtils.createSearchButton(searchPanel);
     searchButton.addEventListener('click', async () => {
       searchButton.disabled = true;
-      await search(nameInput, typeDropdown);
+      await search(nameInput, typeDropdown, inequalitySignDropdown, priceInput);
       searchButton.disabled = false;
+      console.log('done');
     });
   } catch (message) {
     console.error(message);
   }
 }
 
-async function search(nameInput, typeDropdown) {
-  const name = nameInput.input.value;
+async function search(nameInput, typeDropdown, inequalitySignDropdown, priceInput) {
+  const name = nameInput.value;
 
   const types = [];
   for (let i = 0; i < typeDropdown.dropdownSelection.options.length; i++) {
@@ -89,8 +90,16 @@ async function search(nameInput, typeDropdown) {
     }
   }
 
+  console.log(inequalitySignDropdown.selection.value);
+  console.log(priceInput.value);
+  console.log(inequalitySignDropdown.selection.value);
+  console.log(priceInput.value);
+
+  const inequalitySign = inequalitySignDropdown.selection.value;
+  const price = priceInput.value;
+
   try {
-    const potions = await potionActions.getPotionsWithFilters(name, types);
+    const potions = await potionActions.getPotionsWithFilters(name, types, inequalitySign, price);
     const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
     resultsView.renderPotions(sorted);
   } catch (message) {

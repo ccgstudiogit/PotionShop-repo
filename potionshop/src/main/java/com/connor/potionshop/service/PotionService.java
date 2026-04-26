@@ -109,7 +109,7 @@ public class PotionService {
             if (inequalitySign.equals("<")) {
                 spec = spec.and(PotionSpecification.hasPriceLessThan(price));
             } else if (inequalitySign.equals("<=")) {
-                spec = spec.and(PotionSpecification.hasPriceGreaterThanOrEqualTo(price));
+                spec = spec.and(PotionSpecification.hasPriceLessThanOrEqualTo(price));
             } else if (inequalitySign.equals(">")) {
                 spec = spec.and(PotionSpecification.hasPriceGreaterThan(price));
             } else if (inequalitySign.equals(">=")) {
