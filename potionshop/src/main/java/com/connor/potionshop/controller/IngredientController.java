@@ -25,6 +25,11 @@ public class IngredientController {
         return ingredientService.getIngredientById(id);
     }
 
+    @GetMapping("/rarities")
+    public List<String> getRarities() {
+        return ingredientService.getRarities();
+    }
+
     @PostMapping
     public ResponseEntity<IngredientDTO> addIngredient(@RequestBody CreateIngredientDTO createIngredientDTO) {
         IngredientDTO created = ingredientService.addIngredient(createIngredientDTO);

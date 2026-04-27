@@ -20,6 +20,25 @@ export async function fetchAllIngredients() {
 }
 
 /**
+ * Fetches the rarities ingredients can have (Common, Uncommon, Rare, etc.).
+ * 
+ * @async
+ * @returns {Array} An array of rarities, or undefined if there was an error fetching ingredient rarities.
+ * @throws {Error} Throws an error with the backend message if a problem is encountered.
+ */
+export async function fetchRarities() {
+  const response = await fetch('http://localhost:8080/ingredients/rarities', { method: 'GET' });
+
+  if (!response.ok) {
+    const message = await errorHandler.parseError(response);
+    throw new Error(message);
+  }
+
+  const rarities = await response.json();
+  return rarities;
+}
+
+/**
  * Send a DELETE request to delete an ingredient by its id to the backend.
  * 
  * @async

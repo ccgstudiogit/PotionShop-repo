@@ -23,3 +23,15 @@ export async function getAllIngredients() {
 export async function deleteIngredient(ingredientId) {
   await ingredientApi.deleteIngredient(ingredientId);
 }
+
+/**
+ * Fetches valid ingredient rarities (Common, Uncommon, Rare, etc.) from the backend via the API layer and returns them.
+ * 
+ * @async
+ * @returns {Array} An array of rarities, or undefined if there was an error fetching ingredient rarities.
+ * @throws {Error} Throws an error with the backend message if a problem is encountered.
+ */
+export async function getRarities() {
+  const rarities = await ingredientApi.fetchRarities();
+  return rarities;
+}

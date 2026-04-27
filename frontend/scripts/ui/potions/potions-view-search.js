@@ -49,7 +49,6 @@ export async function renderSearchPanel() {
     const nameInput = renderNameSearchField();
     const typeDropdown = await renderTypeSearchField();
     const priceInput = renderPriceSearchField();
-    renderSearchButton(nameInput.input, typeDropdown, priceInput.inequalitySignDropdown, priceInput.input);
 
     // Keep references so the the actions buttons can access them
     const inputs = {
@@ -57,6 +56,8 @@ export async function renderSearchPanel() {
       typeDropdown,
       priceInput
     };
+
+    renderSearchButton(inputs);
 
     // Render the actions buttons (e.g. Clear Filters, etc.)
     renderClearFiltersButton(inputs);
@@ -191,11 +192,11 @@ function renderPriceSearchField() {
  * @param {HTMLInputElement} priceInput - The price input element.
  * @returns {HTMLButtonElement} The rendered search button.
  */
-function renderSearchButton(nameInput, typeDropdown, inequalitySignDropdown, priceInput) {
+function renderSearchButton(inputs) {
   const searchButton = buttonFactory.createAndAppendButton('Search', 'search-panel-button', getSearchPanel().searchFieldsContainer, null);
   searchButton.addEventListener('click', async () => {
     searchButton.disabled = true;
-    await search(nameInput, typeDropdown, inequalitySignDropdown, priceInput);
+    await search(inputs);
     searchButton.disabled = false;
   });
 
@@ -213,19 +214,19 @@ function renderSearchButton(nameInput, typeDropdown, inequalitySignDropdown, pri
  * @param {HTMLInputElement} priceInput - The price input element.
  * @returns {Promise<void>}
  */
-async function search(nameInput, typeDropdown, inequalitySignDropdown, priceInput) {
-  const name = nameInput.value;
+async function search(inputs) {
+  const name = inputs.nameInput.input.value;
 
   const types = [];
-  for (let i = 0; i < typeDropdown.dropdownSelection.options.length; i++) {
-    const type = typeDropdown.dropdownSelection.options[i];
+  for (let i = 0; i < inputs.typeDropdown.dropdownSelection.options.length; i++) {
+    const type = inputs.typeDropdown.dropdownSelection.options[i];
     if (type.selected) {
       types.push(type.value);
     }
   }
 
-  const inequalitySign = inequalitySignDropdown.selection.value;
-  const price = priceInput.value;
+  const inequalitySign = inputs.priceInput.inequalitySignDropdown.selection.value;
+  const price = inputs.priceInput.input.value;
 
   try {
     const potions = await potionActions.getPotionsWithFilters(name, types, inequalitySign, price);

@@ -1,7 +1,9 @@
 package com.connor.potionshop.service;
 
 import java.util.*;
+import java.util.stream.Stream;
 import com.connor.potionshop.model.ingredient.*;
+import com.connor.potionshop.model.potion.PotionType;
 import com.connor.potionshop.model.potioningredient.*;
 import com.connor.potionshop.repository.IngredientRepository;
 import com.connor.potionshop.mapper.IngredientMapper;
@@ -31,6 +33,15 @@ public class IngredientService {
      */
     public List<IngredientDTO> getAllIngredients() {
         return ingredientRepository.findAll().stream().map(ingredientMapper::toDTO).toList();
+    }
+
+    /**
+     * Get a list of all rarities from the Rarity enum as a list of Strings.
+     *
+     * @return a list of Rarity values as Strings.
+     */
+    public List<String> getRarities() {
+        return Stream.of(Rarity.values()).map(Rarity::name).toList();
     }
 
     /**
