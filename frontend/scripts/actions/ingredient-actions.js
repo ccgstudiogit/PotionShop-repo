@@ -1,4 +1,5 @@
 import * as ingredientApi from '../api/ingredient-api.js';
+import * as normalizeDTO from './normalize-dto.js';
 
 /**
  * Fetches all ingredients from the backend via the API layer and returns them.
@@ -9,6 +10,29 @@ import * as ingredientApi from '../api/ingredient-api.js';
  */
 export async function getAllIngredients() {
   const ingredients = await ingredientApi.fetchAllIngredients();
+  ingredients.forEach((ingredient) => {
+    normalizeDTO.normalizeIngredient(ingredient)
+  });
+  
+  return ingredients;
+}
+
+/**
+ * Fetches ingredients from the backend using the provided filter parameters and normalizes each ingredient's DTO.
+ * This function acts as the bridge between the API layer and the UI layer by ensuring all ingredient data is in a
+ * consistent format before being rendered.
+ *
+ * @async
+ * @param {string|null} name - Optional substring to filter ingredient names.
+ * @param {string[]|null} rarities - Optional array of ingredient rarities to filter by.
+ * @returns {Promise<Object[]>} A promise resolving to an array of normalized ingredient objects.
+ */
+export async function getIngredientsWithFilters(name, rarities) {
+  const ingredients = await ingredientApi.fetchIngredientsWithFilters(name, rarities);
+  ingredients.forEach((ingredient) => {
+    normalizeDTO.normalizeIngredient(ingredient)
+  });
+  
   return ingredients;
 }
 

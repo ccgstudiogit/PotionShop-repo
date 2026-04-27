@@ -3,11 +3,11 @@ package com.connor.potionshop.service;
 import java.util.*;
 import java.util.stream.Stream;
 import com.connor.potionshop.model.ingredient.*;
-import com.connor.potionshop.model.potion.PotionType;
 import com.connor.potionshop.model.potioningredient.*;
 import com.connor.potionshop.repository.IngredientRepository;
 import com.connor.potionshop.mapper.IngredientMapper;
 import jakarta.persistence.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.*;
 
 @Service
@@ -33,6 +33,21 @@ public class IngredientService {
      */
     public List<IngredientDTO> getAllIngredients() {
         return ingredientRepository.findAll().stream().map(ingredientMapper::toDTO).toList();
+    }
+
+    public List<IngredientDTO> findAllFiltered(String name, List<Rarity> rarity) {
+        // In case there are no filters applied by the user
+        Specification<Ingredient> spec = Specification.anyOf();
+
+        if (name != null) {
+            spec = spec.and(IngredientSpecification.hasName(name));
+        }
+
+        if (rarity != null) {
+            spec = spec.and(IngredientSpecification.inRarity(rarity));
+        }
+
+        return ingredientRepository.findAll(spec).stream().map(ingredientMapper::toDTO).toList();
     }
 
     /**

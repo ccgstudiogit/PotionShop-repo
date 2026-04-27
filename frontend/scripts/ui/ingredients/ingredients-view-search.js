@@ -1,4 +1,5 @@
 import * as baseView from '../shared/base-view.js';
+import * as resultsView from './ingredients-view-results.js';
 import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as dropdownRenderer from '../components/dropdown.js';
@@ -130,9 +131,38 @@ function renderSearchButton(inputs) {
   const searchButton = buttonFactory.createAndAppendButton('Search', 'search-panel-button', getSearchPanel().searchFieldsContainer, null);
   searchButton.addEventListener('click', async () => {
     searchButton.disabled = true;
-    //await search(inputs);
+    await search(inputs);
     searchButton.disabled = false;
   });
 
   return searchButton;
+}
+
+/**
+ * Executes the search operation by collecting all filter values, sending them to the backend via the actions layer, sorting the results, and rendering them
+ * in the results panel.
+ *
+ * @async
+ * @param {HTMLInputElement} nameInput - The name search input element.
+ * @param {Object} rarityDropdown - The rarity dropdown object containing selected rarities.
+ * @returns {Promise<void>}
+ */
+async function search(inputs) {
+  const name = inputs.nameInput.input.value;
+
+  const rarities = [];
+  for (let i = 0; i < inputs.rarityDropdown.dropdownSelection.options.length; i++) {
+    const rarity = inputs.rarityDropdown.dropdownSelection.options[i];
+    if (rarity.selected) {
+      rarities.push(rarity.value);
+    }
+  }
+
+  try {
+    const ingredients = await ingredientActions.getIngredientsWithFilters(name, rarities);
+    const sorted = [...ingredients].sort((a, b) => a.name.localeCompare(b.name));
+    resultsView.renderIngredients(sorted);
+  } catch (message) {
+    console.error(message);
+  }
 }

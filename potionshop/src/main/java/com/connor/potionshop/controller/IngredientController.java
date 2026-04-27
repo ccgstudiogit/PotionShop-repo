@@ -25,6 +25,14 @@ public class IngredientController {
         return ingredientService.getIngredientById(id);
     }
 
+    @GetMapping("/search")
+    public List<IngredientDTO> getIngredientsFiltered(
+        @RequestParam(required = false) String name,
+        @RequestParam(required = false) List<Rarity> rarity
+    ) {
+        return ingredientService.findAllFiltered(name, rarity);
+    }
+
     @GetMapping("/rarities")
     public List<String> getRarities() {
         return ingredientService.getRarities();

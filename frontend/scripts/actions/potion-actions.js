@@ -58,8 +58,8 @@ export async function getPotionTypes() {
 
 /**
  * Fetches potions from the backend using the provided filter parameters and normalizes each potion's ingredient DTOs.
- * This function acts as the bridge between the API layer and the UI layer by ensuring all potion data is in a consistent,
- * frontend-friendly format before being rendered.
+ * This function acts as the bridge between the API layer and the UI layer by ensuring all potion data is in a
+ * consistent format before being rendered.
  *
  * @async
  * @param {string|null} name - Optional substring to filter potion names.

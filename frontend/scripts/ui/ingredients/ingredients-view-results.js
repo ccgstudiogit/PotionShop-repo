@@ -51,7 +51,7 @@ async function displayIngredients() {
  * 
  * @returns {void}
  */
-function renderIngredients(ingredients) {
+export function renderIngredients(ingredients) {
   // Make sure the list is always refreshed when rendering ingredients
   getContentSection().innerHTML = '';
 
