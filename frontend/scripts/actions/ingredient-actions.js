@@ -11,9 +11,9 @@ import * as normalizeDTO from './normalize-dto.js';
 export async function getAllIngredients() {
   const ingredients = await ingredientApi.fetchAllIngredients();
   ingredients.forEach((ingredient) => {
-    normalizeDTO.normalizeIngredient(ingredient)
+    normalizeDTO.normalizeIngredient(ingredient);
   });
-  
+
   return ingredients;
 }
 
@@ -30,7 +30,7 @@ export async function getAllIngredients() {
 export async function getIngredientsWithFilters(name, rarities) {
   const ingredients = await ingredientApi.fetchIngredientsWithFilters(name, rarities);
   ingredients.forEach((ingredient) => {
-    normalizeDTO.normalizeIngredient(ingredient)
+    normalizeDTO.normalizeIngredient(ingredient);
   });
   
   return ingredients;

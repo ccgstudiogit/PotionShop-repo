@@ -7,14 +7,33 @@ import * as modalRenderer from '../components/modal.js';
 
 let contentSection;
 
+/**
+ * Returns the current content section where ingredient results are rendered. This allows other modules (such as the search panel) to access
+ * and update the results area without passing the DOM node around manually.
+ *
+ * @returns {HTMLElement} The DOM element representing the results content section.
+ */
 export function getContentSection() {
   return contentSection;
 }
 
-export function setContentSection(section) {
+/**
+ * Sets the internal reference to the content section used for rendering ingredient results. This is called when the results panel is first
+ * created and ensures that all rendering functions operate on the correct DOM container.
+ *
+ * @param {HTMLElement} section - The DOM element to use as the results content section.
+ * @returns {void}
+ */
+function setContentSection(section) {
   contentSection = section;
 }
 
+/**
+ * Renders the fixed results panel and initializes the content section where ingredient results will be displayed. After setting the content
+ * section, this function triggers the initial rendering of all ingredients.
+ *
+ * @returns {void}
+ */
 export function renderResultsPanel() {
   const mainContent = baseView.getMainContent();
   const resultsPanel = baseView.renderFixedPanel(mainContent);

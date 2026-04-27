@@ -33,11 +33,16 @@ function setSearchPanel(panel) {
   searchPanel = panel;
 }
 
+/**
+ * Renders the full search panel UI, including the name field, rarity field, and search button.
+ *
+ * @async
+ * @returns {void}
+ */
 export async function renderSearchPanel() {
   const mainContent = baseView.getMainContent();
   const searchPanel = baseView.renderBaseSearchPanel(mainContent);
   setSearchPanel(searchPanel);
-  
   
   try {
     // Render the search fields and search button
@@ -53,7 +58,7 @@ export async function renderSearchPanel() {
     renderSearchButton(inputs);
 
     // Render the actions buttons (e.g. Clear Filters, etc.)
-    //renderClearFiltersButton(inputs);
+    renderClearFiltersButton(inputs);
   } catch (message) {
     console.error(message);
   }
@@ -123,8 +128,9 @@ async function renderRaritySearchField() {
 /**
  * Renders the search button and wires it to trigger the search operation. Disables the button while the search is running to prevent duplicate requests.
  *
- * @param {HTMLInputElement} nameInput - The name search input element.
- * @param {Object} rarityDropdown - The rarity dropdown object returned from renderRaritySearchField().
+ * @param {Object} inputs - A collection of references to all search filter inputs.
+ * @param {HTMLInputElement} inputs.nameInput - The name search input element.
+ * @param {Object} inputs.rarityDropdown - The rarity dropdown object returned from renderRaritySearchField().
  * @returns {HTMLButtonElement} The rendered search button.
  */
 function renderSearchButton(inputs) {
@@ -143,8 +149,9 @@ function renderSearchButton(inputs) {
  * in the results panel.
  *
  * @async
- * @param {HTMLInputElement} nameInput - The name search input element.
- * @param {Object} rarityDropdown - The rarity dropdown object containing selected rarities.
+ * @param {Object} inputs - A collection of references to all search filter inputs.
+ * @param {HTMLInputElement} inputs.nameInput - The name search input element.
+ * @param {Object} inputs.rarityDropdown - The rarity dropdown object containing selected rarities.
  * @returns {Promise<void>}
  */
 async function search(inputs) {
@@ -165,4 +172,24 @@ async function search(inputs) {
   } catch (message) {
     console.error(message);
   }
+}
+
+/**
+ * Renders the "Clear Filters" button inside the search panel's actions area. When clicked, it resets all search filter inputs to their default states,
+ * including:
+ * - Clearing the name text field
+ * - Deselecting all rarity options
+ *
+ * @param {Object} inputs - A collection of references to all search filter inputs.
+ * @param {Object} inputs.nameInput - The name search field component.
+ * @param {Object} inputs.rarityDropdown - The rarity dropdown component.
+ * @returns {HTMLButtonElement} The rendered "Clear Filters" button element.
+ */
+function renderClearFiltersButton(inputs) {
+  const clearFiltersButton = buttonFactory.createAndAppendButton('Clear Filters', 'search-panel-button', getSearchPanel().searchActionsContainer, () => {
+    inputs.nameInput.input.value = '';
+    inputs.rarityDropdown.dropdownSelection.selectedIndex = -1; // Deselect all options
+  });
+
+  return clearFiltersButton;
 }

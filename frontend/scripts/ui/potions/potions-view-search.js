@@ -186,10 +186,11 @@ function renderPriceSearchField() {
 /**
  * Renders the search button and wires it to trigger the search operation. Disables the button while the search is running to prevent duplicate requests.
  *
- * @param {HTMLInputElement} nameInput - The name search input element.
- * @param {Object} typeDropdown - The type dropdown object returned from renderTypeSearchField().
- * @param {Object} inequalitySignDropdown - The dropdown for selecting the price inequality sign.
- * @param {HTMLInputElement} priceInput - The price input element.
+ * @param {Object} inputs - A collection of references to all search filter inputs.
+ * @param {HTMLInputElement} inputs.nameInput - The name search input element.
+ * @param {Object} inputs.typeDropdown - The type dropdown object returned from renderTypeSearchField().
+ * @param {Object} inputs.inequalitySignDropdown - The dropdown for selecting the price inequality sign.
+ * @param {HTMLInputElement} inputs.priceInput - The price input element.
  * @returns {HTMLButtonElement} The rendered search button.
  */
 function renderSearchButton(inputs) {
@@ -208,10 +209,11 @@ function renderSearchButton(inputs) {
  * in the results panel.
  *
  * @async
- * @param {HTMLInputElement} nameInput - The name search input element.
- * @param {Object} typeDropdown - The type dropdown object containing selected types.
- * @param {Object} inequalitySignDropdown - The dropdown containing the selected inequality sign.
- * @param {HTMLInputElement} priceInput - The price input element.
+ * @param {Object} inputs - A collection of references to all search filter inputs.
+ * @param {HTMLInputElement} inputs.nameInput - The name search input element.
+ * @param {Object} inputs.typeDropdown - The type dropdown object containing selected types.
+ * @param {Object} inputs.inequalitySignDropdown - The dropdown containing the selected inequality sign.
+ * @param {HTMLInputElement} inputs.priceInput - The price input element.
  * @returns {Promise<void>}
  */
 async function search(inputs) {
