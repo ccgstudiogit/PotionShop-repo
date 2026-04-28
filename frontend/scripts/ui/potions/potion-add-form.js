@@ -51,7 +51,7 @@ export async function createAddPotionForm(parent, startingIngredientCount) {
     ingredientUI.state.notifyChange(); // Get initial ingredients with their default quantities
 
     // Create the button to handle submitting the potion form. The current state of the form as passed
-    buttonFactory.createAndAppendButton('Submit', 'potion-form-submit-button', formContainer, () => {
+    buttonFactory.createAndAppendButton('Submit', 'form-submit-button', formContainer, () => {
       const state = {
         nameInput,
         typeInput,

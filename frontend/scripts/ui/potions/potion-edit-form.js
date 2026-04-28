@@ -85,7 +85,7 @@ export async function createEditPotionForm(potion, parentElement) {
     });
 
     // Create the button to handle submitting the potion form. The current state of the form as passed
-    buttonFactory.createAndAppendButton('Submit', 'potion-form-submit-button', formContainer, () => {
+    buttonFactory.createAndAppendButton('Submit', 'form-submit-button', formContainer, () => {
       const state = {
         potionId: potion.id,
         nameInput,

@@ -37,6 +37,21 @@ export async function getIngredientsWithFilters(name, rarities) {
 }
 
 /**
+ * Creates a new ingredient by delegating to the ingredient API layer. This function acts as the service-level wrapper between
+ * the UI and the backend-facing API module.
+ *
+ * @async
+ * @param {string} name - The name of the ingredient to create.
+ * @param {string} rarity - The rarity (must match backend Rarity enum).
+ * @returns {Promise<Object|null>} The created ingredient DTO returned by the backend, or null if an error occurs.
+ * @throws {Error} Throws an error with the backend message if a problem is encountered.
+ */
+export async function addIngredient(name, rarity) {
+  const added = await ingredientApi.addIngredient(name, rarity);
+  return added;
+}
+
+/**
  * Send a DELETE request to delete an ingredient by its id to the backend.
  * 
  * @async

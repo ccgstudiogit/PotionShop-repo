@@ -22,10 +22,8 @@ export async function fetchAllIngredients() {
 /**
  * Fetches ingredients from the backend using the provided filter parameters.
  * Builds a dynamic query string based on which filters are supplied:
- *
  * - name: optional substring match for ingredient names
  * - rarities: optional array of ingredient rarities (sent as repeated `rarity` params)
- * - inequalitySign + price: optional price filter (e.g., >= 50)
  *
  * Only filters that contain valid values are included in the request.
  *
@@ -58,6 +56,43 @@ export async function fetchIngredientsWithFilters(name, rarities) {
 
   const potions = await response.json();
   return potions;
+}
+
+/**
+ * Sends a POST request to create a new ingredient with its associated ingredients.
+ *
+ * Backend contract (CreateIngredientDTO):
+ * {
+ *   name: string,
+ *   rarity: string
+ * }
+ *
+ * @async
+ * @param {string} name - The name of the ingredient.
+ * @param {string} rarity - The rarity (must match backend Rarity enum).
+ * @returns {Promise<Object|null>} The created ingredient DTO from the backend, or null if an error occurs.
+ * @throws {Error} Throws an error with the backend message if a problem is encountered.
+ */
+export async function addIngredient(name, rarity) {
+  const response = await fetch(`http://localhost:8080/ingredients`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": 'application/json'
+    },
+    // MUST match the backend's CreateIngredientDTO record
+    body: JSON.stringify({
+      name,
+      rarity
+    })
+  });
+
+  if (!response.ok) {
+    const message = await errorHandler.parseError(response);
+    throw new Error(message);
+  }
+
+  const addedIngredient = await response.json();
+  return addedIngredient;
 }
 
 /**

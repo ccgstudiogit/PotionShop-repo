@@ -86,6 +86,21 @@
 }
 
 /*
+  SUBMIT BUTTON
+*/
+/* Submit button at the bottom of the form */
+.form-submit-button {
+  margin-top: 15px;
+  margin-bottom: 15px;
+
+  max-width: 265px;
+
+  align-self: center;
+
+  font-size: 2rem;
+}
+
+/*
   INGREDIENTS SECTION (for the add/edit potion forms)
 */
 /* Container for the ingredients input */
@@ -120,16 +135,4 @@
   margin-right: 11px;
 
   font-size: 1.5rem;
-}
-
-/* Submit button at the bottom of the form */
-.potion-form-submit-button {
-  margin-top: 15px;
-  margin-bottom: 15px;
-
-  max-width: 265px;
-
-  align-self: center;
-
-  font-size: 2rem;
 }

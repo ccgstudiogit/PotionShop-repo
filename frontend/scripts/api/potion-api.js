@@ -80,7 +80,6 @@ export async function fetchPotionTypes() {
 /**
  * Fetches potions from the backend using the provided filter parameters.
  * Builds a dynamic query string based on which filters are supplied:
- *
  * - name: optional substring match for potion names
  * - types: optional array of potion types (sent as repeated `type` params)
  * - inequalitySign + price: optional price filter (e.g., >= 50)
