@@ -13,13 +13,13 @@ import * as potionActions from '../../actions/potion-actions.js';
  * ingredient state tracking, and attaches a Submit button that triggers form validation and potion creation.
  *
  * @async
- * @param {HTMLElement} parentElement - The DOM element where the form will be rendered.
+ * @param {HTMLElement} parent - The DOM element where the form will be rendered.
  * @param {number} startingIngredientCount - Number of random ingredients to pre-populate.
  * @returns {void}
  */
-export async function createAddPotionForm(parentElement, startingIngredientCount) {
+export async function createAddPotionForm(parent, startingIngredientCount) {
   try {
-    const formContainer = elementFactory.createAndAppendElement('div', 'form-container', parentElement);
+    const formContainer = elementFactory.createAndAppendElement('div', 'form-container', parent);
 
     const formTitle = elementFactory.createAndAppendElement('p', ['form-title', 'font-jersey'], formContainer);
     formTitle.textContent = 'Add New Potion';
@@ -58,7 +58,7 @@ export async function createAddPotionForm(parentElement, startingIngredientCount
         priceInput,
         effectInput,
         quantityInputs,
-        root: parentElement,
+        root: parent,
         count: startingIngredientCount // For recreating the potion form with the same starting ingredients after the form is submitted
       }
 

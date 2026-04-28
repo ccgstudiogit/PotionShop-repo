@@ -41,7 +41,7 @@ public class DatabaseSeeder {
                 List<PotionIngredient> potionIngredients =
                     potionIngredientRepository.saveAll(SeedData.getPotionIngredientSeedData(savedPotions, savedIngredients));
 
-                System.out.println("Both potion and ingredient tables were empty. Database successfully seeded with sample data.");
+                System.out.println("Database successfully seeded with sample data. Previous data was overwritten (if there was any).");
             }
         } catch (Exception e) {
             System.out.println("ERROR: Unable to seed database. " + e.getMessage());

@@ -3,6 +3,7 @@ import * as elementFactory from '../../utils/element-factory.js';
 import * as buttonFactory from '../../utils/button-factory.js';
 import * as ingredientRenderer from '../../ui/ingredients/ingredient-render.js';
 import * as ingredientActions from '../../actions/ingredient-actions.js';
+import * as ingredientAddForm from './ingredient-add-form.js';
 import * as modalRenderer from '../components/modal.js';
 
 let contentSection;
@@ -83,7 +84,7 @@ export function renderIngredients(ingredients) {
   });
 
   // Add the add ingredient button at the end of the list of rendered ingredients
-  buttonFactory.createAndAppendButton('Add Ingredient', 'add-item-button', getContentSection(), null);
+  buttonFactory.createAndAppendButton('Add Ingredient', 'add-item-button', getContentSection(), () => renderAddForm());
 }
 
 /**
@@ -114,4 +115,18 @@ function showConfirmDeleteModal(ingredient) {
   const cancelButton = buttonFactory.createAndAppendButton('Cancel', 'modal-button', confirmModal.buttonContainer, () => {
     confirmModal.root.remove();
   });
+}
+
+/**
+ * Renders the "Add Ingredient" form by clearing the main content area and creating a new dynamic panel. The add ingredient form is then injected
+ * into this panel.
+ *
+ * @returns {void}
+ */
+function renderAddForm() {
+  baseView.refresh();
+  const mainContent = baseView.getMainContent();
+  const panel = baseView.renderDynamicPanel(mainContent);
+
+  ingredientAddForm.createAddIngredientForm(panel.content);
 }
