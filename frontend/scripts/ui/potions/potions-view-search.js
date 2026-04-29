@@ -61,6 +61,8 @@ export async function renderSearchPanel() {
 
     // Render the actions buttons (e.g. Clear Filters, etc.)
     renderClearFiltersButton(inputs);
+    renderSortAToZButton();
+    renderSortZToAButton();
   } catch (message) {
     console.error(message);
   }
@@ -262,4 +264,24 @@ function renderClearFiltersButton(inputs) {
   });
 
   return clearFiltersButton;
+}
+
+function renderSortAToZButton() {
+  const sortAToZButton = buttonFactory.createAndAppendButton('Sort A-Z', 'search-panel-button', getSearchPanel().searchActionsContainer, () => {
+    const potions = resultsView.getPotions();
+    const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
+    resultsView.renderPotions(sorted);
+  });
+
+  return sortAToZButton;
+}
+
+function renderSortZToAButton() {
+  const sortZToAButton = buttonFactory.createAndAppendButton('Sort Z-A', 'search-panel-button', getSearchPanel().searchActionsContainer, () => {
+    const potions = resultsView.getPotions();
+    const sorted = [...potions].sort((a, b) => b.name.localeCompare(a.name));
+    resultsView.renderPotions(sorted);
+  });
+
+  return sortZToAButton;
 }

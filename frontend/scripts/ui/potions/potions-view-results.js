@@ -7,6 +7,16 @@ import * as potionActions from '../../actions/potion-actions.js';
 import * as potionAddForm from './potion-add-form.js';
 import * as modalRenderer from '../components/modal.js';
 
+let potions;
+
+export function getPotions() {
+  return potions;
+}
+
+function setPotions(updated) {
+  potions = updated;
+}
+
 let contentSection;
 
 /**
@@ -62,6 +72,7 @@ async function displayPotions() {
 
     const sorted = [...potions].sort((a, b) => a.name.localeCompare(b.name));
     renderPotions(sorted, getContentSection());
+    setPotions(sorted);
   } catch (message) {
     console.error(message);
   }
@@ -94,6 +105,9 @@ export function renderPotions(potions) {
 
   // Add the add potion button at the end of the list of rendered potions
   buttonFactory.createAndAppendButton('Add Potion', 'add-item-button', getContentSection(), () => renderAddForm());
+
+  // Update the current list of rendered potions
+  setPotions(potions);
 }
 
 /**
