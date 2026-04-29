@@ -6,6 +6,28 @@ import * as ingredientActions from '../../actions/ingredient-actions.js';
 import * as ingredientAddForm from './ingredient-add-form.js';
 import * as modalRenderer from '../components/modal.js';
 
+let ingredients;
+
+/**
+ * Returns the currently rendered list of ingredients stored in the module‑scoped state. This list always reflects the most recent call to
+ * {@link renderIngredients}.
+ *
+ * @returns {Array<Object>} The current list of rendered ingredients.
+ */
+export function getIngredients() {
+  return ingredients;
+}
+
+/**
+ * Updates the module‑scoped ingredient state with a new list of ingredients.
+ *
+ * @param {Array<Object>} updated - The new list of ingredients to store.
+ * @returns {void}
+ */
+function setIngredients(updated) {
+  ingredients = updated;
+}
+
 let contentSection;
 
 /**
@@ -85,6 +107,8 @@ export function renderIngredients(ingredients) {
 
   // Add the add ingredient button at the end of the list of rendered ingredients
   buttonFactory.createAndAppendButton('Add Ingredient', 'add-item-button', getContentSection(), () => renderAddForm());
+
+  setIngredients(ingredients);
 }
 
 /**

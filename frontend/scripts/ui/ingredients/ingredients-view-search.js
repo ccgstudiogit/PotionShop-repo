@@ -59,6 +59,8 @@ export async function renderSearchPanel() {
 
     // Render the actions buttons (e.g. Clear Filters, etc.)
     renderClearFiltersButton(inputs);
+    renderSortAToZButton();
+    renderSortZtoAButton();
   } catch (message) {
     console.error(message);
   }
@@ -192,4 +194,36 @@ function renderClearFiltersButton(inputs) {
   });
 
   return clearFiltersButton;
+}
+
+/**
+ * Renders the "Sort A–Z" button in the search panel's actions area. When clicked, it retrieves the currently rendered list of ingredients, sorts them
+ * alphabetically by name in ascending order, and re-renders the updated list.
+ *
+ * @returns {HTMLButtonElement} The created Sort A–Z button.
+ */
+function renderSortAToZButton() {
+  const sortAToZButton = buttonFactory.createAndAppendButton('Sort A-Z', 'search-panel-button', getSearchPanel().searchActionsContainer, () => {
+    const ingredients = resultsView.getIngredients();
+    const sorted = [...ingredients].sort((a, b) => a.name.localeCompare(b.name));
+    resultsView.renderIngredients(sorted);
+  });
+
+  return sortAToZButton;
+}
+
+/**
+ * Renders the "Sort Z-A" button in the search panel's actions area. When clicked, it retrieves the currently rendered list of ingredients, sorts them
+ * alphabetically by name in descending order, and re-renders the updated list.
+ *
+ * @returns {HTMLButtonElement} The created Sort Z-A button.
+ */
+function renderSortZtoAButton() {
+  const sortZToAButton = buttonFactory.createAndAppendButton('Sort Z-A', 'search-panel-button', getSearchPanel().searchActionsContainer, () => {
+    const ingredients = resultsView.getIngredients();
+    const sorted = [...ingredients].sort((a, b) => b.name.localeCompare(a.name));
+    resultsView.renderIngredients(sorted);
+  });
+
+  return sortZToAButton;
 }
