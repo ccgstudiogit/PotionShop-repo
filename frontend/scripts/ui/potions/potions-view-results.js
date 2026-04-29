@@ -9,10 +9,22 @@ import * as modalRenderer from '../components/modal.js';
 
 let potions;
 
+/**
+ * Returns the currently rendered list of potions stored in the module‑scoped state. This list always reflects the most recent call to
+ * {@link renderPotions}.
+ *
+ * @returns {Array<Object>} The current list of rendered potions.
+ */
 export function getPotions() {
   return potions;
 }
 
+/**
+ * Updates the module‑scoped potion state with a new list of potions.
+ *
+ * @param {Array<Object>} updated - The new list of potions to store.
+ * @returns {void}
+ */
 function setPotions(updated) {
   potions = updated;
 }
@@ -79,8 +91,13 @@ async function displayPotions() {
 }
 
 /**
- * Fetch the potions from the backend, sort them by name, and render them. The potions' edit and remove buttons are also configured.
- * 
+ * Renders a list of potions into the results section. Each potion entry includes its edit and remove button handlers, and an "Add Potion"
+ * button is appended at the end of the list.
+ *
+ * This function also updates the module‑scoped potion state so that other UI actions (such as sorting) can operate on the currently
+ * displayed list.
+ *
+ * @param {Array<Object>} potions - The list of potion objects to render.
  * @returns {void}
  */
 export function renderPotions(potions) {

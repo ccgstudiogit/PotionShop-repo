@@ -266,6 +266,12 @@ function renderClearFiltersButton(inputs) {
   return clearFiltersButton;
 }
 
+/**
+ * Renders the "Sort A–Z" button in the search panel's actions area. When clicked, it retrieves the currently rendered list of potions, sorts them
+ * alphabetically by name in ascending order, and re-renders the updated list.
+ *
+ * @returns {HTMLButtonElement} The created Sort A–Z button.
+ */
 function renderSortAToZButton() {
   const sortAToZButton = buttonFactory.createAndAppendButton('Sort A-Z', 'search-panel-button', getSearchPanel().searchActionsContainer, () => {
     const potions = resultsView.getPotions();
@@ -276,6 +282,12 @@ function renderSortAToZButton() {
   return sortAToZButton;
 }
 
+/**
+ * Renders the "Sort Z–A" button in the search panel's actions area. When clicked, it retrieves the currently rendered list of potions, sorts them
+ * alphabetically by name in descending order, and re-renders the updated list.
+ *
+ * @returns {HTMLButtonElement} The created Sort Z–A button.
+ */
 function renderSortZToAButton() {
   const sortZToAButton = buttonFactory.createAndAppendButton('Sort Z-A', 'search-panel-button', getSearchPanel().searchActionsContainer, () => {
     const potions = resultsView.getPotions();
