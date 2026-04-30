@@ -1,4 +1,4 @@
-import * as errorHandler from './api-error-handling.js';
+import * as apiUtils from './api-utils.js';
 
 /**
  * Fetches all ingredients from the backend API.
@@ -8,10 +8,10 @@ import * as errorHandler from './api-error-handling.js';
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function fetchAllIngredients() {
-  const response = await fetch('http://localhost:8080/ingredients', { method: 'GET' });
+  const response = await fetch(`${apiUtils.baseURL}/ingredients`, { method: 'GET' });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 
@@ -34,7 +34,7 @@ export async function fetchAllIngredients() {
  * @throws {Error} If the backend responds with a non-OK status.
  */
 export async function fetchIngredientsWithFilters(name, rarities) {
-  const baseUrl = 'http://localhost:8080/ingredients/search';
+  const baseUrl = `${apiUtils.baseURL}/ingredients/search`;
   const url = new URL(baseUrl);
 
   if (name) {
@@ -50,7 +50,7 @@ export async function fetchIngredientsWithFilters(name, rarities) {
   const response = await fetch(url, { method: 'GET' });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 
@@ -74,7 +74,7 @@ export async function fetchIngredientsWithFilters(name, rarities) {
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function addIngredient(name, rarity) {
-  const response = await fetch(`http://localhost:8080/ingredients`, {
+  const response = await fetch(`${apiUtils.baseURL}/ingredients`, {
     method: 'POST',
     headers: {
       "Content-Type": 'application/json'
@@ -87,7 +87,7 @@ export async function addIngredient(name, rarity) {
   });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 
@@ -103,10 +103,10 @@ export async function addIngredient(name, rarity) {
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function fetchRarities() {
-  const response = await fetch('http://localhost:8080/ingredients/rarities', { method: 'GET' });
+  const response = await fetch(`${apiUtils.baseURL}/ingredients/rarities`, { method: 'GET' });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 
@@ -123,10 +123,10 @@ export async function fetchRarities() {
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function deleteIngredient(ingredientId) {
-  const response = await fetch(`http://localhost:8080/ingredients/${ingredientId}`, { method: 'DELETE' });
+  const response = await fetch(`${apiUtils.baseURL}/ingredients/${ingredientId}`, { method: 'DELETE' });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 }

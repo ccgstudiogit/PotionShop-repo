@@ -1,4 +1,4 @@
-import * as errorHandler from './api-error-handling.js';
+import * as apiUtils from './api-utils.js';
 
 /**
  * Fetches all potions from the backend API.
@@ -8,10 +8,10 @@ import * as errorHandler from './api-error-handling.js';
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function fetchAllPotions() {
-  const response = await fetch('http://localhost:8080/potions', { method: 'GET' });
+  const response = await fetch(`${apiUtils.baseURL}`, { method: 'GET' });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 
@@ -27,10 +27,10 @@ export async function fetchAllPotions() {
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function fetchAllPotionsWithIngredients() {
-  const response = await fetch('http://localhost:8080/potions/ingredients', { method: 'GET' });
+  const response = await fetch(`${apiUtils.baseURL}/potions/ingredients`, { method: 'GET' });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 
@@ -47,10 +47,10 @@ export async function fetchAllPotionsWithIngredients() {
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function fetchIngredientsByPotionId(potionId) {
-  const response = await fetch(`http://localhost:8080/potions/${potionId}/ingredients`, { method: 'GET' });
+  const response = await fetch(`${apiUtils.baseURL}/potions/${potionId}/ingredients`, { method: 'GET' });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 
@@ -66,10 +66,10 @@ export async function fetchIngredientsByPotionId(potionId) {
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function fetchPotionTypes() {
-  const response = await fetch('http://localhost:8080/potions/types', { method: 'GET' });
+  const response = await fetch(`${apiUtils.baseURL}/potions/types`, { method: 'GET' });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 
@@ -95,7 +95,7 @@ export async function fetchPotionTypes() {
  * @throws {Error} If the backend responds with a non-OK status.
  */
 export async function fetchPotionsWithFilters(name, types, inequalitySign, price) {
-  const baseUrl = 'http://localhost:8080/potions/search';
+  const baseUrl = `${apiUtils.baseURL}/potions/search`;
   const url = new URL(baseUrl);
 
   if (name) {
@@ -116,7 +116,7 @@ export async function fetchPotionsWithFilters(name, types, inequalitySign, price
   const response = await fetch(url, { method: 'GET' });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 
@@ -160,7 +160,7 @@ export async function addPotion(name, type, price, effect, quantityInputs) {
     ingredients.push(ingredient);
   }
 
-  const response = await fetch(`http://localhost:8080/potions/ingredients`, {
+  const response = await fetch(`${apiUtils.baseURL}/potions/ingredients`, {
     method: 'POST',
     headers: {
       "Content-Type": 'application/json'
@@ -176,7 +176,7 @@ export async function addPotion(name, type, price, effect, quantityInputs) {
   });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 
@@ -209,7 +209,7 @@ export async function putPotion(potionId, name, type, price, effect, quantityInp
     ingredients.push(ingredient);
   }
 
-  const response = await fetch(`http://localhost:8080/potions/${potionId}/ingredients`, {
+  const response = await fetch(`${apiUtils.baseURL}/potions/${potionId}/ingredients`, {
     method: 'PUT',
     headers: {
       "Content-Type": 'application/json'
@@ -225,7 +225,7 @@ export async function putPotion(potionId, name, type, price, effect, quantityInp
   });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 
@@ -242,10 +242,10 @@ export async function putPotion(potionId, name, type, price, effect, quantityInp
  * @throws {Error} Throws an error with the backend message if a problem is encountered.
  */
 export async function deletePotion(potionId) {
-  const response = await fetch(`http://localhost:8080/potions/${potionId}`, { method: 'DELETE' });
+  const response = await fetch(`${apiUtils.baseURL}/potions/${potionId}`, { method: 'DELETE' });
 
   if (!response.ok) {
-    const message = await errorHandler.parseError(response);
+    const message = await apiUtils.parseError(response);
     throw new Error(message);
   }
 }

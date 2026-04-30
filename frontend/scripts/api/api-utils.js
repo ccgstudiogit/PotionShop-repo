@@ -1,3 +1,6 @@
+// Root URL for all backend API requests
+export const baseURL = 'http://localhost:8080';
+
 /**
  * Extracts a meaningful error message from a failed `fetch` response.
  *

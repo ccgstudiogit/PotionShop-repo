@@ -141,6 +141,9 @@ async function submitForm(state) {
       throw new Error('Effect cannot empty.');
     }
 
+    console.log('name = ' + name);
+    console.log('type = ' + type);
+
     await potionActions.putPotion(state.potionId, name, type, price, effect, state.quantityInputs);
 
     // Recreate a blank form after the potion was successfully added

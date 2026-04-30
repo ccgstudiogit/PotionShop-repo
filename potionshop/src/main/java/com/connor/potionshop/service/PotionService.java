@@ -261,7 +261,8 @@ public class PotionService {
 
         // Only check for duplicates if the user changes the name or type
         if (!potion.getName().equals(updatedPotionWithIng.name()) || !potion.getType().equals(updatedPotionWithIng.type())) {
-            checkAndThrowIfPotionExists(potion); // Verify the potion's updated values are not already in the database
+            Potion testPotion = new Potion(updatedPotionWithIng.name(), updatedPotionWithIng.type(), "");
+            checkAndThrowIfPotionExists(testPotion); // Verify the potion's updated values are not already in the database
         }
 
         potion.setName(updatedPotionWithIng.name());
