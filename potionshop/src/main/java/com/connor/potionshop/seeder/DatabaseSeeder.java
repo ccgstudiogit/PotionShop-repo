@@ -1,6 +1,6 @@
 package com.connor.potionshop.seeder;
 
-import java.util.List;
+import java.util.*;
 import com.connor.potionshop.repository.*;
 import com.connor.potionshop.model.potion.*;
 import com.connor.potionshop.model.ingredient.*;

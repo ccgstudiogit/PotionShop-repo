@@ -1,9 +1,8 @@
 package com.connor.potionshop.model.ingredient;
 
+import java.util.*;
 import com.connor.potionshop.model.ingredient.*;
 import org.springframework.data.jpa.domain.Specification;
-
-import java.util.List;
 
 public class IngredientSpecification {
     /**

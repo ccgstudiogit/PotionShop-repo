@@ -9,7 +9,7 @@ public class SeedData {
     /**
      * Retrieve the potion seed data, which contains 21 potions ready to go.
      *
-     * @return a list of potion objects.
+     * @return A list of potion objects.
      */
     public static List<Potion> getPotionSeedData() {
         return new ArrayList<Potion>(List.of(
@@ -145,7 +145,7 @@ public class SeedData {
     /**
      * Retrieve the ingredient seed data, which contains 32 ingredients ready to go.
      *
-     * @return a list of ingredient objects.
+     * @return A list of ingredient objects.
      */
     public static List<Ingredient> getIngredientSeedData() {
         return new ArrayList<Ingredient>(List.of(
@@ -192,8 +192,7 @@ public class SeedData {
      * @param savedPotions A list of potions FROM the database.
      * @param savedIngredients A list of ingredients FROM the database.
      * @return A list of PotionIngredient objects.
-     * @throws RuntimeException If the list of potions or list of ingredients is not from the database, this exception
-     *                          is thrown.
+     * @throws RuntimeException If the list of potions or list of ingredients is not from the database, this exception is thrown.
      */
     public static List<PotionIngredient> getPotionIngredientSeedData(List<Potion> savedPotions, List<Ingredient> savedIngredients) {
         if (savedPotions.get(0).getId() == null || savedIngredients.get(0).getId() == null) {

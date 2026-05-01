@@ -10,9 +10,8 @@ public class PotionIngredientMapper {
     /**
      * Converts a {@link PotionIngredient} entity into its corresponding {@link PotionIngredientDTO} representation.
      *
-     * @param potionIngredient the join entity linking a potion to an ingredient containing both ingredient details
-     *                         and quantity.
-     * @return a DTO containing the ingredient's id, name, rarity, and quantity.
+     * @param potionIngredient The join entity linking a potion to an ingredient containing both ingredient details and quantity.
+     * @return A DTO containing the ingredient's id, name, rarity, and quantity.
      */
     public PotionIngredientDTO toDTO(PotionIngredient potionIngredient) {
         Ingredient ingredient = potionIngredient.getIngredient();
@@ -27,9 +26,8 @@ public class PotionIngredientMapper {
     /**
      * Converts a {@link PotionIngredient} entity into its corresponding {@link UpdatePotionIngredientDTO} representation.
      *
-     * @param potionIngredient the join entity linking a potion to an ingredient containing both ingredient details
-     *                         and quantity.
-     * @return a DTO containing the ingredient's id, name, rarity, and quantity.
+     * @param potionIngredient The join entity linking a potion to an ingredient containing both ingredient details And quantity.
+     * @return A DTO containing the ingredient's id, name, rarity, and quantity.
      */
     public UpdatePotionIngredientDTO toUpdateDTO(PotionIngredient potionIngredient) {
         return new UpdatePotionIngredientDTO(potionIngredient.getQuantity());
