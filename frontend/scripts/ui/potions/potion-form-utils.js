@@ -296,7 +296,7 @@ function renderIngredientDropdown(state) {
 
   // Clear the current dropdown and create a new one. This is done so that a clean event can be added to the dropdown's selection
   dropdownContainer.innerHTML = '';
-  const addIngredientDropdownRoot = dropdownRenderer.createAndAppendDropdownShell('custom-select', 'font-jersey', dropdownContainer);
+  const addIngredientDropdownRoot = dropdownRenderer.createAndAppendDropdownShell(['custom-select', 'custom-select-wide-padding'], 'font-jersey', dropdownContainer);
   const dropdownSelection = addIngredientDropdownRoot.selection;
 
   // If the user selects an ingredient from the dropdown, add that ingredient to the list
