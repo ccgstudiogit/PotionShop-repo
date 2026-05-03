@@ -69,3 +69,5 @@ quantities, making sure that duplicates aren't allowed, etc. I also feel like my
 systems it was actually pretty easy to implement new things and to refactor. At one point, I did a complete overhaul of the frontend design because the previous
 one just wasn't going to work, but the way I designed scripts such as potion-add-form.js and potion-form-utils.js it was easy to move stuff around and have things
 still just work.
+
+# Screenshots and Gifs
