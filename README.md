@@ -70,4 +70,16 @@ systems it was actually pretty easy to implement new things and to refactor. At 
 one just wasn't going to work, but the way I designed scripts such as potion-add-form.js and potion-form-utils.js it was easy to move stuff around and have things
 still just work.
 
-# Screenshots and Gifs
+# Homepage Screenshot
+![alt text](https://github.com/ccgstudiogit/PotionShop-repo/blob/main/demo-media/homepage_screenshot.jpg)
+
+# Search Functionality
+![alt text](https://github.com/ccgstudiogit/PotionShop-repo/blob/main/demo-media/potions.gif)
+
+![alt text](https://github.com/ccgstudiogit/PotionShop-repo/blob/main/demo-media/ingredients.gif)
+
+# Editing in Place
+![alt text](https://github.com/ccgstudiogit/PotionShop-repo/blob/main/demo-media/edit-potion.gif)
+
+# Deleting Ingredients & Relationships
+![alt text](https://github.com/ccgstudiogit/PotionShop-repo/blob/main/demo-media/delete-ingredient.gif)
