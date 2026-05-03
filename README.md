@@ -49,6 +49,10 @@ Backend setup:
  - Update application.properties with DB credentials (found in potionshop/src/main/resources)
  - Build and run the application (I use IntelliJ as my IDE to build/run)
 
+To reset the database (wipe all changes and start off with starting data), go to potionshop/src/main/resources/application.properties and navigate to the line
+spring.jpa.hibernate.ddl-auto=update (line 15). Change update to either create or create-drop, like this: spring.jpa.hibernate.ddl-auto=create then restart the
+backend. At this point, the current tables will be overwritten with newly created tables with the seed data.
+
 Frontend setup:
  - Open frontend/index.html in a local server (I use VSCode with Live Server). This is required since the modules need a live server
  - Ensure the backend uis running at the URL defined in frontend/scripts/api/api-utils.js (baseURL is http://localhost:8080/)
